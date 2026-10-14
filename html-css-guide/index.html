@@ -1,0 +1,1847 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      HTML & CSS Guide - Digital Interaction - Multimedia Technologies I
+    </title>
+
+    <!-- Google Font: preconnect + link (see section "Google Fonts") -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome via CDN (see section "Font Awesome") -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- Our own stylesheet (always AFTER external ones) -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <input
+      type="checkbox"
+      id="menu-toggle"
+      class="menu-checkbox"
+      aria-label="Show or hide the menu"
+    />
+    <label for="menu-toggle" class="menu-btn" title="Show / hide menu">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <label for="menu-toggle" class="menu-backdrop"></label>
+    <div class="layout">
+      <aside class="sidebar">
+        <h1>HTML &amp; CSS <span class="script">Guide</span></h1>
+        <h3>Digital Interaction<br />Multimedia Technologies</h3>
+
+        <nav>
+          <h3>Basics</h3>
+          <a href="#workspace">Prepare your workspace</a>
+          <a href="#html-structure">HTML structure</a>
+          <a href="#folders">Folder structure</a>
+          <a href="#write-html">Writing HTML + comments</a>
+
+          <h3>Tags &amp; Links</h3>
+          <a href="#structural">Structural vs content tags</a>
+          <a href="#block-inline">Block vs inline tags</a>
+          <a href="#links">Links: internal, external, anchor</a>
+
+          <h3>CSS Basics</h3>
+          <a href="#link-css">Link external CSS</a>
+          <a href="#write-css">Writing CSS + comments</a>
+          <a href="#reset">Reset default styles</a>
+          <a href="#tag-class">Tag vs Class vs ID</a>
+          <a href="#boxmodel">Box model</a>
+
+          <h3>Layout</h3>
+          <a href="#flex">Flex layout</a>
+          <a href="#grid">Grid layout</a>
+          <a href="#flex-grid">Flex vs Grid</a>
+          <a href="#position">Position &amp; overlays</a>
+          <a href="#media-queries">Media queries</a>
+
+          <h3>Text &amp; Icons</h3>
+          <a href="#fontawesome">Font Awesome</a>
+          <a href="#googlefont">Google Fonts</a>
+
+          <h3>Effects</h3>
+          <a href="#transitions">Transitions</a>
+          <a href="#animations">Animations</a>
+        </nav>
+      </aside>
+
+      <div class="content">
+        <main>
+          <!-- 0 ============================================================ -->
+          <section id="workspace">
+            <h2>0. Prepare your workspace</h2>
+            <p>
+              Before writing HTML or CSS, prepare your tools and open the
+              <strong>project folder</strong> in Visual Studio Code. A project
+              is a collection of related files and folders, not just one HTML
+              file.
+            </p>
+
+            <h3>Install Visual Studio Code and useful extensions</h3>
+            <p>
+              Install
+              <a
+                href="https://code.visualstudio.com/"
+                target="_blank"
+                rel="noopener"
+                >Visual Studio Code</a
+              >, then open the Extensions view using the square icon in the
+              Activity Bar or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> on
+              Mac (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> on Windows).
+              Search for and install:
+            </p>
+            <ul>
+              <li>
+                <strong>Prettier - Code formatter</strong>
+                (<code>esbenp.prettier-vscode</code>) — formats HTML, CSS and
+                other supported files consistently.
+              </li>
+              <li>
+                <strong>Live Server</strong>
+                (<code>ritwickdey.LiveServer</code>) — opens your page in a
+                browser and refreshes it when you save changes.
+              </li>
+              <li>
+                <strong>Auto Close Tag</strong>
+                (<code>formulahendry.auto-close-tag</code>) — adds a closing
+                HTML tag when you finish an opening tag.
+              </li>
+              <li>
+                <strong>Auto Rename Tag</strong>
+                (<code>formulahendry.auto-rename-tag</code>) — updates a
+                matching closing tag when you rename an HTML tag.
+              </li>
+              <li>
+                <strong>Path Intellisense</strong>
+                (<code>christian-kohler.path-intellisense</code>) — suggests
+                file and folder paths as you type them.
+              </li>
+            </ul>
+            <p class="hint">
+              Only install extensions you need, and check the publisher and
+              extension details in the VS Code Marketplace before installing. VS
+              Code's built-in Emmet also expands common HTML abbreviations; for
+              example, type <code>!</code> in an empty HTML file and press
+              <kbd>Tab</kbd>.
+            </p>
+
+            <h3>Format your code when you save</h3>
+            <ol>
+              <li>
+                Open Settings with <kbd>Cmd</kbd>+<kbd>,</kbd> on Mac or
+                <kbd>Ctrl</kbd>+<kbd>,</kbd> on Windows.
+              </li>
+              <li>
+                Search for <code>Editor: Format On Save</code> and turn it on.
+              </li>
+              <li>
+                Search for <code>Editor: Default Formatter</code> and choose
+                <strong>Prettier - Code formatter</strong>.
+              </li>
+            </ol>
+            <p>
+              Now Prettier formats supported files each time you save. You can
+              also format a file manually with
+              <kbd>Shift</kbd>+<kbd>Option</kbd>+<kbd>F</kbd> on Mac or
+              <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>F</kbd> on Windows.
+            </p>
+
+            <h3>Open the whole project folder (not just a file)</h3>
+            <p class="tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <strong>Important:</strong> open the folder that contains your
+              website in VS Code. Do not open only <code>index.html</code> or
+              <code>style.css</code>. Opening the folder lets VS Code show all
+              project files together, and helps relative paths and Live Server
+              work as expected.
+            </p>
+            <ol>
+              <li>
+                Create or locate one folder for your website, for example
+                <code>my-website</code>.
+              </li>
+              <li>
+                In VS Code choose <strong>File &gt; Open Folder…</strong> and
+                select <code>my-website</code>. On Mac you can also press
+                <kbd>Cmd</kbd>+<kbd>O</kbd> only if the dialog is set to open a
+                folder; the menu command is the clearest option. On Windows use
+                <kbd>Ctrl</kbd>+<kbd>K</kbd>, then <kbd>Ctrl</kbd>+<kbd>O</kbd>.
+              </li>
+              <li>
+                In the Explorer on the left, create and open files inside that
+                folder, such as <code>index.html</code> and
+                <code>css/style.css</code>.
+              </li>
+              <li>
+                To preview the page, right-click <code>index.html</code> in the
+                Explorer and choose <strong>Open with Live Server</strong>.
+              </li>
+            </ol>
+            <pre><code>my-website/              &lt;!-- open this folder in VS Code --&gt;
+├── index.html
+└── css/
+    └── style.css</code></pre>
+            <p class="hint">
+              If you see only one file in the Explorer, you may have opened a
+              file instead of the project folder. Close that window, then use
+              <strong>File &gt; Open Folder…</strong> to open the folder that
+              contains your project.
+            </p>
+          </section>
+
+          <!-- 1 ============================================================ -->
+          <section id="html-structure">
+            <h2>1. Creating an HTML file &amp; its tag structure</h2>
+            <p>
+              Create a text file, save it with the <code>.html</code> extension
+              (e.g. <code>index.html</code>) and start from this skeleton:
+            </p>
+
+            <pre><code>&lt;!DOCTYPE html&gt;                          &lt;!-- tells the browser: this is HTML5 --&gt;
+&lt;html lang="en"&gt;                         &lt;!-- root element --&gt;
+  &lt;head&gt;                                 &lt;!-- info about the page (NOT visible) --&gt;
+    &lt;meta charset="UTF-8"&gt;               &lt;!-- accents and special characters --&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My page&lt;/title&gt;               &lt;!-- text of the browser tab --&gt;
+  &lt;/head&gt;
+  &lt;body&gt;                                 &lt;!-- everything visible goes here --&gt;
+    &lt;h1&gt;Hello world&lt;/h1&gt;
+    &lt;p&gt;My first paragraph.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+            <p class="tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <strong>Tip for Visual Studio Code:</strong> in an empty
+              <code>.html</code> file, type <code>!</code> and press
+              <kbd>Tab</kbd> (or <kbd>Enter</kbd>) to generate this basic
+              structure automatically (Emmet shortcut).
+            </p>
+
+            <div class="compare">
+              <div>
+                <h3>Anatomy of a tag</h3>
+                <p class="tag-anatomy">
+                  <span class="t-open">&lt;a</span>
+                  <span class="t-attr"> href</span>=<span class="t-val"
+                    >"page.html"</span
+                  ><span class="t-open">&gt;</span
+                  ><span class="t-text">Click</span
+                  ><span class="t-open">&lt;/a&gt;</span>
+                </p>
+                <ul>
+                  <li>
+                    <strong>Opening / closing tag:</strong>
+                    <code>&lt;a&gt;</code> … <code>&lt;/a&gt;</code>
+                  </li>
+                  <li>
+                    <strong>Attribute:</strong> <code>href="…"</code> (name +
+                    value)
+                  </li>
+                  <li><strong>Content:</strong> what is between the tags</li>
+                  <li>
+                    <strong>Void tags</strong> have no closing:
+                    <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>,
+                    <code>&lt;meta&gt;</code>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3>Nesting (tags inside tags)</h3>
+                <pre><code>&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Title&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;p&gt;Text with &lt;strong&gt;bold&lt;/strong&gt;.&lt;/p&gt;
+  &lt;/main&gt;
+&lt;/body&gt;</code></pre>
+                <p class="hint">
+                  Always close the last tag you opened first, and indent
+                  children.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 2 ============================================================ -->
+          <section id="folders">
+            <h2>2. Creating a folder structure</h2>
+            <p>
+              Keep everything for a website inside
+              <strong>one project folder</strong> and separate files by type.
+              Use lowercase names, no spaces or accents.
+            </p>
+
+            <div class="compare">
+              <div>
+                <pre><code>my-website/
+├── index.html        ← main page (always this name)
+├── about.html
+├── css/
+│   └── style.css
+├── img/
+│   └── logo.png
+└── js/
+    └── script.js</code></pre>
+              </div>
+              <div>
+                <h3>Paths from <code>index.html</code></h3>
+                <pre><code>&lt;img src="img/logo.png"&gt;              &lt;!-- go into img/ --&gt;
+&lt;a href="about.html"&gt;About&lt;/a&gt;        &lt;!-- same folder --&gt;
+
+&lt;!-- from css/style.css, go UP one level --&gt;
+background: url("../img/logo.png");</code></pre>
+                <ul>
+                  <li><code>folder/file</code> → go inside</li>
+                  <li><code>../</code> → go up one folder</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Writing HTML ============================================== -->
+          <section id="write-html">
+            <h2>3. Writing HTML tags: from outside to inside</h2>
+            <p>
+              Don't type the page top to bottom without thinking. Build it in
+              <strong>layers</strong>: first the big outer boxes, then group the
+              contents, and finally fill each group with meaningful content.
+            </p>
+
+            <h3>Step 1: the outer skeleton</h3>
+            <pre><code>&lt;html lang="en"&gt;
+  &lt;head&gt;&lt;/head&gt;
+  &lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+            <h3>Step 2: the big areas of the page (inside body)</h3>
+            <pre><code>&lt;body&gt;
+  &lt;header&gt;&lt;/header&gt;
+  &lt;main&gt;&lt;/main&gt;
+  &lt;footer&gt;&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+            <h3>Step 3: group the contents that belong together</h3>
+            <pre><code>&lt;main&gt;
+  &lt;section&gt;            &lt;!-- one topic --&gt;
+    &lt;article&gt;&lt;/article&gt;   &lt;!-- one independent item (post, card) --&gt;
+    &lt;article&gt;&lt;/article&gt;
+  &lt;/section&gt;
+  &lt;div class="gallery"&gt;&lt;/div&gt;   &lt;!-- div = group with no special meaning, used for styling --&gt;
+&lt;/main&gt;</code></pre>
+
+            <h3>Step 4: fill with meaningful content</h3>
+            <pre><code>&lt;article&gt;
+  &lt;h2&gt;Why learn CSS?&lt;/h2&gt;                     &lt;!-- title of the group --&gt;
+  &lt;p&gt;CSS makes pages &lt;strong&gt;beautiful&lt;/strong&gt;.&lt;/p&gt;
+  &lt;ul&gt;                                         &lt;!-- a list of things = ul + li --&gt;
+    &lt;li&gt;Colours&lt;/li&gt;
+    &lt;li&gt;Layouts&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;img src="img/css.png" alt="CSS logo"&gt;       &lt;!-- alt describes the image --&gt;
+  &lt;a href="about.html"&gt;Read more&lt;/a&gt;
+&lt;/article&gt;</code></pre>
+
+            <div class="compare">
+              <div>
+                <h3>Meaningful &#10003;</h3>
+                <pre><code>&lt;header&gt;
+  &lt;h1&gt;My blog&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;</code></pre>
+              </div>
+              <div>
+                <h3>"Div soup" &#10007;</h3>
+                <pre><code>&lt;div class="top"&gt;
+  &lt;div class="big-text"&gt;My blog&lt;/div&gt;
+  &lt;div&gt;
+    &lt;div&gt;&lt;span&gt;Home&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+            </div>
+
+            <ul>
+              <li>
+                <strong>One <code>&lt;h1&gt;</code> per page</strong>, then
+                <code>h2</code>, <code>h3</code>… in order (don't skip levels
+                just for size, that's CSS's job).
+              </li>
+              <li>
+                Text goes in <code>&lt;p&gt;</code>, never loose inside a
+                <code>&lt;div&gt;</code>.
+              </li>
+              <li>
+                A list of items → <code>&lt;ul&gt;</code>/<code
+                  >&lt;ol&gt;</code
+                >
+                with <code>&lt;li&gt;</code>.
+              </li>
+              <li>Every <code>&lt;img&gt;</code> needs <code>alt</code>.</li>
+              <li>
+                Prefer a semantic tag; use <code>&lt;div&gt;</code> only when
+                none fits.
+              </li>
+              <li>
+                Indent 2 spaces per level, write tags in lowercase, and always
+                close what you open.
+              </li>
+            </ul>
+
+            <h3>How to write comments in HTML</h3>
+            <p>A comment is a note for humans. The browser ignores it.</p>
+            <pre><code>&lt;!-- This is a one-line comment --&gt;
+
+&lt;!--
+  This is a comment
+  on several lines
+--&gt;
+
+&lt;!-- Comment out code to disable it temporarily:
+&lt;p&gt;This paragraph will NOT be shown&lt;/p&gt;
+--&gt;
+
+&lt;!-- ========== HEADER ========== --&gt;
+&lt;header&gt;...&lt;/header&gt;
+&lt;!-- ========== /HEADER ========== --&gt;</code></pre>
+            <p class="tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              <strong>VS Code shortcut:</strong> select the lines and press
+              <kbd>Cmd</kbd>+<kbd>/</kbd> (Mac) or <kbd>Ctrl</kbd>+<kbd>/</kbd>
+              (Windows) to comment/uncomment them.
+            </p>
+            <ul>
+              <li>
+                Comments are <strong>not</strong> displayed, but anyone can read
+                them with "View source". Never write passwords or private data.
+              </li>
+              <li>
+                Don't nest comments (a <code>&lt;!-- --&gt;</code> inside
+                another).
+              </li>
+              <li>
+                Use them to explain <em>why</em> or to mark where a big block
+                starts and ends, not to repeat obvious things.
+              </li>
+            </ul>
+          </section>
+
+          <!-- 3 ============================================================ -->
+          <section id="structural">
+            <h2>4. Structural tags vs content tags</h2>
+            <p>
+              <strong>Structural (semantic layout) tags</strong> divide the page
+              into areas. <strong>Content tags</strong> hold the actual text,
+              images and lists <em>inside</em> those areas.
+            </p>
+
+            <div class="compare">
+              <div>
+                <h3>Structural tags</h3>
+                <div class="wire">
+                  <div class="w-header">&lt;header&gt; logo + title</div>
+                  <div class="w-nav">&lt;nav&gt; menu links</div>
+                  <div class="w-body">
+                    <div class="w-main">
+                      &lt;main&gt;
+                      <div class="w-section">
+                        &lt;section&gt;
+                        <div class="w-article">&lt;article&gt;</div>
+                      </div>
+                    </div>
+                    <div class="w-aside">&lt;aside&gt; side info</div>
+                  </div>
+                  <div class="w-footer">&lt;footer&gt; copyright</div>
+                </div>
+              </div>
+              <div>
+                <h3>Content tags</h3>
+                <table class="tbl">
+                  <tr>
+                    <th>Tag</th>
+                    <th>Used for</th>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;h1&gt;–&lt;h6&gt;</code></td>
+                    <td>Headings (h1 = most important)</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;p&gt;</code></td>
+                    <td>Paragraph</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;ul&gt; &lt;ol&gt; &lt;li&gt;</code></td>
+                    <td>Lists</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;a&gt;</code></td>
+                    <td>Link</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;img&gt;</code></td>
+                    <td>Image</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;strong&gt; &lt;em&gt;</code></td>
+                    <td>Important / emphasised text</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;button&gt;</code></td>
+                    <td>Button</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <pre><code>&lt;body&gt;
+  &lt;header&gt;                      &lt;!-- STRUCTURE --&gt;
+    &lt;h1&gt;My blog&lt;/h1&gt;            &lt;!-- content --&gt;
+    &lt;nav&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/nav&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;article&gt;
+      &lt;h2&gt;First post&lt;/h2&gt;       &lt;!-- content --&gt;
+      &lt;p&gt;Some &lt;strong&gt;text&lt;/strong&gt;.&lt;/p&gt;
+      &lt;img src="img/photo.jpg" alt="A photo"&gt;
+    &lt;/article&gt;
+    &lt;aside&gt;Related posts&lt;/aside&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;&amp;copy; 2026&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+            <p class="hint">
+              <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> are generic
+              containers with no meaning. Prefer semantic tags when one fits:
+              better for SEO, accessibility and readability.
+            </p>
+          </section>
+
+          <!-- 4 ============================================================ -->
+          <section id="block-inline">
+            <h2>5. Block tags vs inline tags</h2>
+            <p>
+              <strong>Block</strong> elements start on a new line and take the
+              full width. <strong>Inline</strong> elements stay in the text flow
+              and only take the space they need.
+            </p>
+
+            <div class="compare">
+              <div>
+                <h3>Block: <code>div, p, h1, ul, section…</code></h3>
+                <div class="bi-demo">
+                  <div class="b">div (block)</div>
+                  <p class="b">p (block)</p>
+                  <h4 class="b">h4 (block)</h4>
+                </div>
+                <p class="hint">
+                  Each one sits on its own line. <code>width</code>,
+                  <code>height</code>, <code>margin</code> and
+                  <code>padding</code> work fully.
+                </p>
+              </div>
+              <div>
+                <h3>Inline: <code>span, a, strong, em, img…</code></h3>
+                <div class="bi-demo">
+                  <span class="i">span</span>
+                  <a class="i" href="#block-inline">a</a>
+                  <strong class="i">strong</strong>
+                  <em class="i">em</em>
+                  <span class="i">another span</span>
+                </div>
+                <p class="hint">
+                  They flow side by side like words. <code>width</code> and
+                  <code>height</code> are <strong>ignored</strong>; vertical
+                  margin has no effect.
+                </p>
+              </div>
+            </div>
+
+            <h3>
+              Inline-block and changing the type with <code>display</code>
+            </h3>
+            <div class="bi-demo">
+              <span class="ib">inline-block 1</span>
+              <span class="ib">inline-block 2</span>
+              <span class="ib">inline-block 3</span>
+            </div>
+            <p class="hint">
+              Flows like inline, but accepts width/height like block (here:
+              <code>width: 130px; height: 50px</code>).
+            </p>
+
+            <pre><code>/* any element can change type */
+span { display: block; }         /* now acts like a block */
+div  { display: inline; }        /* now acts like inline */
+span { display: inline-block; }  /* flows + accepts size */
+.hidden { display: none; }       /* removed from the page */</code></pre>
+
+            <p>
+              <strong>Rule of thumb:</strong> blocks are the boxes of the page,
+              inline elements are pieces <em>inside a text</em>.
+            </p>
+            <pre><code>&lt;p&gt;This is a block paragraph with a &lt;a href="#"&gt;link&lt;/a&gt; and some &lt;strong&gt;bold&lt;/strong&gt; (inline).&lt;/p&gt;</code></pre>
+            <p>
+              Result: This is a block paragraph with a
+              <a href="#block-inline">link</a> and some
+              <strong>bold</strong> (inline).
+            </p>
+          </section>
+
+          <!-- 5 ============================================================ -->
+          <section id="links">
+            <h2>6. Links: internal, external and anchor</h2>
+            <p>
+              All links use <code>&lt;a href="…"&gt;</code>. What changes is the
+              value of <code>href</code>.
+            </p>
+
+            <div class="compare">
+              <div class="link-card">
+                <h3><i class="fa-solid fa-file"></i> Internal</h3>
+                <p>
+                  Another page of <em>your</em> website. Use a relative path.
+                </p>
+                <pre><code>&lt;a href="about.html"&gt;About&lt;/a&gt;
+&lt;a href="pages/contact.html"&gt;Contact&lt;/a&gt;
+&lt;a href="../index.html"&gt;Home&lt;/a&gt;</code></pre>
+              </div>
+              <div class="link-card">
+                <h3><i class="fa-solid fa-globe"></i> External</h3>
+                <p>
+                  A different website. Use the full URL with
+                  <code>https://</code>.
+                </p>
+                <pre><code>&lt;a href="https://developer.mozilla.org"
+   target="_blank"
+   rel="noopener"&gt;MDN&lt;/a&gt;</code></pre>
+                <p>
+                  <a
+                    href="https://developer.mozilla.org"
+                    target="_blank"
+                    rel="noopener"
+                    >Try it: MDN Web Docs
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i
+                  ></a>
+                </p>
+                <p class="hint">
+                  <code>target="_blank"</code> opens a new tab. Add
+                  <code>rel="noopener"</code> for safety.
+                </p>
+              </div>
+              <div class="link-card">
+                <h3><i class="fa-solid fa-anchor"></i> Anchor</h3>
+                <p>
+                  Jumps to an element <em>in the same page</em> that has that
+                  <code>id</code>.
+                </p>
+                <pre><code>&lt;a href="#folders"&gt;Go to folders&lt;/a&gt;
+...
+&lt;section id="folders"&gt;...&lt;/section&gt;</code></pre>
+                <p>
+                  <a href="#folders"
+                    >Try it: jump to section 2
+                    <i class="fa-solid fa-arrow-up"></i
+                  ></a>
+                </p>
+                <p class="hint">This sidebar is made of anchors!</p>
+              </div>
+            </div>
+
+            <h3>Other useful links</h3>
+            <pre><code>&lt;a href="mailto:teacher@school.com"&gt;Send email&lt;/a&gt;
+&lt;a href="tel:+34600000000"&gt;Call us&lt;/a&gt;
+&lt;a href="about.html#team"&gt;Internal page + anchor&lt;/a&gt;   &lt;!-- jump to #team inside about.html --&gt;
+&lt;a href="img/photo.jpg"&gt;&lt;img src="img/thumb.jpg" alt=""&gt;&lt;/a&gt; &lt;!-- an image can be a link --&gt;</code></pre>
+          </section>
+
+          <!-- 6 ============================================================ -->
+          <section id="link-css">
+            <h2>7. Linking an external CSS file</h2>
+            <p>
+              Write your styles in <code>css/style.css</code> and link it inside
+              the <code>&lt;head&gt;</code> of every page.
+            </p>
+
+            <pre><code>&lt;head&gt;
+  &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;</code></pre>
+
+            <ul>
+              <li>
+                <code>rel="stylesheet"</code>: says the file is a stylesheet.
+              </li>
+              <li>
+                <code>href</code>: the <em>path</em> to the file (see section
+                2).
+              </li>
+              <li>
+                If styles don't apply: check the path, the filename and the
+                <code>.css</code> extension.
+              </li>
+              <li>
+                The page you are reading uses exactly this:
+                <code>&lt;link rel="stylesheet" href="css/style.css"&gt;</code>.
+              </li>
+            </ul>
+
+            <p class="hint">
+              Other ways exist (inline <code>style="…"</code> or a
+              <code>&lt;style&gt;</code> tag), but an external file lets you
+              reuse one design across many pages.
+            </p>
+          </section>
+
+          <!-- Writing CSS =============================================== -->
+          <section id="write-css">
+            <h2>8. Writing styles: from outside to inside</h2>
+            <p>
+              Like HTML, write CSS in <strong>layers</strong>: start with rules
+              for the whole page, then the big areas, then each component, and
+              finally the small elements inside it. Later rules refine the
+              earlier ones.
+            </p>
+
+            <h3>Step 1: global rules (whole page)</h3>
+            <pre><code>:root { --primary: #4f46e5; }          /* variables (colours) to reuse */
+* { box-sizing: border-box; }           /* applies to everything */
+body { margin: 0; font-family: 'Poppins', sans-serif; color: #1f2937; }</code></pre>
+
+            <h3>Step 2: the big areas</h3>
+            <pre><code>header { background: var(--primary); color: white; padding: 20px; }
+main   { max-width: 900px; margin: 0 auto; }
+footer { text-align: center; padding: 30px; }</code></pre>
+
+            <h3>Step 3: components (a class per block)</h3>
+            <pre><code>.card { background: white; border-radius: 12px; padding: 20px;
+        box-shadow: 0 4px 12px rgba(0,0,0,.1); }</code></pre>
+
+            <h3>Step 4: the elements inside the component</h3>
+            <pre><code>.card h2 { margin-top: 0; color: var(--primary); }
+.card p  { line-height: 1.6; }
+.card a  { color: var(--primary); }</code></pre>
+
+            <h3>Step 5: states and screen sizes (last)</h3>
+            <pre><code>.card:hover { transform: translateY(-4px); }
+
+@media (max-width: 600px) {
+  .card { padding: 12px; }
+}</code></pre>
+
+            <div class="compare">
+              <div class="oi-demo">
+                <article class="oi-card">
+                  <h2>Result of steps 3 &amp; 4</h2>
+                  <p>
+                    A card styled from the outside in: first the box, then what
+                    is inside.
+                  </p>
+                  <a href="#write-css">Read more</a>
+                </article>
+              </div>
+              <div>
+                <h3>Order inside one rule</h3>
+                <pre><code>.card {
+  /* 1. layout  */ display: flex; position: relative;
+  /* 2. box     */ width: 300px; padding: 20px; margin: 10px; border: 1px solid #ddd;
+  /* 3. text    */ font-size: 1rem; color: #333;
+  /* 4. visual  */ background: white; border-radius: 12px;
+  /* 5. extras  */ transition: .3s;
+}</code></pre>
+              </div>
+            </div>
+
+            <ul>
+              <li>
+                General first, specific later: the same property written later
+                wins when selectors are equally strong.
+              </li>
+              <li>
+                Write one rule per line of thinking: selector, <code>{</code>,
+                one declaration per line, <code>}</code>.
+              </li>
+              <li>
+                Every declaration is <code>property: value;</code> (don't forget
+                the <code>;</code>).
+              </li>
+              <li>
+                Keep the stylesheet in the same order as your HTML (header,
+                main, footer).
+              </li>
+            </ul>
+
+            <h3>How to write comments in CSS</h3>
+            <pre><code>/* This is a one-line comment */
+
+/*
+  This is a comment
+  on several lines
+*/
+
+/* ---------- HEADER ---------- */
+header { background: navy; }
+
+.card {
+  color: black;
+  /* border: 1px solid red;   ← disabled for now */
+  padding: 10px;              /* comment at the end of a line */
+}</code></pre>
+            <p class="tip">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              CSS only has <code>/* … */</code>. The <code>//</code> comments of
+              other languages and <code>&lt;!-- --&gt;</code> of HTML do
+              <strong>not</strong> work inside a <code>.css</code> file (and
+              <code>/* */</code> doesn't work in HTML text). Same shortcut as
+              HTML: <kbd>Cmd</kbd>/<kbd>Ctrl</kbd>+<kbd>/</kbd>.
+            </p>
+          </section>
+
+          <!-- Reset ===================================================== -->
+          <section id="reset">
+            <h2>9. Resetting the default HTML styles</h2>
+            <p>
+              Every browser applies its own <strong>default styles</strong> (a
+              "user agent stylesheet"): <code>body</code> has an 8px margin,
+              <code>h1</code> is big and bold, <code>ul</code> has bullets and
+              padding, links are blue and underlined… and they differ slightly
+              between browsers. A <strong>reset</strong> removes them so you
+              start from a clean, predictable base.
+            </p>
+
+            <h3>Live demo: default vs reset</h3>
+            <div class="compare">
+              <div>
+                <h4>Browser defaults</h4>
+                <div class="rs-box rs-default">
+                  <h1>Title</h1>
+                  <p>Paragraph text</p>
+                  <ul>
+                    <li>Item one</li>
+                    <li>Item two</li>
+                  </ul>
+                  <a href="#reset">A link</a>
+                </div>
+              </div>
+              <div>
+                <h4>After the reset</h4>
+                <div class="rs-box rs-reset">
+                  <h1>Title</h1>
+                  <p>Paragraph text</p>
+                  <ul>
+                    <li>Item one</li>
+                    <li>Item two</li>
+                  </ul>
+                  <a href="#reset">A link</a>
+                </div>
+              </div>
+            </div>
+
+            <h3>Simple reset (put it at the TOP of your style.css)</h3>
+            <pre><code>/* 1. Box model: width/height include padding and border */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margins and padding */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. Common elements */
+body   { line-height: 1.5; font-family: sans-serif; }
+ul, ol { list-style: none; }
+a      { color: inherit; text-decoration: none; }
+img    { max-width: 100%; display: block; }
+button, input, textarea { font: inherit; }</code></pre>
+
+            <h3>Why do it?</h3>
+            <ul>
+              <li>Your page looks the same in Chrome, Firefox, Safari…</li>
+              <li>No surprise margins: you decide all the spacing.</li>
+              <li>
+                <code>box-sizing: border-box</code> makes sizes easier to
+                calculate (see the box model section).
+              </li>
+            </ul>
+
+            <p class="tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              Reset rules go <strong>first</strong> in the file, so your own
+              styles below can override them. Ready-made resets also exist:
+              <code>normalize.css</code> and Josh Comeau's / Andy Bell's modern
+              resets. Link them <em>before</em> your own CSS.
+            </p>
+          </section>
+
+          <!-- 7 ============================================================ -->
+          <section id="tag-class">
+            <h2>10. Using styles: tag vs class vs ID</h2>
+            <p>
+              A <strong>selector</strong> says <em>which</em> elements a CSS
+              rule affects. There are three basic ones.
+            </p>
+
+            <h3>A) Tag selector: affects ALL elements of that type</h3>
+            <div class="compare">
+              <div class="ex-a">
+                <h4>Result</h4>
+                <p>Paragraph one</p>
+                <p>Paragraph two</p>
+                <p>Paragraph three</p>
+                <small
+                  >Every <code>&lt;p&gt;</code> changed, we can't pick just
+                  one.</small
+                >
+              </div>
+              <div>
+                <pre><code>p {
+  color: crimson;
+  font-style: italic;
+}</code></pre>
+              </div>
+            </div>
+
+            <h3>
+              B) Class selector: only the elements that have it (reusable)
+            </h3>
+            <div class="compare">
+              <div class="ex-b">
+                <h4>Result</h4>
+                <p>Normal paragraph</p>
+                <p class="warning">Warning paragraph</p>
+                <p class="success">Success paragraph</p>
+                <p class="warning big">Warning + big (two classes)</p>
+              </div>
+              <div>
+                <pre><code>.warning { background: #fee2e2; color: #b91c1c; }
+.success { background: #dcfce7; color: #166534; }
+.big     { font-size: 1.3rem; }
+
+&lt;p class="warning"&gt;…&lt;/p&gt;
+&lt;p class="warning big"&gt;…&lt;/p&gt;   &lt;!-- several classes --&gt;</code></pre>
+              </div>
+            </div>
+
+            <h3>
+              C) Real example: one class for the base, others for variants
+            </h3>
+            <div class="compare">
+              <div class="ex-c">
+                <button class="btn">Default</button>
+                <button class="btn btn-primary">Primary</button>
+                <button class="btn btn-danger">Danger</button>
+                <button class="btn btn-outline">Outline</button>
+              </div>
+              <div>
+                <pre><code>.btn         { padding: 10px 20px; border-radius: 8px; border: 2px solid transparent; }
+.btn-primary { background: #4f46e5; color: white; }
+.btn-danger  { background: #dc2626; color: white; }
+.btn-outline { border-color: #4f46e5; background: none; }
+
+&lt;button class="btn btn-primary"&gt;Primary&lt;/button&gt;</code></pre>
+              </div>
+            </div>
+
+            <h3>D) ID selector: unique element (only once per page)</h3>
+            <div class="compare">
+              <div class="ex-d">
+                <p id="main-title">I am the one and only #main-title</p>
+                <p>Another paragraph (not affected)</p>
+              </div>
+              <div>
+                <pre><code>#main-title { font-size: 1.4rem; color: #4f46e5; }
+
+&lt;p id="main-title"&gt;…&lt;/p&gt;</code></pre>
+                <p class="hint">
+                  IDs are also used for anchor links
+                  (<code>href="#main-title"</code>). Prefer classes for styling.
+                </p>
+              </div>
+            </div>
+
+            <h3>E) Combining selectors</h3>
+            <div class="compare">
+              <div class="ex-e">
+                <ul>
+                  <li>List item (plain)</li>
+                  <li class="star">List item with .star</li>
+                </ul>
+                <p class="star">Paragraph with .star</p>
+                <div class="card-box">
+                  <p>Paragraph <strong>inside</strong> .card-box</p>
+                </div>
+                <p>Paragraph outside .card-box</p>
+              </div>
+              <div>
+                <pre><code>li.star { color: #f59e0b; font-weight: 600; }   /* tag + class, NO space */
+.card-box p { background: #e0e7ff; }           /* descendant, WITH space */
+.ex-e h4, .ex-e small { color: gray; }          /* comma = both */</code></pre>
+                <ul>
+                  <li>
+                    <code>li.star</code> → an <code>li</code> that
+                    <em>also</em> has the class.
+                  </li>
+                  <li>
+                    <code>.card-box p</code> → any <code>p</code>
+                    <em>inside</em> .card-box.
+                  </li>
+                  <li><code>a, b</code> → apply to a <em>and</em> b.</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3>F) Who wins when rules clash? (specificity)</h3>
+            <div class="compare">
+              <div class="ex-f">
+                <p id="fight" class="fight">Which colour am I?</p>
+              </div>
+              <div>
+                <pre><code>p      { color: crimson; }     /* tag   : weakest  */
+.fight { color: royalblue; }   /* class : stronger */
+#fight { color: seagreen; }    /* ID    : strongest → WINS */
+/* inline style="" beats them all */</code></pre>
+                <p class="hint">
+                  Order: <strong>inline &gt; ID &gt; class &gt; tag</strong>. If
+                  two have the same strength, the
+                  <em>last one written</em> wins.
+                </p>
+              </div>
+            </div>
+
+            <ul>
+              <li>
+                <strong>Tag</strong>: global defaults (<code>body</code>,
+                <code>h1</code>, <code>a</code>).
+              </li>
+              <li>
+                <strong>Class</strong>: reusable components. The one you'll use
+                most.
+              </li>
+              <li><strong>ID</strong>: unique elements and anchors.</li>
+              <li>
+                Common mistakes: forgetting the dot (<code>warning</code>
+                instead of <code>.warning</code>), using <code>#</code> instead
+                of <code>.</code>, or a space where there should be none (<code
+                  >.a .b</code
+                >
+                ≠ <code>.a.b</code>).
+              </li>
+            </ul>
+          </section>
+
+          <!-- 8 ============================================================ -->
+          <section id="boxmodel">
+            <h2>11. How the box model works</h2>
+            <p>
+              Every element is a box:
+              <strong>content → padding → border → margin</strong>.
+            </p>
+
+            <div class="compare">
+              <div class="box-visual">
+                <div class="margin-layer">
+                  margin
+                  <div class="border-layer">
+                    border
+                    <div class="padding-layer">
+                      padding
+                      <div class="content-layer">content</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="size-box content-box">
+                  content-box<br />width: 200px + padding + border = bigger
+                </div>
+                <div class="size-box border-box">
+                  border-box<br />width: 200px includes padding + border
+                </div>
+                <p class="hint">
+                  Both have
+                  <code>width: 200px; padding: 20px; border: 5px</code>. Compare
+                  their real widths!
+                </p>
+              </div>
+            </div>
+
+            <pre><code>.box { width: 200px; padding: 20px; border: 5px solid; margin: 30px; }
+/* content-box (default): total width = 200 + 40 + 10 = 250px */
+*    { box-sizing: border-box; }   /* total width = 200px */</code></pre>
+          </section>
+
+          <!-- 9 ============================================================ -->
+          <section id="flex">
+            <h2>12. Flex layout</h2>
+            <p>
+              Put <code>display: flex</code> on the
+              <strong>parent (container)</strong> and its children become
+              <strong>flex items</strong> laid out in a line (a row by default).
+            </p>
+
+            <pre><code>.container { display: flex; }</code></pre>
+
+            <div class="demo-grid">
+              <div>
+                <h4><code>justify-content</code> (main axis)</h4>
+                <small>flex-start</small>
+                <div class="fx" style="justify-content: flex-start">
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span>
+                </div>
+                <small>center</small>
+                <div class="fx" style="justify-content: center">
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span>
+                </div>
+                <small>space-between</small>
+                <div class="fx" style="justify-content: space-between">
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span>
+                </div>
+                <small>space-around</small>
+                <div class="fx" style="justify-content: space-around">
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span>
+                </div>
+              </div>
+
+              <div>
+                <h4><code>align-items</code> (cross axis)</h4>
+                <small>flex-start</small>
+                <div class="fx tall" style="align-items: flex-start">
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span>
+                </div>
+                <small>center</small>
+                <div class="fx tall" style="align-items: center">
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span>
+                </div>
+                <small>flex-end</small>
+                <div class="fx tall" style="align-items: flex-end">
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span>
+                </div>
+                <small>stretch (default)</small>
+                <div class="fx tall" style="align-items: stretch">
+                  <span class="mini nofix">1</span
+                  ><span class="mini nofix">2</span
+                  ><span class="mini nofix">3</span>
+                </div>
+              </div>
+
+              <div>
+                <h4><code>flex-direction</code></h4>
+                <small>row (default)</small>
+                <div class="fx" style="flex-direction: row">
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span>
+                </div>
+                <small>column</small>
+                <div class="fx" style="flex-direction: column">
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span>
+                </div>
+                <small>row-reverse</small>
+                <div class="fx" style="flex-direction: row-reverse">
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span>
+                </div>
+              </div>
+
+              <div>
+                <h4><code>flex-wrap</code> &amp; <code>gap</code></h4>
+                <small>nowrap (default, items shrink)</small>
+                <div class="fx narrow" style="flex-wrap: nowrap">
+                  <span class="mini w">A</span><span class="mini w">B</span
+                  ><span class="mini w">C</span><span class="mini w">D</span>
+                </div>
+                <small>wrap (items go to the next line)</small>
+                <div class="fx narrow" style="flex-wrap: wrap">
+                  <span class="mini w">A</span><span class="mini w">B</span
+                  ><span class="mini w">C</span><span class="mini w">D</span>
+                </div>
+              </div>
+
+              <div>
+                <h4><code>flex: 1</code> (grow to fill)</h4>
+                <div class="fx">
+                  <span class="mini">fixed</span
+                  ><span class="mini grow">flex: 1 (takes the rest)</span
+                  ><span class="mini">fixed</span>
+                </div>
+                <div class="fx">
+                  <span class="mini grow">flex: 1</span
+                  ><span class="mini grow">flex: 1</span
+                  ><span class="mini grow2">flex: 2</span>
+                </div>
+              </div>
+
+              <div>
+                <h4>Perfect centering</h4>
+                <div class="fx center-box">
+                  <span class="mini">Centered!</span>
+                </div>
+              </div>
+            </div>
+
+            <pre><code>.container { display: flex; flex-direction: row; justify-content: space-between;
+             align-items: center; flex-wrap: wrap; gap: 10px; }
+.item      { flex: 1; }                 /* grow equally */
+
+/* centre anything */
+.center    { display: flex; justify-content: center; align-items: center; }</code></pre>
+            <p class="hint">
+              Remember: <code>justify-content</code> = along the main axis (row
+              → horizontal). <code>align-items</code> = the other axis. If you
+              switch to <code>column</code>, they swap directions.
+            </p>
+          </section>
+
+          <!-- 10 =========================================================== -->
+          <section id="grid">
+            <h2>13. Grid layout</h2>
+            <p>
+              Put <code>display: grid</code> on the parent and define
+              <strong>columns</strong> (and optionally rows). Children fall into
+              the cells.
+            </p>
+
+            <pre><code>.container { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }</code></pre>
+
+            <div class="demo-grid">
+              <div>
+                <h4><code>repeat(3, 1fr)</code> equal columns</h4>
+                <div class="gx" style="grid-template-columns: repeat(3, 1fr)">
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span> <span class="mini">4</span
+                  ><span class="mini">5</span><span class="mini">6</span>
+                </div>
+              </div>
+
+              <div>
+                <h4><code>200px 1fr</code> fixed + flexible</h4>
+                <div class="gx" style="grid-template-columns: 80px 1fr">
+                  <span class="mini">80px</span
+                  ><span class="mini">1fr (rest)</span>
+                  <span class="mini">80px</span
+                  ><span class="mini">1fr (rest)</span>
+                </div>
+              </div>
+
+              <div>
+                <h4><code>1fr 2fr</code> proportions</h4>
+                <div class="gx" style="grid-template-columns: 1fr 2fr">
+                  <span class="mini">1fr</span
+                  ><span class="mini">2fr (twice as wide)</span>
+                </div>
+              </div>
+
+              <div>
+                <h4><code>grid-column: span 2</code></h4>
+                <div class="gx" style="grid-template-columns: repeat(3, 1fr)">
+                  <span class="mini" style="grid-column: span 2">span 2</span
+                  ><span class="mini">3</span> <span class="mini">4</span
+                  ><span class="mini" style="grid-column: span 2">span 2</span>
+                </div>
+              </div>
+
+              <div>
+                <h4>Responsive gallery <code>auto-fit, minmax</code></h4>
+                <div
+                  class="gx"
+                  style="
+                    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+                  "
+                >
+                  <span class="mini">1</span><span class="mini">2</span
+                  ><span class="mini">3</span><span class="mini">4</span>
+                  <span class="mini">5</span><span class="mini">6</span
+                  ><span class="mini">7</span><span class="mini">8</span>
+                </div>
+                <small
+                  >Resize the window: columns appear/disappear by
+                  themselves.</small
+                >
+              </div>
+            </div>
+          </section>
+
+          <!-- 11 =========================================================== -->
+          <section id="flex-grid">
+            <h2>14. Flex vs Grid</h2>
+            <p>
+              <strong>Flexbox</strong> = one dimension (a row <em>or</em> a
+              column). <strong>Grid</strong> = two dimensions (rows
+              <em>and</em> columns).
+            </p>
+
+            <div class="compare">
+              <div>
+                <h3>Flexbox <code>display: flex</code></h3>
+                <div class="flex-demo">
+                  <div class="item">1</div>
+                  <div class="item">2</div>
+                  <div class="item big">3 (bigger)</div>
+                  <div class="item">4</div>
+                </div>
+                <p class="hint">
+                  Items flow in a line, sized by their content. Great for
+                  navbars, centering, buttons.
+                </p>
+              </div>
+
+              <div>
+                <h3>Grid <code>display: grid</code></h3>
+                <div class="grid-demo">
+                  <div class="item wide">1 (spans 2 cols)</div>
+                  <div class="item">2</div>
+                  <div class="item">3</div>
+                  <div class="item">4</div>
+                  <div class="item">5</div>
+                  <div class="item">6</div>
+                </div>
+                <p class="hint">
+                  You define columns/rows first; items fall into cells. Great
+                  for page layouts and galleries.
+                </p>
+              </div>
+            </div>
+
+            <pre><code>.flex-demo { display: flex; gap: 10px; justify-content: space-between; align-items: center; }
+.grid-demo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.wide      { grid-column: span 2; }</code></pre>
+
+            <table class="tbl">
+              <tr>
+                <th></th>
+                <th>Flexbox</th>
+                <th>Grid</th>
+              </tr>
+              <tr>
+                <td><strong>Dimensions</strong></td>
+                <td>1D (row or column)</td>
+                <td>2D (rows and columns)</td>
+              </tr>
+              <tr>
+                <td><strong>Starts from</strong></td>
+                <td>Content (items decide)</td>
+                <td>Layout (container decides)</td>
+              </tr>
+              <tr>
+                <td><strong>Best for</strong></td>
+                <td>Navbars, button groups, centering, small components</td>
+                <td>Page layouts, galleries, dashboards</td>
+              </tr>
+              <tr>
+                <td><strong>Key properties</strong></td>
+                <td>
+                  <code>justify-content</code>, <code>align-items</code>,
+                  <code>flex</code>
+                </td>
+                <td>
+                  <code>grid-template-columns</code>, <code>grid-area</code>,
+                  <code>fr</code>
+                </td>
+              </tr>
+            </table>
+            <p class="tip">
+              <i class="fa-solid fa-lightbulb"></i> They work together: use
+              <strong>Grid</strong> for the page skeleton and
+              <strong>Flex</strong> inside each area (like this page: a flex
+              sidebar + content, and grids for the examples).
+            </p>
+          </section>
+
+          <!-- 12 =========================================================== -->
+          <section id="position">
+            <h2>15. Position: relative vs absolute (overlays)</h2>
+            <p>
+              An <code>absolute</code> element is placed relative to the nearest
+              ancestor that has <code>position: relative</code> (or any
+              non-static position).
+            </p>
+
+            <div class="compare">
+              <div>
+                <h3>Overlay on a card (parent is relative)</h3>
+                <div class="card">
+                  <div class="card-img"></div>
+                  <span class="badge">NEW</span>
+                  <div class="overlay">
+                    <i class="fa-solid fa-magnifying-glass"></i> Hover me
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3>Forgot <code>position: relative</code> on the parent</h3>
+                <div class="card no-relative">
+                  <div class="card-img"></div>
+                  <span class="badge">NEW</span>
+                </div>
+                <p class="hint">
+                  The badge escapes and sticks to the page corner (the closest
+                  positioned ancestor, here the viewport/body).
+                </p>
+              </div>
+            </div>
+
+            <pre><code>.card    { position: relative; }          /* the reference */
+.overlay { position: absolute; inset: 0;  /* top/right/bottom/left: 0 */
+           opacity: 0; transition: opacity .3s; }
+.card:hover .overlay { opacity: 1; }
+.badge   { position: absolute; top: 10px; right: 10px; }</code></pre>
+          </section>
+
+          <!-- 13 =========================================================== -->
+          <section id="media-queries">
+            <h2>16. Media queries: mobile and desktop</h2>
+            <p>
+              A <strong>media query</strong> applies CSS rules only when a
+              condition is true, usually the <strong>screen width</strong>. This
+              is how one page adapts to phones and computers (<em
+                >responsive design</em
+              >).
+            </p>
+
+            <p class="tip">
+              <i class="fa-solid fa-lightbulb"></i> Needed in the
+              <code>&lt;head&gt;</code> for phones:
+              <code
+                >&lt;meta name="viewport" content="width=device-width,
+                initial-scale=1.0"&gt;</code
+              >
+            </p>
+
+            <h3>Live on this page: resize your browser window</h3>
+            <div class="mq-live"></div>
+
+            <h3>Same HTML + CSS, two screen sizes</h3>
+            <div class="compare">
+              <div>
+                <h4>
+                  <i class="fa-solid fa-mobile-screen"></i> Mobile (320px wide)
+                </h4>
+                <img
+                  class="mq-img mobile"
+                  src="img/mobile.svg"
+                  alt="Mobile layout: logo and menu stacked, 3 cards in one column"
+                />
+              </div>
+              <div>
+                <h4><i class="fa-solid fa-desktop"></i> Desktop (wide)</h4>
+                <img
+                  class="mq-img desktop"
+                  src="img/desktop.svg"
+                  alt="Desktop layout: logo and menu in a row, 3 cards in three columns"
+                />
+              </div>
+            </div>
+
+            <h3>Mobile-first (recommended)</h3>
+            <pre><code>/* 1. Base styles = MOBILE */
+.cards { display: grid; grid-template-columns: 1fr; gap: 8px; }
+
+/* 2. From 600px width and up = TABLET / DESKTOP */
+@media (min-width: 600px) {
+  .cards { grid-template-columns: repeat(3, 1fr); }
+}</code></pre>
+
+            <h3>Desktop-first (the opposite)</h3>
+            <pre><code>/* Base = DESKTOP */
+.cards { grid-template-columns: repeat(3, 1fr); }
+
+/* Up to 600px wide = MOBILE */
+@media (max-width: 600px) {
+  .cards { grid-template-columns: 1fr; }
+}</code></pre>
+
+            <table class="tbl">
+              <tr>
+                <th>Device</th>
+                <th>Typical breakpoint</th>
+              </tr>
+              <tr>
+                <td><i class="fa-solid fa-mobile-screen"></i> Phone</td>
+                <td>up to ~600px</td>
+              </tr>
+              <tr>
+                <td><i class="fa-solid fa-tablet-screen-button"></i> Tablet</td>
+                <td>~600px – 1024px</td>
+              </tr>
+              <tr>
+                <td><i class="fa-solid fa-desktop"></i> Desktop</td>
+                <td>1024px and up</td>
+              </tr>
+            </table>
+            <p class="hint">
+              Other conditions exist too:
+              <code>@media (orientation: landscape)</code>,
+              <code>@media (prefers-color-scheme: dark)</code>,
+              <code>@media print</code>. This very page hides the sidebar to the
+              top below 800px.
+            </p>
+          </section>
+
+          <!-- 14 =========================================================== -->
+          <section id="fontawesome">
+            <h2>17. Including Font Awesome</h2>
+            <p>
+              Add the CDN link in the <code>&lt;head&gt;</code>, then use
+              <code>&lt;i&gt;</code> tags with classes.
+            </p>
+
+            <div class="icons">
+              <i class="fa-solid fa-house"></i>
+              <i class="fa-solid fa-heart"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-brands fa-github"></i>
+              <i class="fa-brands fa-instagram"></i>
+              <i class="fa-solid fa-gear fa-spin"></i>
+              <i class="fa-solid fa-envelope fa-2x"></i>
+            </div>
+
+            <pre><code>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"&gt;
+
+&lt;i class="fa-solid fa-heart"&gt;&lt;/i&gt;      &lt;!-- solid icon --&gt;
+&lt;i class="fa-brands fa-github"&gt;&lt;/i&gt;    &lt;!-- brand icon --&gt;
+&lt;i class="fa-solid fa-gear fa-spin"&gt;&lt;/i&gt; &lt;!-- built-in animation --&gt;</code></pre>
+            <p class="hint">
+              Style them like text: <code>color</code>, <code>font-size</code>.
+            </p>
+          </section>
+
+          <!-- 15 =========================================================== -->
+          <section id="googlefont">
+            <h2>18. Linking a Google Font</h2>
+            <ol>
+              <li>
+                Go to
+                <a
+                  href="https://fonts.google.com"
+                  target="_blank"
+                  rel="noopener"
+                  >fonts.google.com</a
+                >, choose a font and weights.
+              </li>
+              <li>
+                Copy the <code>&lt;link&gt;</code> tags into your
+                <code>&lt;head&gt;</code>.
+              </li>
+              <li>
+                Use it in CSS with <code>font-family</code> and a fallback.
+              </li>
+            </ol>
+
+            <p class="font-poppins">This is Poppins (body text).</p>
+            <p class="font-pacifico">This is Pacifico (decorative).</p>
+            <p class="font-fallback">
+              This is the fallback (serif) if the font fails to load.
+            </p>
+
+            <pre><code>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"&gt;
+
+body { font-family: 'Poppins', sans-serif; }</code></pre>
+          </section>
+
+          <!-- 16 =========================================================== -->
+          <section id="transitions">
+            <h2>19. Transitions</h2>
+            <p>
+              A <strong>transition</strong> makes a change between two states
+              smooth. It needs a <em>trigger</em> (<code>:hover</code>,
+              <code>:focus</code>, <code>:checked</code>, a class added by
+              JavaScript…).
+            </p>
+
+            <pre><code>selector {
+  transition: property  duration  timing-function  delay;
+  transition: transform .3s ease 0s;
+}</code></pre>
+            <p class="hint">
+              Put <code>transition</code> on the <em>normal</em> state (so it
+              also animates back) and the new values on <code>:hover</code>.
+            </p>
+
+            <div class="demo-grid">
+              <div class="ex-card">
+                <h4>1. Colour + lift</h4>
+                <button class="btn-transition">
+                  <i class="fa-solid fa-rocket"></i> Hover me
+                </button>
+                <pre><code>.btn { transition: transform .3s, background .3s; }
+.btn:hover { transform: translateY(-5px) scale(1.1);
+             background: orange; }</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>2. Image zoom</h4>
+                <div class="zoom-wrap"><div class="zoom-img"></div></div>
+                <pre><code>.wrap { overflow: hidden; }
+.img  { transition: transform .5s; }
+.wrap:hover .img { transform: scale(1.2); }</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>3. Underline that grows</h4>
+                <a href="#transitions" class="grow-link">Hover this link</a>
+                <pre><code>a::after { content:''; display:block; height:2px;
+           width:0; background:currentColor;
+           transition: width .3s; }
+a:hover::after { width:100%; }</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>4. Timing functions</h4>
+                <div class="timing">
+                  <small>linear</small>
+                  <div class="track">
+                    <div
+                      class="t-box"
+                      style="transition-timing-function: linear"
+                    ></div>
+                  </div>
+                  <small>ease</small>
+                  <div class="track">
+                    <div
+                      class="t-box"
+                      style="transition-timing-function: ease"
+                    ></div>
+                  </div>
+                  <small>ease-in</small>
+                  <div class="track">
+                    <div
+                      class="t-box"
+                      style="transition-timing-function: ease-in"
+                    ></div>
+                  </div>
+                  <small>ease-out</small>
+                  <div class="track">
+                    <div
+                      class="t-box"
+                      style="transition-timing-function: ease-out"
+                    ></div>
+                  </div>
+                  <small>steps(5)</small>
+                  <div class="track">
+                    <div
+                      class="t-box"
+                      style="transition-timing-function: steps(5)"
+                    ></div>
+                  </div>
+                </div>
+                <p class="hint">Hover the area to race them.</p>
+              </div>
+
+              <div class="ex-card">
+                <h4>5. Rotating icon</h4>
+                <div class="rot">
+                  <i class="fa-solid fa-chevron-down"></i> Hover to flip
+                </div>
+                <pre><code>i { transition: transform .4s; }
+.rot:hover i { transform: rotate(180deg); }</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>6. Progress / width</h4>
+                <div class="bar"><div class="bar-fill"></div></div>
+                <pre><code>.fill { width: 20%; transition: width 1s; }
+.bar:hover .fill { width: 100%; }</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>7. Toggle switch (click)</h4>
+                <label class="switch"
+                  ><input type="checkbox" /><span class="slider"></span
+                ></label>
+                <pre><code>.slider::before { transition: transform .3s; }
+input:checked + .slider::before {
+  transform: translateX(26px); }</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>8. Card lift + shadow</h4>
+                <div class="lift-card">Hover the card</div>
+                <pre><code>.card { transition: transform .3s, box-shadow .3s; }
+.card:hover { transform: translateY(-8px);
+  box-shadow: 0 14px 24px rgba(0,0,0,.25); }</code></pre>
+              </div>
+            </div>
+
+            <p class="tip">
+              <i class="fa-solid fa-lightbulb"></i> For smooth performance,
+              animate <code>transform</code> and <code>opacity</code>. Avoid
+              animating <code>display</code> (it can't be transitioned).
+            </p>
+          </section>
+
+          <!-- 17 =========================================================== -->
+          <section id="animations">
+            <h2>20. Animations (@keyframes)</h2>
+            <p>
+              An <strong>animation</strong> runs by itself, without a trigger,
+              and can have many steps. You <strong>define</strong> the steps
+              with <code>@keyframes</code> and <strong>apply</strong> them with
+              <code>animation</code>.
+            </p>
+
+            <pre><code>@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-50px); }
+}
+.ball {
+  animation: bounce 1s ease-in-out 0s infinite;
+  /*         name   time timing   delay repeat */
+}</code></pre>
+
+            <table class="tbl">
+              <tr>
+                <th>Property</th>
+                <th>Meaning</th>
+              </tr>
+              <tr>
+                <td><code>animation-name</code></td>
+                <td>Which @keyframes to use</td>
+              </tr>
+              <tr>
+                <td><code>animation-duration</code></td>
+                <td>How long one cycle takes</td>
+              </tr>
+              <tr>
+                <td><code>animation-timing-function</code></td>
+                <td>ease, linear, steps()…</td>
+              </tr>
+              <tr>
+                <td><code>animation-delay</code></td>
+                <td>Wait before starting</td>
+              </tr>
+              <tr>
+                <td><code>animation-iteration-count</code></td>
+                <td>Number of repeats or <code>infinite</code></td>
+              </tr>
+              <tr>
+                <td><code>animation-direction</code></td>
+                <td>
+                  <code>normal</code>, <code>reverse</code>,
+                  <code>alternate</code>
+                </td>
+              </tr>
+              <tr>
+                <td><code>animation-fill-mode</code></td>
+                <td><code>forwards</code> keeps the final state</td>
+              </tr>
+            </table>
+
+            <div class="demo-grid">
+              <div class="ex-card">
+                <h4>1. Bounce</h4>
+                <div class="anim-stage"><div class="ball bounce"></div></div>
+              </div>
+              <div class="ex-card">
+                <h4>2. Spin</h4>
+                <div class="anim-stage"><div class="ball spin"></div></div>
+              </div>
+              <div class="ex-card">
+                <h4>3. Pulse / heartbeat</h4>
+                <div class="anim-stage">
+                  <i class="fa-solid fa-heart heartbeat"></i>
+                </div>
+              </div>
+              <div class="ex-card">
+                <h4>4. Fade in + slide up</h4>
+                <div class="anim-stage"><div class="fade-box">Hello!</div></div>
+              </div>
+              <div class="ex-card">
+                <h4>5. Shake (attention)</h4>
+                <div class="anim-stage">
+                  <button class="shake-btn">
+                    <i class="fa-solid fa-bell"></i> New message
+                  </button>
+                </div>
+              </div>
+              <div class="ex-card">
+                <h4>6. Loading dots</h4>
+                <div class="anim-stage dots">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="ex-card">
+                <h4>7. Typing text</h4>
+                <div class="anim-stage">
+                  <div class="typing">Hello, class!</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <h4>8. Moving gradient</h4>
+                <div class="anim-stage">
+                  <div class="gradient-box">Colours</div>
+                </div>
+              </div>
+            </div>
+
+            <pre><code>@keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); }
+                    30%, 70% { opacity: 1; transform: none; }
+                    100% { opacity: 0; } }
+@keyframes spin   { to { transform: rotate(360deg); } }       /* "from" is optional */
+@keyframes dot    { 0%, 80%, 100% { transform: scale(.4); }
+                    40% { transform: scale(1); } }
+.dots span:nth-child(2) { animation-delay: .2s; }            /* stagger */</code></pre>
+
+            <table class="tbl">
+              <tr>
+                <th></th>
+                <th>Transition</th>
+                <th>Animation</th>
+              </tr>
+              <tr>
+                <td><strong>Trigger</strong></td>
+                <td>Needs one (hover, click…)</td>
+                <td>Can start on its own</td>
+              </tr>
+              <tr>
+                <td><strong>Steps</strong></td>
+                <td>Only start → end</td>
+                <td>As many as you want</td>
+              </tr>
+              <tr>
+                <td><strong>Loop</strong></td>
+                <td>No</td>
+                <td>Yes (<code>infinite</code>)</td>
+              </tr>
+              <tr>
+                <td><strong>Defined with</strong></td>
+                <td><code>transition</code></td>
+                <td><code>@keyframes</code> + <code>animation</code></td>
+              </tr>
+            </table>
+          </section>
+        </main>
+
+        <footer>
+          Made for class &middot; HTML &amp; CSS
+          <i class="fa-solid fa-heart"></i>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

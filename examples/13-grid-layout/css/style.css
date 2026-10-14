@@ -1,0 +1,22 @@
+/* Set basic page spacing and typography for the grid demonstration. */
+body {
+  margin: 0;
+  padding: 2rem;
+  color: #28303d;
+  background: #f4f5f8;
+  font-family: Arial, sans-serif;
+}
+
+/* Make three equal columns and consistent gaps between grid cells. */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* Give each grid item visible space and a contrasting background. */
+.grid-item {
+  padding: 2rem;
+  background: #e5def5;
+  text-align: center;
+}

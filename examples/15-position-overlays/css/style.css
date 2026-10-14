@@ -1,0 +1,60 @@
+/* Simple page styles keep attention on the positioned card. */
+body {
+  margin: 0;
+  padding: 2rem;
+  color: #25352b;
+  background: #f2f5f0;
+  font-family: Arial, sans-serif;
+}
+
+/* This relative parent anchors its absolutely positioned children. */
+.card {
+  position: relative;
+  width: min(100%, 32rem);
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+/* The badge is placed against the nearest positioned ancestor: .card. */
+.badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  color: #20352a;
+  background: #fff;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+/* Inset zero makes the overlay fill its relative parent. */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  color: #fff;
+  background: rgb(17 38 25 / 68%);
+  opacity: 0;
+  place-items: center;
+  text-decoration: none;
+}
+
+/* Reveal the overlay on pointer hover and keyboard focus. */
+.card:hover .overlay,
+.card:focus-within .overlay {
+  opacity: 1;
+}
+
+.overlay span {
+  padding: 0.7rem 1rem;
+  border: 1px solid currentColor;
+  border-radius: 0.5rem;
+}

@@ -1,0 +1,19 @@
+/* Basic page styles keep the icon examples clear and readable. */
+body {
+  margin: 0;
+  padding: 2rem;
+  color: #283342;
+  background: #f5f7fa;
+  font-family: Arial, sans-serif;
+}
+
+li {
+  margin-block: 0.75rem;
+}
+
+/* Font Awesome glyphs behave like text, so they can be sized and coloured. */
+li i {
+  width: 1.5rem;
+  color: #42699d;
+  font-size: 1.1rem;
+}

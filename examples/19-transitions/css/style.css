@@ -1,0 +1,34 @@
+/* Set a simple background and readable default font. */
+body {
+  margin: 0;
+  padding: 3rem 2rem;
+  color: #283342;
+  background: #f5f7fa;
+  font-family: Arial, sans-serif;
+}
+
+/* Put transition on the normal state so the button animates back too. */
+button {
+  padding: 0.8rem 1.2rem;
+  border: 0;
+  border-radius: 0.5rem;
+  color: #fff;
+  background: #315e9e;
+  cursor: pointer;
+  font: inherit;
+  transition:
+    transform 200ms ease,
+    background-color 200ms ease;
+}
+
+/* Hover and keyboard focus both trigger the same smooth state change. */
+button:hover,
+button:focus-visible {
+  background: #a14832;
+  transform: translateY(-4px);
+}
+
+button:focus-visible {
+  outline: 3px solid #e4ae91;
+  outline-offset: 3px;
+}

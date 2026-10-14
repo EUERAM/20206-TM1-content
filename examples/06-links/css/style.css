@@ -1,0 +1,18 @@
+/* Keep the example narrow so the link text is easy to read. */
+body {
+  margin: 0;
+  padding: 2rem;
+  color: #263238;
+  background: #f5f8f8;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Style links so they are recognizable and easy to follow. */
+a {
+  color: #075f73;
+}
+
+a:hover {
+  color: #a13f26;
+}

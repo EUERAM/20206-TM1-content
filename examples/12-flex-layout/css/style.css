@@ -1,0 +1,22 @@
+/* Add space around the small Flexbox demonstration. */
+body {
+  margin: 0;
+  padding: 2rem;
+  color: #28303d;
+  background: #f4f5f8;
+  font-family: Arial, sans-serif;
+}
+
+/* Flexbox places the child boxes along one row with space between them. */
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Give each flex item the same simple appearance. */
+.flex-item {
+  padding: 2rem;
+  background: #dce8f7;
+  text-align: center;
+}

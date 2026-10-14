@@ -1,0 +1,13 @@
+/* Set a readable font and remove the browser's default page margin. */
+body {
+  margin: 0;
+  padding: 2rem;
+  color: #243047;
+  background: #f4f6fa;
+  font-family: Arial, sans-serif;
+}
+
+/* Give the page heading a simple accent colour. */
+h1 {
+  color: #315e9e;
+}

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Positioned Overlay</title>
+    <!-- The card and overlay styles are kept in a separate file. -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>A card with an overlay</h1>
+      <!-- This card is the positioning reference for its badge and overlay. -->
+      <article class="card">
+        <img
+          src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80"
+          alt="Sunlight shining through a green forest"
+        />
+        <!-- The badge is positioned in the card's top-right corner. -->
+        <span class="badge">Explore</span>
+        <!-- This overlay covers the card and appears on hover or keyboard focus. -->
+        <a class="overlay" href="#forest">
+          <span id="forest">View the forest</span>
+        </a>
+      </article>
+    </main>
+  </body>
+</html>

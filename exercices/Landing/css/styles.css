@@ -1,0 +1,175 @@
+:root {
+  --orange: #fcb782;
+  --light-orange: #faefe3;
+  --electric-orange: #fe6e06;
+  --dark-grey: #333333;
+  --white: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+/* 
+* {
+  border: 1px solid black;
+} 
+*/
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.hero {
+  background: linear-gradient(180deg, #fcb782 85%, #fff 85%, #fff 100%);
+  padding: 67px; /* inner margin */
+}
+.container {
+  display: flex; /* all childrens will apear horizontally */
+  max-width: 1312px;
+  margin: auto; /* will center my tag */
+}
+.column {
+  width: 50%;
+  position: relative; /* to be the reference of a absolute children */
+}
+
+.heading-wrapper {
+  padding-top: 70px;
+  display: flex;
+  align-items: center; /* align vertically to the center */
+}
+.text {
+  padding: 40px 0; /* when 2 values here: first = top/bottom, last: right/left */
+}
+.badge svg .text-badge {
+  transform-origin: center;
+  animation: rotate 5s linear infinite;
+  animation-play-state: paused;
+}
+.badge svg:hover .text-badge {
+  animation-play-state: running;
+}
+
+/* These are comments */
+/* tag styles are like `h1` and class styles are like `.title` */
+h1 {
+  font-size: 112px;
+  font-family: "Barrio";
+  font-weight: 400;
+  font-style: normal;
+  line-height: 108px;
+  text-decoration: none;
+  text-transform: none;
+  color: var(--white);
+}
+.text p {
+  /* Compound style: paragraph inside a tag with class `text` */
+  font-size: 24px;
+  font-family: Helvetica Neue;
+  font-weight: 400;
+  font-style: normal;
+  text-decoration: none;
+  text-transform: none;
+  color: var(--white);
+  padding-bottom: 30px;
+}
+.text a {
+  background-color: var(--electric-orange);
+  color: var(--white);
+  padding: 24px 40px;
+  display: inline-block;
+  border-radius: 40px;
+  transition: 0.3s all;
+}
+.text a:hover {
+  background-color: var(--dark-grey);
+  transform: scale(1.1);
+}
+/* CARDS STYLES  */
+.cards-wrapper {
+  padding: 20px 0;
+  display: flex;
+  gap: 16px;
+}
+.card {
+  background-color: var(--light-orange);
+  border-radius: 24px;
+  padding: 20px;
+}
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 8px;
+}
+.card-title i {
+  font-size: 18px;
+  color: var(--orange);
+}
+.card-title h2 {
+  font-size: 20px;
+  font-family: Helvetica Neue;
+  font-weight: 500;
+  font-style: normal;
+  text-decoration: none;
+  text-transform: none;
+}
+
+p {
+  font-size: 16px;
+  font-family: Helvetica Neue;
+  font-weight: 300;
+  font-style: normal;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.btn-text {
+  font-size: 20px;
+  font-family: Helvetica Neue;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 18px;
+  text-decoration: none;
+  text-transform: none;
+}
+
+/* SECOND COLUMN */
+
+.shape {
+  position: absolute;
+  right: 0;
+  width: 580px;
+  height: 790px;
+  border-radius: 0 0 400px 400px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  z-index: 0;
+}
+.toy {
+  position: relative;
+  z-index: 1;
+}
+
+/* ANIMATIONS HERE */
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

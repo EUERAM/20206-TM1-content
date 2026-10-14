@@ -1,0 +1,32 @@
+/* Start with readable page spacing and typography. */
+body {
+  margin: 0;
+  padding: 2rem;
+  color: #293540;
+  background: #f5f6f8;
+  font-family: Arial, sans-serif;
+}
+
+/* On wider screens, put the two panels beside each other. */
+.panels {
+  display: flex;
+  gap: 1rem;
+}
+
+.panel {
+  flex: 1;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: #dce8f4;
+}
+
+.panel h2 {
+  margin-top: 0;
+}
+
+/* On narrow screens, stack the panels instead of squeezing them. */
+@media (max-width: 36rem) {
+  .panels {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Font Awesome Icons</title>
+    <!-- Font Awesome is loaded from its CDN, as in the HTML guide. -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <!-- Our own stylesheet comes after the icon library. -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Icons in a page</h1>
+      <p>Icons can sit beside a label:</p>
+      <!-- Decorative icons are hidden from assistive technology; text labels remain. -->
+      <ul>
+        <li><i class="fa-solid fa-house" aria-hidden="true"></i> Home</li>
+        <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email</li>
+        <li><i class="fa-solid fa-star" aria-hidden="true"></i> Favourites</li>
+      </ul>
+    </main>
+  </body>
+</html>
