@@ -1,0 +1,1189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A practical JavaScript guide for designers: fundamentals, DOM interaction, events, media, animation, and AI-assisted coding."
+    />
+    <title>JavaScript Guide — Multimedia Technologies I</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../figma-guide/css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to guide</a>
+    <input
+      type="checkbox"
+      id="menu-toggle"
+      class="menu-checkbox"
+      aria-label="Show or hide the menu"
+    />
+    <label for="menu-toggle" class="menu-btn" title="Show / hide menu">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <label for="menu-toggle" class="menu-backdrop"></label>
+    <div class="layout">
+      <aside class="sidebar" aria-label="Guide contents">
+        <h1 class="sidebar-title">JavaScript <span>Guide</span></h1>
+        <p class="sidebar-context">
+          Digital Interaction<br />Multimedia Technologies
+        </p>
+        <p class="sidebar-label">Guide contents</p>
+        <nav>
+          <h3>JavaScript fundamentals</h3>
+          <a href="#what-is-js">What is JavaScript?</a>
+          <a href="#include-js">Include JS in HTML</a>
+          <a href="#debug-js">Debug JavaScript</a>
+          <a href="#core-components">Core components</a>
+          <a href="#variable-types">Types of variables</a>
+          <a href="#conditionals">Conditionals</a>
+          <a href="#loops">Loops</a>
+          <a href="#functions">Functions</a>
+          <a href="#timers">Time control</a>
+
+          <h3>DOM &amp; interface interactivity</h3>
+          <a href="#what-is-dom">What is the DOM?</a>
+          <a href="#select-elements">Select elements</a>
+
+          <h3>Events &amp; user input</h3>
+          <a href="#what-is-event">What is an event?</a>
+          <a href="#click-event">Click and form events</a>
+          <a href="#scroll-event">Scroll events</a>
+          <a href="#mouse-events">Mouse and pointer events</a>
+          <a href="#key-events">Keyboard events</a>
+
+          <h3>State &amp; CSS</h3>
+          <a href="#class-trick">Add and remove classes</a>
+          <a href="#change-styles">Change styles</a>
+
+          <h3>HTML5 media</h3>
+          <a href="#media-elements">Audio and video elements</a>
+          <a href="#media-play-pause">Play and pause</a>
+          <a href="#media-mute">Mute and unmute</a>
+          <a href="#media-events">Media events</a>
+
+          <h3>Animations</h3>
+          <a href="#play-animations">Play animations</a>
+
+          <h3>AI prompting for code</h3>
+          <a href="#prompt-code">How to prompt</a>
+        </nav>
+        <p class="sidebar-note">
+          JavaScript adds behavior to interfaces. Make changes in small steps
+          and test them in the browser.
+        </p>
+      </aside>
+
+      <div class="content">
+        <main id="content" class="js-guide">
+          <section class="hero">
+            <p class="eyebrow">Digital interaction</p>
+            <h1>Make interfaces <span>respond.</span></h1>
+            <p class="hero-copy">
+              Learn the JavaScript building blocks behind interface behavior:
+              selecting page elements, listening for events, changing state,
+              controlling media, and creating microinteractions.
+            </p>
+          </section>
+
+          <section class="lesson" id="what-is-js">
+            <p class="eyebrow">JavaScript fundamentals</p>
+            <h2>1.1 What is JavaScript, and why use it?</h2>
+            <p>
+              JavaScript (JS) is a programming language that runs in the
+              browser. HTML describes a page's content, CSS controls its
+              presentation, and JavaScript responds to actions and changes what
+              the page does.
+            </p>
+            <p>
+              For designers, JS can make a menu open, validate a form, update a
+              counter, play a sound, or react to scrolling. Start with a clear
+              user need: interactivity should make a task clearer or easier, not
+              add motion without purpose.
+            </p>
+          </section>
+
+          <section class="lesson" id="include-js">
+            <p class="eyebrow">JavaScript fundamentals</p>
+            <h2>1.2 How to include JavaScript in HTML</h2>
+            <p>
+              Put code in a separate <code>.js</code> file and load it with a
+              <code>&lt;script&gt;</code> element. The
+              <code>defer</code> attribute lets the browser finish reading the
+              HTML before running the script, so the elements are ready to
+              select.
+            </p>
+            <pre><code>&lt;!-- In index.html, near the end of &lt;head&gt; --&gt;
+&lt;script src="js/main.js" defer&gt;&lt;/script&gt;</code></pre>
+            <pre><code>// In js/main.js
+console.log("JavaScript is connected");</code></pre>
+            <p>
+              Check the browser's developer tools Console. If the message
+              appears, the file loaded. Check spelling and the relative file
+              path if it does not.
+            </p>
+            <p class="note">
+              Avoid inline event attributes such as
+              <code>onclick="..."</code>. Keeping behavior in a JS file makes it
+              easier to read, maintain, and debug.
+            </p>
+          </section>
+
+          <section class="lesson" id="debug-js">
+            <p class="eyebrow">JavaScript fundamentals</p>
+            <h2>1.3 Debugging JavaScript</h2>
+            <p>
+              Debugging means finding and fixing the cause of unexpected
+              behavior. Read the first error in the Console: it often names the
+              problem and points to the file and line where it occurred.
+            </p>
+            <ul>
+              <li>
+                Use <code>console.log(value)</code> to inspect a value while the
+                program runs.
+              </li>
+              <li>
+                Check the Console for syntax errors and the Network panel for
+                missing files or failed requests.
+              </li>
+              <li>
+                Add a breakpoint in the Sources panel to pause execution and
+                inspect variables one step at a time.
+              </li>
+              <li>
+                Test one small change at a time, then remove temporary logs that
+                are no longer useful.
+              </li>
+            </ul>
+            <pre><code>const button = document.querySelector("#save-button");
+console.log("Save button found:", button);</code></pre>
+          </section>
+
+          <section class="lesson" id="core-components">
+            <p class="eyebrow">JavaScript fundamentals</p>
+            <h2>1.4 Core components</h2>
+            <p>
+              Programs combine values, decisions, repetition, and reusable
+              actions. These building blocks are enough to begin adding useful
+              interface behavior.
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Variables</h3>
+                <p>
+                  Use <code>const</code> by default for a binding that will not
+                  be reassigned, and <code>let</code> when it will. Avoid
+                  <code>var</code> in new code.
+                </p>
+                <pre><code>const courseName = "Digital Interaction";
+let completedLessons = 0;
+completedLessons = completedLessons + 1;</code></pre>
+              </article>
+              <article class="info-card">
+                <h3>Conditionals</h3>
+                <p>
+                  Use <code>if</code> and <code>else</code> to choose what
+                  happens based on a condition.
+                </p>
+                <pre><code>if (completedLessons &gt; 0) {
+console.log("Keep going!");
+} else {
+console.log("Start with lesson one.");
+}</code></pre>
+              </article>
+              <article class="info-card">
+                <h3>Loops</h3>
+                <p>
+                  A loop repeats an action. Use <code>for...of</code> to process
+                  each item in a list.
+                </p>
+                <pre><code>const topics = ["HTML", "CSS", "JavaScript"];
+
+for (let i=0; i < topics.length; i++ ) {
+  console.log(topics[i]);
+}</code></pre>
+              </article>
+              <article class="info-card">
+                <h3>Functions</h3>
+                <p>
+                  A function packages a task that can be called when needed.
+                  Parameters let it work with different values.
+                </p>
+                <pre><code>function greet(name) {
+return `Hello, ${name}!`;
+}
+
+console.log(greet("Alex"));</code></pre>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="variable-types">
+            <p class="eyebrow">JavaScript fundamentals</p>
+            <h2>1.5 Types of variables</h2>
+            <p>
+              A variable stores a value, and each value has a type. JavaScript
+              has seven primitive types and objects. Choose
+              <code>const</code> or <code>let</code> to declare a variable;
+              these keywords do not determine the value's type.
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Primitive types</h3>
+                <ul>
+                  <li>
+                    <code>string</code>: text, such as <code>"Hello"</code>
+                  </li>
+                  <li>
+                    <code>number</code>: integers and decimals, such as
+                    <code>42</code> or <code>3.14</code>
+                  </li>
+                  <li>
+                    <code>boolean</code>: <code>true</code> or
+                    <code>false</code>
+                  </li>
+                  <li>
+                    <code>undefined</code>: a declared variable without an
+                    assigned value
+                  </li>
+                  <li><code>null</code>: an intentionally empty value</li>
+                </ul>
+              </article>
+              <article class="info-card">
+                <h3>Objects and collections</h3>
+                <p>
+                  An object stores related information as named
+                  <strong>key-value pairs</strong>. An array stores an ordered
+                  list of values, which you access by their position. Use an
+                  object to describe one course and an array to list its topics.
+                </p>
+                <pre><code>const course = {
+  title: "UX Design",
+  lessonCount: 8
+};
+
+const topics = ["Research", "Wireframes", "Prototype"];
+
+console.log(course.title); // "UX Design"
+console.log(topics[0]);    // "Research"</code></pre>
+              </article>
+            </div>
+            <p class="note">
+              Use <code>typeof value</code> to inspect most types. Two
+              historical JavaScript quirks: <code>typeof null</code> returns
+              <code>"object"</code>, and arrays also return
+              <code>"object"</code>. Use <code>Array.isArray(value)</code>
+              when you need to identify an array.
+            </p>
+          </section>
+
+          <section class="lesson" id="conditionals">
+            <p class="eyebrow">JavaScript fundamentals</p>
+            <h2>1.6 Conditionals</h2>
+            <p>
+              Conditionals choose which code runs. Compare values with strict
+              equality (<code>===</code> and <code>!==</code>) and combine
+              conditions with <code>&amp;&amp;</code> (and),
+              <code>||</code> (or), and <code>!</code> (not).
+            </p>
+            <h4>If, else if, and else</h4>
+            <p>
+              Use these when a decision has one or more possible conditions.
+            </p>
+            <pre><code>const progress = 72;
+
+if (progress === 100) {
+console.log("Course complete");
+} else if (progress &gt; 0) {
+console.log("Keep learning");
+} else {
+console.log("Start the course");
+}</code></pre>
+            <h4>Switch</h4>
+            <p>
+              Use <code>switch</code> to compare one value with several specific
+              cases. Include <code>break</code> to prevent execution from
+              falling through to the next case.
+            </p>
+            <pre><code>const status = "published";
+
+switch (status) {
+case "draft":
+  console.log("Not visible yet");
+  break;
+case "published":
+  console.log("Visible to learners");
+  break;
+default:
+  console.log("Unknown status");
+}</code></pre>
+            <h4>Ternary operator</h4>
+            <p>
+              Use <code>condition ? valueIfTrue : valueIfFalse</code> for a
+              short choice between two expressions, not for long blocks.
+            </p>
+            <pre><code>const buttonLabel = isPublished ? "Open lesson" : "Coming soon";</code></pre>
+
+            <p class="note">
+              Values such as <code>0</code>, <code>""</code>,
+              <code>false</code>, <code>null</code>, and
+              <code>undefined</code> are falsy. Most other values are truthy.
+              Keep conditions explicit so the intended behavior is easy to
+              understand.
+            </p>
+          </section>
+
+          <section class="lesson" id="loops">
+            <p class="eyebrow">JavaScript fundamentals</p>
+            <h2>1.7 Loops</h2>
+            <p>
+              Loops repeat work. Choose the form that makes the stopping
+              condition and the values being processed clear.
+            </p>
+            <h4>Counted <code>for</code> loop</h4>
+            <p>Use when you need an index or a known number of repetitions.</p>
+            <pre><code>const lessons = ["Research", "Wireframes", "Prototype"];
+
+for (let index = 0; index &lt; lessons.length; index++) {
+console.log(index + 1, lessons[index]);
+}</code></pre>
+            <h4><code>while</code> loop</h4>
+            <p>
+              Checks its condition before each repetition, so it may run zero
+              times.
+            </p>
+            <pre><code>let attempts = 0;
+
+while (attempts &lt; 3) {
+console.log("Try", attempts + 1);
+attempts++;
+}</code></pre>
+            <h4><code>do...while</code> loop</h4>
+            <p>Runs its body once before checking the condition.</p>
+            <pre><code>let answer;
+
+do {
+answer = prompt("Type 'try again' to repeat");
+} while (answer === "try again");</code></pre>
+            <h4><code>for...of</code> loop</h4>
+            <p>
+              Reads each value from an iterable, such as an array or string.
+            </p>
+            <pre><code>for (const lesson of lessons) {
+console.log(lesson);
+}</code></pre>
+            <h4><code>for...in</code> loop</h4>
+            <p>
+              Iterates over an object's enumerable property names. Check
+              <code>Object.hasOwn()</code> to avoid including properties
+              inherited from its prototype. For arrays, use
+              <code>for...of</code> instead.
+            </p>
+            <pre><code>const learner = { name: "Alex", course: "UX Design" };
+
+for (const key in learner) {
+  if (Object.hasOwn(learner, key)) {
+    console.log(key, learner[key]);
+  }
+}</code></pre>
+            <h4>Array <code>forEach()</code></h4>
+            <p>
+              Calls a function for each array item when you do not need to stop
+              the iteration early or return a new array.
+            </p>
+            <pre><code>lessons.forEach((lesson, index) =&gt; {
+console.log(index + 1, lesson);
+});</code></pre>
+            <p class="note">
+              <code>break</code> exits a loop and <code>continue</code>
+              skips to its next iteration. Always make sure a
+              <code>while</code> loop can eventually reach its stopping
+              condition.
+            </p>
+          </section>
+
+          <section class="lesson" id="functions">
+            <p class="eyebrow">JavaScript fundamentals</p>
+            <h2>1.8 Functions</h2>
+            <p>
+              Functions package reusable behavior. They can accept parameters,
+              return a value, and be passed to other functions.
+            </p>
+            <h4>With and without variables (parameters)</h4>
+            <p>
+              A function can work without any input, or receive values through
+              <strong>parameters</strong>: variables listed in the parentheses.
+              The values you pass when calling it are called
+              <strong>arguments</strong>.
+            </p>
+            <pre><code>// Without parameters: always does the same thing
+function sayHello() {
+  console.log("Hello!");
+}
+
+sayHello(); // "Hello!"
+
+// With parameters: the result depends on the values you pass
+function sayHelloTo(name, course) {
+  console.log(`Hello, ${name}! Welcome to ${course}.`);
+}
+
+sayHelloTo("Alex", "UX Design"); // "Hello, Alex! Welcome to UX Design."
+sayHelloTo("Mina", "JavaScript"); // "Hello, Mina! Welcome to JavaScript."</code></pre>
+            <h4>Returning and not returning a value</h4>
+            <p>
+              A function that uses <code>return</code> sends a value back to the
+              place where it was called, so you can store it in a variable or
+              use it in another expression. A function without
+              <code>return</code> only performs an action, such as logging or
+              changing the page, and gives back <code>undefined</code>.
+            </p>
+            <pre><code>// Does not return: performs an action
+function showTotal(price, quantity) {
+  console.log(price * quantity);
+}
+
+const result1 = showTotal(5, 3); // logs 15
+console.log(result1);            // undefined
+
+// Returns: gives a value back to use later
+function calculateTotal(price, quantity) {
+  return price * quantity;
+}
+
+const result2 = calculateTotal(5, 3);
+console.log(result2);      // 15
+console.log(result2 + 10); // 25</code></pre>
+            <p class="note">
+              <code>return</code> also ends the function immediately: any code
+              after it is not executed.
+            </p>
+            <h4>Function declaration</h4>
+            <p>
+              A named function declaration can be called before its definition.
+            </p>
+            <pre><code>function greet(name) {
+return `Hello, ${name}!`;
+}
+
+console.log(greet("Alex"));</code></pre>
+            <h4>Function expression</h4>
+            <p>
+              A function expression is stored in a variable. It can be anonymous
+              or named; the variable binding shown here is
+              <code>const</code>.
+            </p>
+            <pre><code>const calculateProgress = function (completed, total) {
+return (completed / total) * 100;
+};
+
+const formatProgress = function formatProgress(value) {
+return `${Math.round(value)}%`;
+};</code></pre>
+
+            <p class="note">
+              Functions can also use default parameters, rest parameters
+              (<code>...values</code>), and return values. Prefer clear names
+              and small functions that do one job.
+            </p>
+          </section>
+
+          <section class="lesson" id="timers">
+            <p class="eyebrow">JavaScript fundamentals</p>
+            <h2>1.9 Time control: setTimeout and setInterval</h2>
+            <p>
+              JavaScript can run a function later or repeatedly using timers.
+              The time is given in <strong>milliseconds</strong>
+              (1000 ms = 1 second). Timers do not block the page: the rest of
+              the code keeps running while the browser waits.
+            </p>
+            <h4><code>setTimeout()</code>: run once after a delay</h4>
+            <pre><code>const timeoutId = setTimeout(() =&gt; {
+  console.log("Two seconds have passed");
+}, 2000);
+
+// Cancel it before it runs
+clearTimeout(timeoutId);</code></pre>
+            <h4><code>setInterval()</code>: run repeatedly</h4>
+            <p>
+              It calls the function every time the interval passes, until you
+              stop it with <code>clearInterval()</code>.
+            </p>
+            <pre><code>let seconds = 0;
+
+const intervalId = setInterval(() =&gt; {
+  seconds++;
+  console.log(`Seconds: ${seconds}`);
+
+  if (seconds === 5) {
+    clearInterval(intervalId);
+  }
+}, 1000);</code></pre>
+            <h4>Example: a countdown in the page</h4>
+            <pre><code>const display = document.querySelector("#countdown");
+let remaining = 10;
+
+const timer = setInterval(() =&gt; {
+  remaining--;
+  display.textContent = remaining;
+
+  if (remaining === 0) {
+    clearInterval(timer);
+    display.textContent = "Time is up!";
+  }
+}, 1000);</code></pre>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3><code>setTimeout</code></h3>
+                <p>Runs the function <strong>once</strong>. Use it for delays, such as hiding a message after a few seconds.</p>
+              </article>
+              <article class="info-card">
+                <h3><code>setInterval</code></h3>
+                <p>Runs the function <strong>repeatedly</strong>. Use it for clocks, counters, or slideshows.</p>
+              </article>
+            </div>
+            <p class="note">
+              Always keep the returned id and clear timers you no longer need.
+              Timing is approximate: the delay is a minimum, not a guarantee.
+              For smooth animation, prefer <code>requestAnimationFrame()</code>
+              or CSS animations over short intervals.
+            </p>
+          </section>
+
+          <section class="lesson" id="what-is-dom">
+            <p class="eyebrow">DOM &amp; interface interactivity</p>
+            <h2>2.1 What is a DOM?</h2>
+            <p>
+              The Document Object Model (DOM) is the browser's live, tree-shaped
+              representation of an HTML document. JavaScript can find DOM
+              elements and update their text, attributes, classes, or children.
+              A DOM change updates the rendered page.
+            </p>
+            <div class="tree" aria-label="A simple DOM hierarchy">
+              <div>document <span>the page</span></div>
+              <div class="tree-child">body <span>page content</span></div>
+              <div class="tree-grandchild">
+                button <span>interactive control</span>
+              </div>
+              <div class="tree-grandchild">p <span>text content</span></div>
+            </div>
+          </section>
+
+          <section class="lesson" id="select-elements">
+            <p class="eyebrow">DOM &amp; interface interactivity</p>
+            <h2>2.2 How to select elements</h2>
+            <p>
+              CSS selectors work in JavaScript too. Use
+              <code>querySelector()</code> to get the first match, or
+              <code>querySelectorAll()</code> to get all matches.
+            </p>
+            <pre><code>const title = document.querySelector("h1");
+const menuButton = document.querySelector("#menu-button");
+const cards = document.querySelectorAll(".card");
+
+if (title) {
+title.textContent = "Welcome to the project";
+}</code></pre>
+            <h4>Select every match with <code>querySelectorAll()</code></h4>
+            <p>
+              <code>querySelectorAll()</code> returns a list of all matching
+              elements. Use <code>forEach()</code> to run an action for each
+              one, such as reading the text from every card in the main content.
+            </p>
+            <pre><code>const cards = document.querySelectorAll("main .info-card");
+
+cards.forEach((card, index) =&gt; {
+console.log(`Card ${index + 1}:`, card.textContent.trim());
+});</code></pre>
+
+            <p class="note">
+              A selector may not match anything, so
+              <code>querySelector()</code> can return <code>null</code>. Check
+              that the element exists before trying to change it. Prefer
+              <code>textContent</code> for plain text; inserting untrusted
+              content with <code>innerHTML</code> can create security problems.
+            </p>
+          </section>
+
+          <section class="lesson" id="what-is-event">
+            <p class="eyebrow">Events &amp; user input</p>
+            <h2>3.1 What is an event?</h2>
+            <p>
+              An event is a signal that something happened: a person clicked,
+              pressed a key, submitted a form, or scrolled, for example.
+              Register an event listener to run a function in response.
+            </p>
+            <pre><code>element.addEventListener("event-name", (event) =&gt; {
+// Respond to the event here.
+});</code></pre>
+            <p>
+              The <code>event</code> object contains details about the
+              interaction, such as which element received it or which key was
+              pressed.
+            </p>
+            <h4>Common types of events</h4>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Mouse and pointer</h3>
+                <ul>
+                  <li><code>click</code>, <code>dblclick</code></li>
+                  <li><code>mouseover</code>, <code>mouseout</code></li>
+                  <li>
+                    <code>pointerdown</code>, <code>pointerup</code>,
+                    <code>pointermove</code>
+                  </li>
+                </ul>
+              </article>
+              <article class="info-card">
+                <h3>Keyboard</h3>
+                <ul>
+                  <li><code>keydown</code></li>
+                  <li><code>keyup</code></li>
+                </ul>
+              </article>
+              <article class="info-card">
+                <h3>Forms</h3>
+                <ul>
+                  <li><code>submit</code></li>
+                  <li><code>input</code> (value changes as you type)</li>
+                  <li><code>change</code> (value committed)</li>
+                  <li><code>focus</code>, <code>blur</code></li>
+                </ul>
+              </article>
+              <article class="info-card">
+                <h3>Window and document</h3>
+                <ul>
+                  <li><code>load</code>, <code>DOMContentLoaded</code></li>
+                  <li><code>scroll</code></li>
+                  <li><code>resize</code></li>
+                </ul>
+              </article>
+              <article class="info-card">
+                <h3>Touch</h3>
+                <ul>
+                  <li>
+                    <code>touchstart</code>, <code>touchmove</code>,
+                    <code>touchend</code>
+                  </li>
+                </ul>
+              </article>
+              <article class="info-card">
+                <h3>Media</h3>
+                <ul>
+                  <li>
+                    <code>play</code>, <code>pause</code>, <code>ended</code>
+                  </li>
+                  <li><code>timeupdate</code></li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="click-event">
+            <p class="eyebrow">Events &amp; user input</p>
+            <h2>3.2 Click and form events</h2>
+            <p>
+              Use <code>click</code> for a button action. For a form, listen to
+              <code>submit</code> so the same behavior works for a button click
+              and for submitting with the keyboard.
+            </p>
+            <pre><code>const button = document.querySelector("#show-message");
+const message = document.querySelector("#message");
+
+button?.addEventListener("click", () =&gt; {
+if (message) message.textContent = "Thanks for clicking!";
+});</code></pre>
+            <pre><code>const form = document.querySelector("#signup-form");
+
+form?.addEventListener("submit", (event) =&gt; {
+event.preventDefault();
+console.log("Form submitted");
+});</code></pre>
+            <p>
+              <code>preventDefault()</code> stops the browser's default form
+              navigation so the page can handle the submission. Validate input
+              and give the person clear feedback.
+            </p>
+          </section>
+
+          <section class="lesson" id="scroll-event">
+            <p class="eyebrow">Events &amp; user input</p>
+            <h2>3.3 Scroll events</h2>
+            <p>
+              The <code>scroll</code> event can respond to page movement, but it
+              may fire many times per second. Keep the handler small; use
+              <code>requestAnimationFrame()</code> for frequent visual updates,
+              or consider <code>IntersectionObserver</code> for detecting when
+              content enters the viewport.
+            </p>
+            <pre><code>window.addEventListener("scroll", () =&gt; {
+const hasScrolled = window.scrollY &gt; 200;
+document.body.classList.toggle("has-scrolled", hasScrolled);
+}, { passive: true });</code></pre>
+          </section>
+
+          <section class="lesson" id="mouse-events">
+            <p class="eyebrow">Events &amp; user input</p>
+            <h2>3.4 Mouse and pointer events</h2>
+            <p>
+              Events such as <code>pointerenter</code>,
+              <code>pointerleave</code>, and <code>pointerdown</code> can react
+              to mouse, pen, and touch input. Prefer pointer events when the
+              same interaction should support different pointer devices. Do not
+              make essential information available only on hover.
+            </p>
+            <p>
+              The <code>mousemove</code> event fires whenever the mouse moves.
+              Its event object provides the pointer position:
+              <code>clientX</code> and <code>clientY</code> are measured from
+              the top-left corner of the viewport. This example reads both
+              values and writes them into a <code>div</code> in the page.
+            </p>
+            <pre><code>&lt;div id="coordinates"&gt;X: 0, Y: 0&lt;/div&gt;</code></pre>
+            <pre><code>const coordinates = document.querySelector("#coordinates");
+
+document.addEventListener("mousemove", (event) =&gt; {
+  const x = event.clientX;
+  const y = event.clientY;
+
+  if (coordinates) {
+    coordinates.textContent = `X: ${x}, Y: ${y}`;
+  }
+});</code></pre>
+            <p class="note">
+              <code>mousemove</code> only reacts to a mouse. Use
+              <code>pointermove</code> instead if the same code should also work
+              with touch and pen input.
+            </p>
+          </section>
+
+          <section class="lesson" id="key-events">
+            <p class="eyebrow">Events &amp; user input</p>
+            <h2>3.5 Keyboard events</h2>
+            <p>
+              Keyboard interactions fire up to three events, in this order.
+              Prefer native buttons, links, and form controls: they already
+              provide expected keyboard behavior.
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3><code>keydown</code></h3>
+                <p>
+                  Fires when a key is pressed down, and repeats while the key is
+                  held. Works for every key, including Escape, arrows, Shift,
+                  and Ctrl. Use it for shortcuts and controls.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3><code>keyup</code></h3>
+                <p>
+                  Fires once when the key is released. Use it to detect the end
+                  of an action, or to read a field's value after the last
+                  character has been typed.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3><code>keypress</code></h3>
+                <p>
+                  Fired only for keys that produce a character, and not for
+                  Escape, arrows, or Shift. It is <strong>deprecated</strong>:
+                  use <code>keydown</code> or the <code>input</code> event
+                  instead.
+                </p>
+              </article>
+            </div>
+            <pre><code>const log = document.querySelector("#key-log");
+
+document.addEventListener("keydown", (event) =&gt; {
+log.textContent = `keydown: ${event.key}`;
+});
+
+document.addEventListener("keyup", (event) =&gt; {
+log.textContent = `keyup: ${event.key}`;
+});</code></pre>
+            <p>
+              Press and hold a key: <code>keydown</code> repeats while it is
+              held, and <code>keyup</code> runs once when you let go. Use
+              <code>keydown</code> when a keyboard interaction is meaningful,
+              such as Escape closing a dialog.
+            </p>
+            <pre><code>document.addEventListener("keydown", (event) =&gt; {
+if (event.key === "Escape") {
+  closeDialog();
+}
+});</code></pre>
+            <p>
+              Avoid capturing keys globally when the user is typing in a field.
+              Check <code>event.key</code> and keep shortcuts discoverable and
+              accessible.
+            </p>
+          </section>
+
+          <section class="lesson" id="class-trick">
+            <p class="eyebrow">State &amp; CSS</p>
+            <h2>4.1 Add, remove, and toggle classes</h2>
+            <p>
+              The “add/remove class” technique keeps responsibilities clear:
+              JavaScript changes the interface state, while CSS describes how
+              that state looks. Use <code>classList.add()</code>,
+              <code>remove()</code>, <code>toggle()</code>, and
+              <code>contains()</code>.
+            </p>
+            <pre><code>const menu = document.querySelector("#menu");
+const menuButton = document.querySelector("#menu-button");
+
+menuButton?.addEventListener("click", () =&gt; {
+const isOpen = menu?.classList.toggle("is-open");
+menuButton?.setAttribute("aria-expanded", String(Boolean(isOpen)));
+});</code></pre>
+            <pre><code>/* In CSS */
+.menu.is-open {
+display: block;
+}</code></pre>
+            <p>
+              Keep state and accessibility in sync. For an expandable menu,
+              update <code>aria-expanded</code> as well as the visual class. Use
+              a real button for the control.
+            </p>
+          </section>
+
+          <section class="lesson" id="change-styles">
+            <p class="eyebrow">State &amp; CSS</p>
+            <h2>4.2 Change styles</h2>
+            <p>
+              Prefer classes for reusable or multi-property visual states. For a
+              single value that must be calculated at runtime—such as an
+              opacity—set it directly with the element's
+              <code>style</code> property. CSS properties become camelCase in
+              JavaScript (<code>background-color</code> becomes
+              <code>backgroundColor</code>).
+            </p>
+            <pre><code>const box = document.querySelector(".box");
+
+box.style.opacity = 0.5;
+box.style.backgroundColor = "tomato";
+box.style.transform = "translateX(20px)";</code></pre>
+            <p>
+              For a value that several rules in your CSS should share, set a CSS
+              custom property with <code>setProperty()</code> instead.
+            </p>
+            <pre><code>box.style.setProperty("--progress", "65%");</code></pre>
+            <pre><code>/* In CSS */
+.progress-bar {
+width: var(--progress, 0%);
+}</code></pre>
+            <p>
+              Avoid scattering one-off inline style changes throughout the code.
+              Keeping presentation in CSS makes states consistent and easier to
+              maintain.
+            </p>
+          </section>
+
+          <section class="lesson" id="media-elements">
+            <p class="eyebrow">HTML5 media</p>
+            <h2>5.1 Audio and video elements</h2>
+            <p>
+              HTML5 adds <code>&lt;audio&gt;</code> and
+              <code>&lt;video&gt;</code> elements that play media without
+              plugins. The browser exposes them through the DOM, so JavaScript
+              can read their properties and call their methods. Keep visible
+              controls available unless you provide an equally accessible
+              alternative.
+            </p>
+
+            <article class="info-card">
+              <h3>Properties and methods</h3>
+              <ul>
+                <li>
+                  <code>currentTime</code>: the current playback position in
+                  seconds. Read it to show progress, or set it to jump to
+                  another point.
+                </li>
+                <li>
+                  <code>duration</code>: the total length in seconds (read
+                  only). It is <code>NaN</code> until the metadata has loaded.
+                </li>
+                <li>
+                  <code>paused</code>: <code>true</code> when the media is not
+                  playing (read only). Use it to decide whether to call
+                  <code>play()</code> or <code>pause()</code>.
+                </li>
+                <li>
+                  <code>volume</code>: the sound level, from <code>0</code>
+                  (silent) to <code>1</code> (full).
+                </li>
+                <li>
+                  <code>muted</code>: <code>true</code> silences the media
+                  without changing <code>volume</code>.
+                </li>
+                <li>
+                  <code>playbackRate</code>: the playback speed;
+                  <code>1</code> is normal, <code>2</code> is twice as fast,
+                  <code>0.5</code> is half speed.
+                </li>
+                <li>
+                  <code>play()</code>: starts or resumes playback. It returns a
+                  Promise that can be rejected by browser policies.
+                </li>
+                <li>
+                  <code>pause()</code>: pauses playback and keeps the current
+                  position.
+                </li>
+                <li>
+                  <code>load()</code>: resets the element and reloads its
+                  source, for example after changing <code>src</code>.
+                </li>
+              </ul>
+            </article>
+
+            <pre><code>const video = document.querySelector("#demo-video");
+
+video.volume = 0.5;        // 50% volume
+video.playbackRate = 1.5;  // 1.5x speed
+video.currentTime = 10;    // jump to second 10
+video.loop = true;         // same as the loop attribute</code></pre>
+            <p class="note">
+              Always provide captions with <code>&lt;track&gt;</code> for spoken
+              content, and avoid autoplay with sound.
+            </p>
+          </section>
+
+          <section class="lesson" id="media-play-pause">
+            <p class="eyebrow">HTML5 media</p>
+            <h2>5.2 Play and pause</h2>
+            <p>
+              Select a <code>&lt;video&gt;</code> or
+              <code>&lt;audio&gt;</code> element and call its
+              <code>play()</code> and <code>pause()</code> methods from your own
+              buttons.
+            </p>
+
+            <p>
+              <code>play()</code> returns a Promise and may be rejected by
+              browser playback policies. Handle that possibility and update the
+              interface based on the media's actual state.
+            </p>
+            <pre><code>const video = document.querySelector("#demo-video");
+const playButton = document.querySelector("#play-video");
+const pauseButton = document.querySelector("#pause-video");
+
+playButton?.addEventListener("click", async () =&gt; {
+if (video instanceof HTMLVideoElement) {
+  try {
+    await video.play();
+  } catch (error) {
+    console.error("Video could not start:", error);
+  }
+}
+});
+
+pauseButton?.addEventListener("click", () =&gt; {
+if (video instanceof HTMLVideoElement) video.pause();
+});</code></pre>
+            <p>
+              Useful media properties include <code>paused</code>,
+              <code>currentTime</code>, <code>duration</code>, and
+              <code>ended</code>. Listen to events such as <code>play</code>,
+              <code>pause</code>, and <code>timeupdate</code> to keep a custom
+              interface in sync.
+            </p>
+          </section>
+
+          <section class="lesson" id="media-mute">
+            <p class="eyebrow">HTML5 media</p>
+            <h2>5.3 Mute and unmute</h2>
+            <p>
+              The boolean <code>muted</code> property controls whether a media
+              element's audio is audible. A button can toggle this property and
+              update its accessible label.
+            </p>
+            <pre><code>const media = document.querySelector("#demo-video");
+const muteButton = document.querySelector("#mute-video");
+
+muteButton?.addEventListener("click", () =&gt; {
+if (!(media instanceof HTMLMediaElement)) return;
+
+media.muted = !media.muted;
+muteButton.setAttribute(
+  "aria-pressed",
+  String(media.muted)
+);
+muteButton.textContent = media.muted ? "Unmute" : "Mute";
+});</code></pre>
+            <p class="note">
+              Browsers usually block autoplay with sound. Let people choose when
+              to start media and provide clear controls for playback and volume.
+            </p>
+          </section>
+
+          <section class="lesson" id="media-events">
+            <p class="eyebrow">HTML5 media</p>
+            <h2>5.4 Media events</h2>
+            <p>
+              Audio and video elements fire events as their state changes.
+              Listen to them to keep your interface in sync with the media,
+              instead of guessing what it is doing.
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Loading</h3>
+                <ul>
+                  <li>
+                    <code>loadedmetadata</code>: duration and size are known
+                  </li>
+                  <li><code>canplay</code>: enough data to start playing</li>
+                  <li><code>waiting</code>: paused to buffer more data</li>
+                  <li><code>error</code>: the media failed to load</li>
+                </ul>
+              </article>
+              <article class="info-card">
+                <h3>Playback</h3>
+                <ul>
+                  <li><code>play</code>: playback started or resumed</li>
+                  <li><code>pause</code>: playback was paused</li>
+                  <li><code>ended</code>: playback reached the end</li>
+                  <li>
+                    <code>timeupdate</code>: <code>currentTime</code> changed
+                  </li>
+                </ul>
+              </article>
+              <article class="info-card">
+                <h3>Controls</h3>
+                <ul>
+                  <li>
+                    <code>volumechange</code>: volume or
+                    <code>muted</code> changed
+                  </li>
+                  <li>
+                    <code>seeking</code>, <code>seeked</code>: the user is
+                    jumping to another time
+                  </li>
+                  <li><code>ratechange</code>: playback speed changed</li>
+                </ul>
+              </article>
+            </div>
+            <pre><code>const video = document.querySelector("#demo-video");
+const status = document.querySelector("#video-status");
+const progress = document.querySelector("#video-progress");
+
+video?.addEventListener("loadedmetadata", () =&gt; {
+  status.textContent = `Duration: ${Math.round(video.duration)} s`;
+});
+
+video?.addEventListener("play", () =&gt; {
+  status.textContent = "Playing";
+});
+
+video?.addEventListener("pause", () =&gt; {
+  status.textContent = "Paused";
+});
+
+video?.addEventListener("timeupdate", () =&gt; {
+  progress.value = (video.currentTime / video.duration) * 100;
+});
+
+video?.addEventListener("ended", () =&gt; {
+  status.textContent = "Finished";
+});</code></pre>
+            <p class="note">
+              <code>timeupdate</code> fires several times per second, so keep
+              its handler small. Wait for <code>loadedmetadata</code> before
+              reading <code>duration</code>: until then it is <code>NaN</code>.
+            </p>
+          </section>
+
+          <section class="lesson" id="play-animations">
+            <p class="eyebrow">Animations</p>
+            <h2>6.1 Play animations</h2>
+            <p>
+              The Web Animations API lets JavaScript play a sequence of visual
+              keyframes. Use it for feedback or to explain a transition, and
+              keep the effect short and purposeful.
+            </p>
+            <pre><code>const notice = document.querySelector(".notice");
+
+notice?.animate(
+[
+  { opacity: 0, transform: "translateY(8px)" },
+  { opacity: 1, transform: "translateY(0)" }
+],
+{
+  duration: 220,
+  easing: "ease-out",
+  fill: "both"
+}
+);</code></pre>
+            <p>
+              <code>Element.animate()</code> returns an Animation object. You
+              can call <code>pause()</code>, <code>play()</code>, or
+              <code>cancel()</code> on it when the interaction needs to control
+              the animation.
+            </p>
+          </section>
+
+          <section class="lesson" id="prompt-code">
+            <p class="eyebrow">AI prompting for code</p>
+            <h2>7.1 How to prompt</h2>
+            <p>
+              Treat generated code as a draft, not a source of truth. Give the
+              assistant context, describe one specific behavior, state
+              constraints, and ask for an explanation and tests.
+            </p>
+            <ol>
+              <li>
+                <strong>Provide context:</strong> say what the page does and
+                name the HTML elements or files involved.
+              </li>
+              <li>
+                <strong>Describe the outcome:</strong> specify what the person
+                does and what should happen next.
+              </li>
+              <li>
+                <strong>Set constraints:</strong> request plain JavaScript,
+                accessible controls, no inline handlers, and no unnecessary
+                dependencies if those fit the project.
+              </li>
+              <li>
+                <strong>Ask for explanation:</strong> request a short
+                walkthrough of selectors, events, state, and edge cases.
+              </li>
+              <li>
+                <strong>Verify:</strong> run the code, inspect errors, test
+                keyboard and mobile behavior, and ask for help fixing a specific
+                failure if one occurs.
+              </li>
+            </ol>
+            <pre><code>I am learning JavaScript. My page has a button with
+id="menu-button" and a navigation element with id="site-menu".
+
+Write a small, beginner-friendly script that toggles the menu when the
+button is clicked. Use addEventListener and classList, update aria-expanded,
+and explain each step. Do not use a framework or inline HTML handlers.
+Include any CSS class the behavior needs and mention how I can test it
+with a keyboard.</code></pre>
+            <p class="note">
+              Never paste private data, credentials, or unpublished user
+              information into an AI tool. Review generated code for
+              correctness, accessibility, security, and fit with the existing
+              project before using it.
+            </p>
+          </section>
+
+          <footer class="guide-footer">
+            <span>Multimedia Technologies I · ERam School of Arts</span>
+          </footer>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

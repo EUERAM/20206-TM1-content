@@ -1,0 +1,303 @@
+:root {
+  --primary: #4f46e5;
+  --accent: #f97316;
+  --bg: #f5f6fa;
+  --dark: #1f2937;
+  --muted: #6b7280;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--bg);
+  color: var(--dark);
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--dark);
+  outline-offset: 3px;
+}
+
+main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.intro,
+.guides {
+  margin: 30px 0;
+  padding: 24px 30px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.intro {
+  margin: 0;
+  padding: clamp(48px, 7vw, 76px) 0 52px;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.eyebrow,
+.card-category {
+  margin-bottom: 10px;
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 780px;
+  margin-bottom: 16px;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h1 span {
+  color: var(--primary);
+}
+
+.intro-copy {
+  max-width: 650px;
+  margin-bottom: 20px;
+  color: #4b5563;
+}
+
+.text-link,
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+.text-link span {
+  font-size: 1.15rem;
+}
+
+.guides {
+  scroll-margin-top: 20px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.section-heading .eyebrow {
+  margin-bottom: 6px;
+}
+
+h2 {
+  margin-bottom: 0;
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.section-note {
+  max-width: 320px;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.guide-group {
+  margin-top: 32px;
+}
+
+.guide-group > h3 {
+  margin-bottom: 14px;
+  color: var(--primary);
+  font-size: 1.25rem;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.guide-card {
+  display: flex;
+  min-height: 270px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.card-topline {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.card-number,
+.status {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.status-available,
+.guide-card-available .card-category {
+  color: var(--primary);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.card-category {
+  margin-bottom: 8px;
+  font-size: 0.75rem;
+}
+
+h3 {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.guide-card h4 {
+  margin: 0 0 10px;
+  color: var(--dark);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.card-description {
+  max-width: 420px;
+  margin-bottom: 20px;
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+.card-link {
+  margin-top: auto;
+}
+
+.card-link span {
+  font-size: 1rem;
+}
+
+.card-link-muted {
+  color: var(--muted);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.site-footer {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  min-height: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 auto;
+  padding: 20px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer p:first-child span {
+  padding: 0 6px;
+}
+
+.site-footer a {
+  margin-left: 5px;
+  color: var(--primary);
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 800px) {
+  main {
+    padding: 12px;
+  }
+
+  .intro,
+  .guides {
+    padding: 20px 18px;
+  }
+
+  .guide-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-card {
+    min-height: 230px;
+  }
+
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 16px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

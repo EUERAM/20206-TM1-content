@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 260" role="img" aria-labelledby="title desc">
+  <title id="title">Adapting a layout across screen sizes</title>
+  <desc id="desc">A desktop library uses a sidebar and two-column content; the mobile version rearranges content into one column with reachable bottom navigation.</desc>
+  <rect width="560" height="260" rx="18" fill="#eef0f8"/>
+  <rect x="22" y="30" width="334" height="200" rx="12" fill="#fff" stroke="#d9dce8" stroke-width="2"/>
+  <rect x="34" y="42" width="66" height="176" rx="7" fill="#eef2ff"/>
+  <circle cx="50" cy="59" r="7" fill="#f97316"/>
+  <rect x="63" y="55" width="24" height="7" rx="3.5" fill="#4f46e5"/>
+  <rect x="44" y="81" width="44" height="6" rx="3" fill="#9ca3af"/>
+  <rect x="44" y="97" width="38" height="6" rx="3" fill="#9ca3af"/>
+  <rect x="44" y="113" width="42" height="6" rx="3" fill="#9ca3af"/>
+  <rect x="44" y="143" width="47" height="18" rx="6" fill="#4f46e5"/>
+  <rect x="112" y="44" width="228" height="16" rx="6" fill="#1f2937"/>
+  <rect x="112" y="72" width="104" height="59" rx="7" fill="#e0e7ff"/>
+  <rect x="226" y="72" width="104" height="59" rx="7" fill="#fef3c7"/>
+  <rect x="112" y="141" width="104" height="59" rx="7" fill="#dcfce7"/>
+  <rect x="226" y="141" width="104" height="59" rx="7" fill="#fce7f3"/>
+  <rect x="392" y="20" width="134" height="220" rx="20" fill="#1f2937"/>
+  <rect x="400" y="31" width="118" height="198" rx="14" fill="#fff"/>
+  <rect x="410" y="43" width="98" height="14" rx="5" fill="#1f2937"/>
+  <rect x="410" y="65" width="98" height="46" rx="7" fill="#e0e7ff"/>
+  <rect x="410" y="118" width="98" height="46" rx="7" fill="#fef3c7"/>
+  <rect x="410" y="171" width="98" height="46" rx="7" fill="#dcfce7"/>
+  <rect x="410" y="199" width="98" height="18" rx="0" fill="#f8fafc"/>
+  <circle cx="432" cy="208" r="4" fill="#4f46e5"/>
+  <circle cx="459" cy="208" r="4" fill="#9ca3af"/>
+  <circle cx="486" cy="208" r="4" fill="#9ca3af"/>
+</svg>

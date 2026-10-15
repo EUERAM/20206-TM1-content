@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Illustration of a Figma design workspace</title>
+  <desc id="desc">An original interface diagram showing a top toolbar, pages and layers on the left, design frames on the canvas, and design properties on the right.</desc>
+  <rect width="1200" height="520" rx="18" fill="#dfe2e8"/>
+  <rect x="12" y="12" width="1176" height="496" rx="12" fill="#ffffff"/>
+  <rect x="12" y="12" width="1176" height="48" rx="12" fill="#f8f9fb"/>
+  <path d="M12 48h1176" stroke="#d9dce3"/>
+  <rect x="26" y="24" width="24" height="24" rx="7" fill="#f97316"/>
+  <path d="m33 31 10 10M43 31 33 41" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+  <rect x="65" y="28" width="150" height="8" rx="4" fill="#303644"/>
+  <rect x="65" y="41" width="92" height="5" rx="2.5" fill="#9ca3af"/>
+  <rect x="472" y="22" width="210" height="28" rx="8" fill="#fff" stroke="#d9dce3"/>
+  <rect x="485" y="31" width="17" height="10" rx="3" fill="#4f46e5"/>
+  <rect x="516" y="31" width="17" height="10" rx="3" fill="#9ca3af"/>
+  <rect x="547" y="31" width="17" height="10" rx="3" fill="#9ca3af"/>
+  <rect x="578" y="31" width="17" height="10" rx="3" fill="#9ca3af"/>
+  <rect x="609" y="31" width="17" height="10" rx="3" fill="#9ca3af"/>
+  <circle cx="1092" cy="36" r="12" fill="#e0e7ff"/>
+  <rect x="1112" y="25" width="61" height="23" rx="7" fill="#4f46e5"/>
+  <rect x="1127" y="33" width="32" height="7" rx="3.5" fill="#fff"/>
+  <rect x="12" y="60" width="222" height="448" fill="#fff"/>
+  <path d="M234 60v448" stroke="#d9dce3"/>
+  <text x="30" y="86" fill="#374151" font-family="Arial, sans-serif" font-size="13" font-weight="700">Pages</text>
+  <rect x="28" y="98" width="188" height="27" rx="6" fill="#eef2ff"/>
+  <circle cx="42" cy="111" r="4" fill="#4f46e5"/>
+  <text x="54" y="115" fill="#3730a3" font-family="Arial, sans-serif" font-size="11">01 — Design system</text>
+  <text x="30" y="149" fill="#6b7280" font-family="Arial, sans-serif" font-size="11">02 — Desktop UI</text>
+  <text x="30" y="173" fill="#6b7280" font-family="Arial, sans-serif" font-size="11">03 — Mobile UI</text>
+  <path d="M28 189h188" stroke="#e5e7eb"/>
+  <text x="30" y="213" fill="#374151" font-family="Arial, sans-serif" font-size="13" font-weight="700">Layers</text>
+  <path d="m34 235 5 5-5 5" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="45" y="234" width="11" height="11" rx="2" fill="#c7d2fe"/>
+  <text x="65" y="244" fill="#374151" font-family="Arial, sans-serif" font-size="11">Desktop / Home</text>
+  <path d="m49 259 4 4-4 4" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="59" y="258" width="10" height="10" rx="2" fill="#d1d5db"/>
+  <text x="77" y="268" fill="#6b7280" font-family="Arial, sans-serif" font-size="10">Header</text>
+  <rect x="59" y="279" width="10" height="10" rx="2" fill="#d1d5db"/>
+  <text x="77" y="289" fill="#6b7280" font-family="Arial, sans-serif" font-size="10">Main content</text>
+  <rect x="59" y="300" width="10" height="10" rx="2" fill="#d1d5db"/>
+  <text x="77" y="310" fill="#6b7280" font-family="Arial, sans-serif" font-size="10">Footer</text>
+  <rect x="29" y="329" width="184" height="28" rx="6" fill="#f9fafb"/>
+  <text x="43" y="347" fill="#6b7280" font-family="Arial, sans-serif" font-size="10">Assets</text>
+  <rect x="234" y="60" width="720" height="448" fill="#f2f3f6"/>
+  <path d="M954 60v448" stroke="#d9dce3"/>
+  <text x="257" y="86" fill="#6b7280" font-family="Arial, sans-serif" font-size="11">Canvas · 67%</text>
+  <rect x="278" y="109" width="396" height="361" rx="7" fill="#fff" stroke="#d1d5db"/>
+  <rect x="278" y="109" width="396" height="48" rx="7" fill="#fff"/>
+  <path d="M278 150h396" stroke="#eef0f4"/>
+  <circle cx="302" cy="132" r="9" fill="#4f46e5"/>
+  <rect x="320" y="127" width="77" height="9" rx="4.5" fill="#1f2937"/>
+  <rect x="535" y="128" width="44" height="7" rx="3.5" fill="#9ca3af"/>
+  <rect x="589" y="122" width="65" height="20" rx="6" fill="#4f46e5"/>
+  <rect x="599" y="129" width="45" height="6" rx="3" fill="#fff"/>
+  <rect x="302" y="177" width="347" height="105" rx="8" fill="#eef2ff"/>
+  <rect x="320" y="197" width="170" height="15" rx="6" fill="#1f2937"/>
+  <rect x="320" y="222" width="227" height="7" rx="3.5" fill="#9ca3af"/>
+  <rect x="320" y="237" width="201" height="7" rx="3.5" fill="#b7bbc4"/>
+  <rect x="320" y="254" width="81" height="18" rx="5" fill="#f97316"/>
+  <rect x="415" y="260" width="80" height="7" rx="3.5" fill="#4f46e5" opacity=".65"/>
+  <rect x="302" y="299" width="105" height="120" rx="7" fill="#f8fafc" stroke="#e5e7eb"/>
+  <rect x="417" y="299" width="105" height="120" rx="7" fill="#f8fafc" stroke="#e5e7eb"/>
+  <rect x="532" y="299" width="117" height="120" rx="7" fill="#f8fafc" stroke="#e5e7eb"/>
+  <rect x="315" y="312" width="79" height="47" rx="5" fill="#c7d2fe"/>
+  <rect x="430" y="312" width="79" height="47" rx="5" fill="#fde68a"/>
+  <rect x="545" y="312" width="91" height="47" rx="5" fill="#bbf7d0"/>
+  <rect x="315" y="371" width="60" height="7" rx="3.5" fill="#6b7280"/>
+  <rect x="430" y="371" width="60" height="7" rx="3.5" fill="#6b7280"/>
+  <rect x="545" y="371" width="60" height="7" rx="3.5" fill="#6b7280"/>
+  <rect x="315" y="386" width="72" height="6" rx="3" fill="#c4c8d1"/>
+  <rect x="430" y="386" width="72" height="6" rx="3" fill="#c4c8d1"/>
+  <rect x="545" y="386" width="72" height="6" rx="3" fill="#c4c8d1"/>
+  <rect x="716" y="175" width="188" height="270" rx="7" fill="#fff" stroke="#4f46e5" stroke-width="2"/>
+  <rect x="716" y="175" width="188" height="25" fill="#eef2ff"/>
+  <text x="730" y="192" fill="#3730a3" font-family="Arial, sans-serif" font-size="10" font-weight="700">Selected: Button / Primary</text>
+  <text x="731" y="221" fill="#6b7280" font-family="Arial, sans-serif" font-size="9">Position</text>
+  <rect x="730" y="229" width="74" height="23" rx="4" fill="#f9fafb" stroke="#e5e7eb"/>
+  <rect x="814" y="229" width="74" height="23" rx="4" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="741" y="244" fill="#374151" font-family="Arial, sans-serif" font-size="9">X 302</text>
+  <text x="825" y="244" fill="#374151" font-family="Arial, sans-serif" font-size="9">Y 254</text>
+  <text x="731" y="273" fill="#6b7280" font-family="Arial, sans-serif" font-size="9">Auto layout</text>
+  <rect x="730" y="281" width="158" height="26" rx="5" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="741" y="298" fill="#374151" font-family="Arial, sans-serif" font-size="9">Horizontal · Gap 12</text>
+  <text x="731" y="328" fill="#6b7280" font-family="Arial, sans-serif" font-size="9">Fill</text>
+  <rect x="730" y="336" width="18" height="18" rx="4" fill="#4f46e5"/>
+  <text x="756" y="349" fill="#374151" font-family="Arial, sans-serif" font-size="9">Action / Primary</text>
+  <text x="731" y="376" fill="#6b7280" font-family="Arial, sans-serif" font-size="9">Corner radius</text>
+  <rect x="730" y="384" width="158" height="23" rx="4" fill="#f9fafb" stroke="#e5e7eb"/>
+  <text x="741" y="399" fill="#374151" font-family="Arial, sans-serif" font-size="9">8</text>
+  <rect x="249" y="72" width="20" height="20" rx="10" fill="#f97316"/>
+  <text x="249" y="79" fill="#fff" font-family="Arial, sans-serif" font-size="9" font-weight="700" text-anchor="middle">1</text>
+  <rect x="685" y="162" width="20" height="20" rx="10" fill="#f97316"/>
+  <text x="685" y="169" fill="#fff" font-family="Arial, sans-serif" font-size="9" font-weight="700" text-anchor="middle">2</text>
+  <rect x="928" y="72" width="20" height="20" rx="10" fill="#f97316"/>
+  <text x="928" y="79" fill="#fff" font-family="Arial, sans-serif" font-size="9" font-weight="700" text-anchor="middle">3</text>
+</svg>

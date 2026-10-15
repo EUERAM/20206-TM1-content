@@ -23,6 +23,7 @@
 
     <!-- Our own stylesheet (always AFTER external ones) -->
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../figma-guide/css/style.css" />
   </head>
   <body>
     <input
@@ -51,6 +52,7 @@
           <a href="#structural">Structural vs content tags</a>
           <a href="#block-inline">Block vs inline tags</a>
           <a href="#links">Links: internal, external, anchor</a>
+          <a href="#media">Images, video &amp; audio</a>
 
           <h3>CSS Basics</h3>
           <a href="#link-css">Link external CSS</a>
@@ -670,8 +672,225 @@ span { display: inline-block; }  /* flows + accepts size */
           </section>
 
           <!-- 6 ============================================================ -->
+          <section id="media">
+            <h2>7. Adding images, video and audio</h2>
+            <p>
+              Use <code>&lt;img&gt;</code> for images,
+              <code>&lt;video&gt;</code> for video files, and
+              <code>&lt;audio&gt;</code> for audio files. Keep local media in a
+              clearly named folder such as <code>media/</code> and reference it
+              with a relative path from the HTML file.
+            </p>
+
+            <h3>Images with <code>&lt;img&gt;</code></h3>
+            <pre><code>&lt;img
+  src="media/project-photo.jpg"
+  alt="A student filming a short documentary"
+  width="1200"
+  height="800"
+  loading="lazy"
+&gt;</code></pre>
+            <ul>
+              <li><code>src</code> gives the image URL or local file path.</li>
+              <li>
+                <code>alt</code> describes the image for screen readers and
+                appears if the image cannot load. Use <code>alt=""</code> for
+                purely decorative images.
+              </li>
+              <li>
+                <code>width</code> and <code>height</code> provide the image's
+                intrinsic dimensions and help the browser reserve space.
+              </li>
+              <li>
+                <code>loading="lazy"</code> defers loading an off-screen image;
+                do not lazy-load the main image at the top of a page.
+              </li>
+            </ul>
+            <h3>Image example from ERAM's YouTube channel</h3>
+            <p>
+              You can use a video's thumbnail as an image. This example links to
+              the original video, so visitors can open it on YouTube.
+            </p>
+            <a
+              href="https://www.youtube.com/watch?v=NlM7PjzVbA0"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                class="media-example-image"
+                src="https://i.ytimg.com/vi/NlM7PjzVbA0/hqdefault.jpg"
+                alt="Thumbnail for ERAM's video about the Audiovisual Communication and Multimedia degree"
+                width="480"
+                height="360"
+                loading="lazy"
+              />
+            </a>
+            <p class="hint">
+              Source:
+              <a
+                href="https://www.youtube.com/@escolauniversitariaeram"
+                target="_blank"
+                rel="noopener noreferrer"
+                >ERAM ESCOLA UNIVERSITÀRIA</a
+              >
+              ·
+              <a
+                href="https://www.youtube.com/watch?v=NlM7PjzVbA0"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Grau en Comunicació Audiovisual i Multimèdia</a
+              >.
+            </p>
+
+            <h3>Local video with <code>&lt;video&gt;</code></h3>
+            <pre><code>&lt;video
+  controls
+  width="720"
+  poster="media/film-poster.jpg"
+  preload="metadata"
+&gt;
+  &lt;source src="media/short-film.mp4" type="video/mp4"&gt;
+  &lt;source src="media/short-film.webm" type="video/webm"&gt;
+  &lt;track
+    src="media/short-film-en.vtt"
+    kind="captions"
+    srclang="en"
+    label="English"
+  &gt;
+  Your browser does not support HTML video.
+&lt;/video&gt;</code></pre>
+            <ul>
+              <li>
+                <code>controls</code> displays the browser's playback controls.
+                Without it, provide accessible controls of your own.
+              </li>
+              <li>
+                Boolean attributes are enabled by their presence:
+                <code>autoplay</code> starts playback, <code>muted</code> starts
+                without sound, <code>loop</code> repeats the video, and
+                <code>playsinline</code> allows inline playback on supported
+                mobile browsers. Autoplay is often blocked unless the media is
+                muted.
+              </li>
+              <li>
+                Each <code>&lt;source&gt;</code> has a <code>src</code> path and
+                a matching media <code>type</code>. The browser picks a
+                supported format from the list.
+              </li>
+              <li>
+                <code>poster</code> sets the preview image shown before
+                playback. <code>width</code> and <code>height</code> set the
+                player's dimensions.
+              </li>
+              <li>
+                <code>preload</code> suggests how much media to fetch before
+                playback: <code>none</code>, <code>metadata</code>, or
+                <code>auto</code>. The browser may choose differently.
+              </li>
+              <li>
+                <code>&lt;track&gt;</code> can provide captions or subtitles in
+                WebVTT (<code>.vtt</code>) format. Captions should include
+                relevant spoken audio and sound information.
+              </li>
+            </ul>
+
+            <h3>Local audio with <code>&lt;audio&gt;</code></h3>
+            <pre><code>&lt;audio controls preload="metadata"&gt;
+  &lt;source src="media/interview.mp3" type="audio/mpeg"&gt;
+  &lt;source src="media/interview.ogg" type="audio/ogg"&gt;
+  Your browser does not support HTML audio.
+&lt;/audio&gt;</code></pre>
+            <p>
+              Audio uses the same <code>src</code>, <code>&lt;source&gt;</code>,
+              <code>controls</code>, and <code>preload</code> ideas. It has no
+              visual dimensions or <code>poster</code>. The boolean attributes
+              <code>autoplay</code>, <code>muted</code>, and
+              <code>loop</code> also work with audio. Provide a transcript when
+              the recording contains meaningful speech or other information.
+            </p>
+
+            <pre><code>&lt;!-- Use a direct audio file, not a YouTube watch or embed URL --&gt;
+&lt;audio controls preload="metadata"&gt;
+  &lt;source src="media/interview.mp3" type="audio/mpeg"&gt;
+  Your browser does not support HTML audio.
+&lt;/audio&gt;</code></pre>
+            <p></p>
+
+            <h3>Embed a YouTube video</h3>
+            <p>
+              A YouTube video is embedded with an
+              <code>&lt;iframe&gt;</code> using YouTube's embed URL, not a
+              <code>&lt;video&gt;</code> element. In the share menu, choose
+              <strong>Embed</strong> and use the provided iframe code.
+            </p>
+            <h3>Embedded video example from ERAM's YouTube channel</h3>
+            <div class="video-embed">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/NlM7PjzVbA0"
+                title="Grau en Comunicació Audiovisual i Multimèdia — ERAM Escola Universitària"
+                allow="
+                  accelerometer;
+                  autoplay;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                  web-share;
+                "
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <p class="hint">
+              Video by
+              <a
+                href="https://www.youtube.com/@escolauniversitariaeram"
+                target="_blank"
+                rel="noopener noreferrer"
+                >ERAM ESCOLA UNIVERSITÀRIA</a
+              >. Use the player controls to play the video and its audio.
+            </p>
+            <pre><code>&lt;div class="video-embed"&gt;
+  &lt;iframe
+  width="560"
+  height="315"
+  src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+  title="Short film about campus life"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+  loading="lazy"
+&gt;&lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+            <p>
+              Replace <code>VIDEO_ID</code> with the ID from the YouTube video's
+              share or embed URL. The <code>title</code> describes the embedded
+              content to assistive technology;
+              <code>allowfullscreen</code> enables full-screen playback;
+              <code>allow</code> lists browser features the player may use; and
+              <code>loading="lazy"</code> defers loading until the player is
+              near the viewport. The <code>youtube-nocookie.com</code> host uses
+              YouTube's privacy-enhanced embed mode.
+            </p>
+
+            <p class="tip">
+              <i class="fa-solid fa-lightbulb"></i>
+              Avoid adding <code>autoplay</code> by default. Browsers commonly
+              block autoplay with sound, and unexpected playback can disrupt
+              people. If autoplay is essential, mute the media and provide
+              visible controls to pause or stop it.
+            </p>
+            <p class="hint">
+              Keep media file sizes reasonable, use formats supported by your
+              target browsers, and provide captions or transcripts so people can
+              access the content in different ways.
+            </p>
+          </section>
+
+          <!-- 7 ============================================================ -->
           <section id="link-css">
-            <h2>7. Linking an external CSS file</h2>
+            <h2>8. Linking an external CSS file</h2>
             <p>
               Write your styles in <code>css/style.css</code> and link it inside
               the <code>&lt;head&gt;</code> of every page.
@@ -708,7 +927,7 @@ span { display: inline-block; }  /* flows + accepts size */
 
           <!-- Writing CSS =============================================== -->
           <section id="write-css">
-            <h2>8. Writing styles: from outside to inside</h2>
+            <h2>9. Writing styles: from outside to inside</h2>
             <p>
               Like HTML, write CSS in <strong>layers</strong>: start with rules
               for the whole page, then the big areas, then each component, and
@@ -812,7 +1031,7 @@ header { background: navy; }
 
           <!-- Reset ===================================================== -->
           <section id="reset">
-            <h2>9. Resetting the default HTML styles</h2>
+            <h2>10. Resetting the default HTML styles</h2>
             <p>
               Every browser applies its own <strong>default styles</strong> (a
               "user agent stylesheet"): <code>body</code> has an 8px margin,
@@ -888,9 +1107,9 @@ button, input, textarea { font: inherit; }</code></pre>
             </p>
           </section>
 
-          <!-- 7 ============================================================ -->
+          <!-- 8 ============================================================ -->
           <section id="tag-class">
-            <h2>10. Using styles: tag vs class vs ID</h2>
+            <h2>11. Using styles: tag vs class vs ID</h2>
             <p>
               A <strong>selector</strong> says <em>which</em> elements a CSS
               rule affects. There are three basic ones.
@@ -1044,9 +1263,9 @@ button, input, textarea { font: inherit; }</code></pre>
             </ul>
           </section>
 
-          <!-- 8 ============================================================ -->
+          <!-- 9 ============================================================ -->
           <section id="boxmodel">
-            <h2>11. How the box model works</h2>
+            <h2>12. How the box model works</h2>
             <p>
               Every element is a box:
               <strong>content → padding → border → margin</strong>.
@@ -1086,9 +1305,9 @@ button, input, textarea { font: inherit; }</code></pre>
 *    { box-sizing: border-box; }   /* total width = 200px */</code></pre>
           </section>
 
-          <!-- 9 ============================================================ -->
+          <!-- 10 =========================================================== -->
           <section id="flex">
-            <h2>12. Flex layout</h2>
+            <h2>13. Flex layout</h2>
             <p>
               Put <code>display: flex</code> on the
               <strong>parent (container)</strong> and its children become
@@ -1215,9 +1434,9 @@ button, input, textarea { font: inherit; }</code></pre>
             </p>
           </section>
 
-          <!-- 10 =========================================================== -->
+          <!-- 11 =========================================================== -->
           <section id="grid">
-            <h2>13. Grid layout</h2>
+            <h2>14. Grid layout</h2>
             <p>
               Put <code>display: grid</code> on the parent and define
               <strong>columns</strong> (and optionally rows). Children fall into
@@ -1284,9 +1503,9 @@ button, input, textarea { font: inherit; }</code></pre>
             </div>
           </section>
 
-          <!-- 11 =========================================================== -->
+          <!-- 12 =========================================================== -->
           <section id="flex-grid">
-            <h2>14. Flex vs Grid</h2>
+            <h2>15. Flex vs Grid</h2>
             <p>
               <strong>Flexbox</strong> = one dimension (a row <em>or</em> a
               column). <strong>Grid</strong> = two dimensions (rows
@@ -1370,9 +1589,9 @@ button, input, textarea { font: inherit; }</code></pre>
             </p>
           </section>
 
-          <!-- 12 =========================================================== -->
+          <!-- 13 =========================================================== -->
           <section id="position">
-            <h2>15. Position: relative vs absolute (overlays)</h2>
+            <h2>16. Position: relative vs absolute (overlays)</h2>
             <p>
               An <code>absolute</code> element is placed relative to the nearest
               ancestor that has <code>position: relative</code> (or any
@@ -1411,9 +1630,9 @@ button, input, textarea { font: inherit; }</code></pre>
 .badge   { position: absolute; top: 10px; right: 10px; }</code></pre>
           </section>
 
-          <!-- 13 =========================================================== -->
+          <!-- 14 =========================================================== -->
           <section id="media-queries">
-            <h2>16. Media queries: mobile and desktop</h2>
+            <h2>17. Media queries: mobile and desktop</h2>
             <p>
               A <strong>media query</strong> applies CSS rules only when a
               condition is true, usually the <strong>screen width</strong>. This
@@ -1501,9 +1720,9 @@ button, input, textarea { font: inherit; }</code></pre>
             </p>
           </section>
 
-          <!-- 14 =========================================================== -->
+          <!-- 15 =========================================================== -->
           <section id="fontawesome">
-            <h2>17. Including Font Awesome</h2>
+            <h2>18. Including Font Awesome</h2>
             <p>
               Add the CDN link in the <code>&lt;head&gt;</code>, then use
               <code>&lt;i&gt;</code> tags with classes.
@@ -1529,9 +1748,9 @@ button, input, textarea { font: inherit; }</code></pre>
             </p>
           </section>
 
-          <!-- 15 =========================================================== -->
+          <!-- 16 =========================================================== -->
           <section id="googlefont">
-            <h2>18. Linking a Google Font</h2>
+            <h2>19. Linking a Google Font</h2>
             <ol>
               <li>
                 Go to
@@ -1564,9 +1783,9 @@ button, input, textarea { font: inherit; }</code></pre>
 body { font-family: 'Poppins', sans-serif; }</code></pre>
           </section>
 
-          <!-- 16 =========================================================== -->
+          <!-- 17 =========================================================== -->
           <section id="transitions">
-            <h2>19. Transitions</h2>
+            <h2>20. Transitions</h2>
             <p>
               A <strong>transition</strong> makes a change between two states
               smooth. It needs a <em>trigger</em> (<code>:hover</code>,
@@ -1695,9 +1914,9 @@ input:checked + .slider::before {
             </p>
           </section>
 
-          <!-- 17 =========================================================== -->
+          <!-- 18 =========================================================== -->
           <section id="animations">
-            <h2>20. Animations (@keyframes)</h2>
+            <h2>21. Animations (@keyframes)</h2>
             <p>
               An <strong>animation</strong> runs by itself, without a trigger,
               and can have many steps. You <strong>define</strong> the steps

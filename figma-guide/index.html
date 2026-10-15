@@ -1,0 +1,1068 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A practical guide to designing, prototyping, and preparing user interfaces in Figma."
+    />
+    <title>Figma UI Design Guide — Multimedia Technologies I</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to guide</a>
+    <input
+      type="checkbox"
+      id="menu-toggle"
+      class="menu-checkbox"
+      aria-label="Show or hide the menu"
+    />
+    <label for="menu-toggle" class="menu-btn" title="Show / hide menu">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <label for="menu-toggle" class="menu-backdrop"></label>
+    <div class="layout">
+      <aside class="sidebar" aria-label="Guide contents">
+        <h1 class="sidebar-title">UI & Figma <span>Guide</span></h1>
+        <p class="sidebar-context">
+          Digital Interaction<br />Multimedia Technologies
+        </p>
+        <p class="sidebar-label">Guide contents</p>
+        <nav>
+          <h3>UI fundamentals</h3>
+          <a href="#ui-colors">Color and palettes</a>
+          <a href="#ui-typography">Typography</a>
+          <a href="#ui-feedback">Microinteractions</a>
+          <a href="#ui-navigation">Navigation</a>
+          <a href="#ui-responsive">Mobile and desktop</a>
+
+          <h3>Figma basics</h3>
+          <a href="#workspace">The workspace</a>
+          <a href="#file-structure">Organize the file</a>
+          <a href="#frames-groups">Frames and groups</a>
+          <a href="#layer-structure">Layer structure</a>
+
+          <h3>Design system</h3>
+          <a href="#styles">Styles and variables</a>
+          <a href="#design-system">Build the system</a>
+          <a href="#components">Components</a>
+
+          <h3>Creating UI</h3>
+          <a href="#text-properties">Text properties</a>
+          <a href="#auto-layout">Auto Layout</a>
+          <a href="#check-styles">Review styles</a>
+
+          <h3>Prototyping</h3>
+          <a href="#prototyping">Connect screens</a>
+
+          <h3>Prepare for handoff</h3>
+          <a href="#dev-mode">Use Dev Mode</a>
+          <a href="#css-properties">Treat CSS as a reference</a>
+          <a href="#css-gen">Use CSS Gen plugin</a>
+        </nav>
+        <p class="sidebar-note">
+          Interface labels can change as Figma updates. The underlying ideas
+          stay useful even when a panel moves.
+        </p>
+      </aside>
+
+      <div class="content">
+        <main id="content">
+          <section class="hero">
+            <p class="eyebrow">Digital interaction</p>
+            <h1>Design a user interface <span>in Figma.</span></h1>
+            <p class="hero-copy">
+              Move from a well-organized file to a clickable prototype and a
+              design that developers can understand.
+            </p>
+          </section>
+
+          <section class="lesson ui-recipe" id="ui-colors">
+            <div class="recipe-copy">
+              <p class="eyebrow">UI fundamentals · 01 · Color and palettes</p>
+              <h2>Give every color a role</h2>
+              <p>
+                Do not choose colors only by personal taste. Define what each
+                color communicates and where it belongs. As a starting exercise,
+                try the <strong>60–30–10 rule</strong>: 60% dominant color for
+                the background, 30% secondary color to distinguish cards or
+                sections, and 10% accent for the primary action. Treat this as a
+                prompt, not a formula every interface must follow.
+              </p>
+              <ul>
+                <li>
+                  Create <strong>semantic styles</strong> such as
+                  <code>Surface / Base</code>, <code>Text / Primary</code>,
+                  <code>Action / Primary</code>, and
+                  <code>Status / Error</code>.
+                </li>
+                <li>
+                  Use
+                  <strong>red for errors or destructive actions</strong> when
+                  the context calls for it. Do not rely on color alone; pair it
+                  with a label or icon.
+                </li>
+                <li>
+                  <strong>Ensure sufficient contrast</strong> between text and
+                  its background. Check contrast with a contrast checker. Aim
+                  for a WCAG ratio of at least 4.5:1 for normal text and 3:1 for
+                  large text.
+                </li>
+              </ul>
+              <p class="recipe-example">
+                <strong>Try it:</strong> Start with a calm background, separate
+                content with a subtle surface, and reserve one accent for the
+                main action. In a banking app, a “Transfer money” button should
+                stand out without competing with every transaction.
+              </p>
+            </div>
+            <figure class="recipe-figure">
+              <img
+                src="img/ui-colors.svg"
+                alt="Interface color example: a light surface, a secondary content card, and a contrasting orange action button."
+                width="560"
+                height="260"
+                loading="lazy"
+              />
+              <figcaption>
+                Original illustration: surface, content, and action colors.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson ui-recipe" id="ui-typography">
+            <div class="recipe-copy">
+              <p class="eyebrow">UI fundamentals · 02 · Typography</p>
+              <h2>Make reading order obvious</h2>
+              <p>
+                Start with a readable typeface. If you use two families, reserve
+                one for headings and one for long-form text. If you are unsure,
+                one family with a few carefully chosen weights is a reliable
+                starting point.
+              </p>
+              <ul>
+                <li>
+                  Define named text styles for roles such as
+                  <strong>heading</strong>, <strong>subheading</strong>,
+                  <strong>body</strong>, and <strong>label</strong>.
+                </li>
+                <li>
+                  Make the difference between a heading and body copy clear in
+                  both size and weight.
+                </li>
+                <li>
+                  Start around
+                  <strong>16 px for primary on-screen body text</strong>, then
+                  check readability at the actual device size. Smaller
+                  supporting labels still need to be legible.
+                </li>
+              </ul>
+              <p class="recipe-example">
+                <strong>Try it:</strong> Create a clear title, quieter
+                supporting information, and comfortable body copy. On a property
+                page, the property name should be easier to spot than its
+                address or secondary details.
+              </p>
+            </div>
+            <figure class="recipe-figure">
+              <img
+                src="img/ui-typography.svg"
+                alt="Typography example with a large heading, medium subheading, readable body text, and a smaller supporting label."
+                width="560"
+                height="260"
+                loading="lazy"
+              />
+              <figcaption>
+                Original illustration: heading, subheading, and body text.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson ui-recipe" id="ui-feedback">
+            <div class="recipe-copy">
+              <p class="eyebrow">UI fundamentals · 03 · Microinteractions</p>
+              <h2>Show that the interface heard the user</h2>
+              <p>
+                Every click or tap should receive a clear response. Give
+                immediate feedback and use animation only when it helps explain
+                a state change or relationship.
+              </p>
+              <ul>
+                <li>
+                  <strong>Design the states you need:</strong> default, hover on
+                  pointer devices, focus, pressed, disabled, and loading.
+                </li>
+                <li>
+                  Use brief <strong>transitions</strong> to make state changes
+                  clear; reserve more elaborate motion for explaining where an
+                  element comes from or goes.
+                </li>
+              </ul>
+              <p class="recipe-example">
+                <strong>Try it:</strong> After saving, change the button label
+                to “Saved” and show a confirmation. The state change
+                communicates the result without decorative animation.
+              </p>
+            </div>
+            <figure class="recipe-figure">
+              <img
+                src="img/ui-feedback.svg"
+                alt="Four button states: default, hover, pressed or loading, and disabled."
+                width="560"
+                height="260"
+                loading="lazy"
+              />
+              <figcaption>
+                Original illustration: design the states of a control.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson ui-recipe" id="ui-navigation">
+            <div class="recipe-copy">
+              <p class="eyebrow">UI fundamentals · 04 · Navigation</p>
+              <h2>Help users understand where they are</h2>
+              <p>
+                <strong>Clear navigation</strong> answers three questions:
+                “Where am I?”, “Where did I come from?”, and “Where can I go?”
+                Use familiar patterns when they fit the product, and give
+                controls understandable labels.
+              </p>
+              <ul>
+                <li>
+                  Mark the current section with more than one cue, such as color
+                  plus weight or an indicator.
+                </li>
+                <li>
+                  Use <strong>breadcrumbs</strong> when pages have a hierarchy
+                  and users need to move back up a level.
+                </li>
+                <li>
+                  Do not treat the “three-click rule” as a law. Prioritize
+                  understandable structure, clear labels, and easy-to-find
+                  actions.
+                </li>
+              </ul>
+              <p class="recipe-example">
+                <strong>Try it:</strong> Highlight the current page in the
+                navigation and, on a deeply nested page, show a path such as
+                “Home / Computing / Laptops” so users can return to a parent
+                category.
+              </p>
+            </div>
+            <figure class="recipe-figure">
+              <img
+                src="img/ui-navigation.svg"
+                alt="Navigation example with a highlighted current section and a breadcrumb path."
+                width="560"
+                height="260"
+                loading="lazy"
+              />
+              <figcaption>
+                Original illustration: breadcrumb and current section.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson ui-recipe" id="ui-responsive">
+            <div class="recipe-copy">
+              <p class="eyebrow">UI fundamentals · 05 · Mobile and desktop</p>
+              <h2>Adapt the interface to the context</h2>
+              <p>
+                Mobile is not simply a narrow desktop screen: available space,
+                posture, and interaction all change. Prioritize the content and
+                adapt the layout to the task.
+              </p>
+              <ul>
+                <li>
+                  <strong>Touch screens have no hover state.</strong> Do not
+                  hide important actions behind hover.
+                </li>
+                <li>
+                  Make touch targets comfortable to use;
+                  <strong>44 × 44 px</strong> is a useful starting reference,
+                  especially for frequent actions.
+                </li>
+                <li>
+                  Consider the <strong>thumb zone</strong> for common mobile
+                  actions. A bottom navigation bar is not right for every
+                  product or task.
+                </li>
+                <li>
+                  Desktop can make room for columns and sidebars. Mobile often
+                  benefits from stacking content and rethinking the menu. Test
+                  both layouts.
+                </li>
+              </ul>
+              <p class="recipe-example">
+                <strong>Try it:</strong> Identify the essential content, decide
+                what should rearrange or collapse, then check that important
+                tasks remain easy in both layouts.
+              </p>
+            </div>
+            <figure class="recipe-figure">
+              <img
+                src="img/ui-responsive.svg"
+                alt="Responsive library example: desktop layout with a sidebar and grid, compared with mobile stacked content and bottom navigation."
+                width="560"
+                height="260"
+                loading="lazy"
+              />
+              <figcaption>
+                Original illustration: priorities adapted to each screen.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson" id="workspace">
+            <p class="eyebrow">01 · Get oriented</p>
+            <h2>The Figma workspace</h2>
+            <p>
+              The editor is organized around the canvas. Select an object to see
+              the controls that apply to it; the right panel changes depending
+              on what you select and which mode you are using.
+            </p>
+            <figure class="interface-figure">
+              <img
+                src="img/workspace.png"
+                alt="Figma editor screenshot showing the pages and layers panel, design canvas, and properties panel."
+                width="3018"
+                height="1900"
+                loading="lazy"
+              />
+              <figcaption>
+                Figma workspace screenshot. Panel names and locations can change
+                between versions.
+              </figcaption>
+            </figure>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Top toolbar</h3>
+                <p>
+                  Switch between design tools: move and scale, frames, shapes,
+                  pen, text, comments, and resources such as components. Use the
+                  play/present control to preview a prototype.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Pages &amp; left panel</h3>
+                <p>
+                  Pages organize a file into large chapters. The Layers view
+                  shows the selected page's frames and objects in their
+                  parent-child hierarchy. Assets provides access to reusable
+                  components and libraries.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Canvas</h3>
+                <p>
+                  The central work area where you arrange frames and design
+                  objects. Pan around, zoom, and select objects here. The canvas
+                  is not itself a screen—frames define screens and containers.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Right properties panel</h3>
+                <p>
+                  Design controls edit position, size, layout, appearance, and
+                  export settings. Prototype controls connect views and
+                  configure interactions. Dev Mode presents
+                  implementation-oriented inspection details.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Bottom controls</h3>
+                <p>
+                  Find zoom and view controls, help, and collaboration tools.
+                  Some controls move or change with Figma updates and window
+                  size.
+                </p>
+              </article>
+            </div>
+            <p class="note">
+              <strong>Tip:</strong> If a property seems to be missing, select
+              the object first, then check the active right-panel tab and the
+              current mode.
+            </p>
+          </section>
+
+          <section class="lesson" id="file-structure">
+            <p class="eyebrow">02 · Plan before drawing</p>
+            <h2>Create a useful file structure</h2>
+            <p>
+              Give the file a name that tells a teammate what it contains. Use a
+              project or course name, a clear product or assignment name, and a
+              state or version when needed.
+            </p>
+            <pre><code>MT1 — Campus Companion — UI study
+MT1 — Interactive Exhibition — Prototype v1</code></pre>
+            <p>
+              Name pages for their purpose. For a first responsive interface,
+              keep related screens easy to find:
+            </p>
+            <div class="tree">
+              <div>File <span>MT1 — Campus Companion</span></div>
+              <div class="tree-child">Page <span>00 — Cover</span></div>
+              <div class="tree-child">Page <span>01 — Design System</span></div>
+              <div class="tree-child">Page <span>02 — Desktop UI</span></div>
+              <div class="tree-child">Page <span>03 — Mobile UI</span></div>
+            </div>
+            <p>
+              Separate desktop and mobile pages when it helps you work, present,
+              or review each layout. If the project is small, or both layouts
+              need to be compared side by side, keep them together on one page
+              in clearly named sections. The point is to make the file easy to
+              navigate—not to follow a rigid page count.
+            </p>
+            <p>
+              Use a consistent naming pattern for frames too:
+              <code>Desktop / Home</code>, <code>Desktop / Search</code>,
+              <code>Mobile / Home</code>. Avoid names such as
+              <code>Frame 24</code>, <code>Final final</code>, or
+              <code>New page 2</code>.
+            </p>
+          </section>
+
+          <section class="lesson" id="styles">
+            <p class="eyebrow">03 · Reuse decisions</p>
+            <h2>Styles keep a design consistent</h2>
+            <p>
+              A style is a named, reusable design choice. It lets you apply the
+              same color or text treatment again and update its definition
+              without hunting through every screen. Shared styles also make
+              decisions visible to collaborators.
+            </p>
+            <div class="image-text-grid">
+              <article class="image-text-card">
+                <figure class="interface-figure interface-figure-portrait">
+                  <img
+                    src="img/styles.png"
+                    alt="Figma Styles panel screenshot showing reusable text, color, and layout styles."
+                    width="470"
+                    height="1018"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Figma Styles panel: named text and color styles are
+                    available to reuse across the file.
+                  </figcaption>
+                </figure>
+                <h3>Reusable style types</h3>
+                <ul>
+                  <li>
+                    <strong>Color styles:</strong> name by use, such as
+                    <code>Text / Primary</code>, <code>Surface / Default</code>,
+                    or <code>Action / Primary</code>—not only by a hex value.
+                  </li>
+                  <li>
+                    <strong>Text styles:</strong> define a typeface, weight,
+                    size, line height, and (when needed) letter spacing for a
+                    role such as <code>Heading / H1</code> or
+                    <code>Body / Regular</code>.
+                  </li>
+                  <li>
+                    <strong>Effect styles:</strong> share treatments such as a
+                    shadow, when repeated consistently in the interface.
+                  </li>
+                </ul>
+              </article>
+              <article class="image-text-card">
+                <div class="example-row" aria-label="Examples of named styles">
+                  <div class="swatch swatch-ink">
+                    <span>Text / Primary</span>
+                  </div>
+                  <div class="swatch swatch-paper">
+                    <span>Surface / Default</span>
+                  </div>
+                  <div class="type-sample">
+                    <span class="sample-label">Heading / H1</span>
+                    <strong>Find your way</strong>
+                  </div>
+                </div>
+                <h3>Name styles by their role</h3>
+                <p>
+                  Use names that explain where a value belongs, such as
+                  <code>Text / Primary</code> or <code>Heading / H1</code>.
+                  Clear names make the system easier to scan and help
+                  collaborators choose the right style.
+                </p>
+                <p>
+                  Styles and variables are related but not identical. A style
+                  packages formatting; a variable is a reusable value, often
+                  useful for tokens, modes, or values that may change by theme
+                  or context. Use the option that fits the project and the Figma
+                  features available to you.
+                </p>
+              </article>
+            </div>
+            <p class="note">
+              Create styles as you go or prepare a small set first. Either way,
+              turn repeated decisions into shared styles instead of recreating
+              near-identical values by eye.
+            </p>
+          </section>
+
+          <section class="lesson" id="design-system">
+            <p class="eyebrow">04 · Make a small system</p>
+            <h2>Build a design system that helps</h2>
+            <p>
+              A design system is a shared set of decisions and reusable parts.
+              Start with only what your interface needs; it can evolve alongside
+              the design.
+            </p>
+            <p class="note">
+              <strong>Figma Learn tutorial:</strong>
+              <a
+                href="https://help.figma.com/hc/en-us/sections/14548397990423-Introduction-to-design-systems"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Introduction to design systems</a
+              >
+            </p>
+            <figure class="interface-figure">
+              <img
+                src="img/design-system.png"
+                alt="Figma design system page screenshot showing typography, color styles, components, layout examples, and the Styles panel."
+                width="3018"
+                height="1884"
+                loading="lazy"
+              />
+              <figcaption>
+                Figma design system page: collect reusable decisions on a
+                dedicated page or a clearly marked section.
+              </figcaption>
+            </figure>
+            <div class="system-list">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Color</h3>
+                  <p>
+                    Define roles for text, surfaces, borders, and actions. Check
+                    contrast, and avoid using color as the only way to
+                    communicate meaning.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Typography</h3>
+                  <p>
+                    Choose a readable typeface and a limited scale of text
+                    roles. Give each role a named text style so hierarchy stays
+                    consistent.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Components</h3>
+                  <p>
+                    Build reusable elements—buttons, fields, navigation, and
+                    cards—when their repeated behavior or appearance becomes
+                    clear.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <span>04</span>
+                <div>
+                  <h3>Layout</h3>
+                  <p>
+                    Decide on alignment, spacing, content widths, and responsive
+                    behavior. Use Auto Layout and constraints to express how
+                    elements relate, not just where they happen to sit.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <p>
+              A separate Design System page makes the rules and components easy
+              to review. For a tiny exercise, a clearly marked system section on
+              the UI page may be enough.
+            </p>
+          </section>
+
+          <section class="lesson" id="frames-groups">
+            <p class="eyebrow">05 · Choose the right container</p>
+            <h2>Frame or group?</h2>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>Frame</h3>
+                <p>
+                  A frame is a container with its own size, layout, fill,
+                  clipping, and constraints. Use it for screens, sections,
+                  cards, navigation bars, and any object that needs to contain
+                  or organize content.
+                </p>
+                <p class="example">
+                  Think: a small artboard inside your screen.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3>Group</h3>
+                <p>
+                  A group makes several selected objects easier to select and
+                  move together. It does not provide the same independent
+                  container and layout behavior as a frame.
+                </p>
+                <p class="example">Think: a quick bundle of related objects.</p>
+              </article>
+            </div>
+            <p>
+              Use frames for most interface structure. Groups are handy for a
+              simple bundle, but convert or reframe the contents when you need
+              layout rules, clipping, a background, or a meaningful parent in
+              the layer tree.
+            </p>
+            <p class="note">
+              <strong>Figma Learn tutorial:</strong>
+              <a
+                href="https://help.figma.com/hc/en-us/articles/30974070391191-FD4B-Create-a-frame-using-frame-presets"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Create a frame using frame presets</a
+              >
+            </p>
+          </section>
+
+          <section class="lesson" id="text-properties">
+            <p class="eyebrow">06 · Creating UI</p>
+            <h2>Text properties</h2>
+            <p>
+              Select the text tool, click to create a text layer, and type. In
+              the Design panel, set the font family, weight, size, line height,
+              letter spacing, alignment, and text color. Choose a text style
+              when one exists. Set a text box to resize appropriately: fixed
+              size, auto width, or auto height, depending on how its content
+              should wrap.
+            </p>
+            <p>
+              Use text roles consistently—page title, section heading, body, and
+              label. Check real copy, not just placeholder text; longer words
+              and translations can change line breaks and layout.
+            </p>
+          </section>
+
+          <section class="lesson" id="auto-layout">
+            <p class="eyebrow">07 · Creating UI</p>
+            <h2>Auto Layout</h2>
+            <p>
+              Auto Layout arranges the children of a frame in a direction, with
+              configurable spacing, padding, alignment, and resizing behavior.
+              Use it for button labels with icons, navigation lists, card
+              contents, form fields, and page sections.
+            </p>
+            <div class="steps">
+              <p><span>1</span> Select related layers and add Auto Layout.</p>
+              <p><span>2</span> Choose horizontal or vertical flow.</p>
+              <p>
+                <span>3</span> Set padding, gap, alignment, and item spacing.
+              </p>
+              <p>
+                <span>4</span> Set resizing: Hug contents, Fill container, or a
+                deliberate fixed size.
+              </p>
+              <p>
+                <span>5</span> Change the content to check that the layout
+                responds as intended.
+              </p>
+            </div>
+            <figure class="interface-figure interface-figure-portrait">
+              <img
+                src="img/autolayout.png"
+                alt="Figma Auto Layout panel showing flow, resizing, alignment, gap, and padding controls."
+                width="474"
+                height="608"
+                loading="lazy"
+              />
+              <figcaption>
+                Auto Layout controls for flow, resizing, alignment, spacing,
+                and padding.
+              </figcaption>
+            </figure>
+            <p>
+              Auto Layout makes a design more robust: a button can grow with its
+              label, and a vertical list can accommodate another item. It does
+              not automatically make a design responsive—set and test the
+              resizing rules that match your intended behavior.
+            </p>
+            <p class="note">
+              <strong>Figma Learn tutorial:</strong>
+              <a
+                href="https://help.figma.com/hc/en-us/articles/31351261703063-FD4B-Auto-layout-fundamentals"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Auto layout fundamentals</a
+              >
+            </p>
+          </section>
+
+          <section class="lesson" id="layer-structure">
+            <p class="eyebrow">08 · Creating UI</p>
+            <h2>Structure layers by content</h2>
+            <p>
+              A developer or teammate should be able to understand the layer
+              tree without opening every object. Name layers for their purpose,
+              group related content in frames, and match the structure to the
+              visual and functional hierarchy.
+            </p>
+            <div class="image-text-grid">
+              <article class="image-text-card">
+                <div class="tree">
+                  <div>Frame <span>Desktop / Home</span></div>
+                  <div class="tree-child">Frame <span>Header</span></div>
+                  <div class="tree-grandchild">
+                    Component <span>Brand / Logo</span>
+                  </div>
+                  <div class="tree-grandchild">
+                    Frame <span>Primary navigation</span>
+                  </div>
+                  <div class="tree-child">Frame <span>Main content</span></div>
+                  <div class="tree-grandchild">
+                    Frame <span>Welcome section</span>
+                  </div>
+                  <div class="tree-greatgrandchild">
+                    Text <span>Page title</span>
+                  </div>
+                  <div class="tree-greatgrandchild">
+                    Button <span>Explore projects</span>
+                  </div>
+                  <div class="tree-child">Frame <span>Footer</span></div>
+                </div>
+                <h3>Organize by hierarchy</h3>
+                <p>
+                  Keep related content together in meaningful frames. A clear
+                  parent-child structure shows how the screen is organized and
+                  makes it easier to locate interface elements.
+                </p>
+              </article>
+              <article class="image-text-card">
+                <figure class="interface-figure interface-figure-portrait">
+                  <img
+                    src="img/layer-organization.png"
+                    alt="Figma Layers panel screenshot showing a nested interface hierarchy with meaningful layer names."
+                    width="796"
+                    height="1322"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Figma Layers panel: meaningful names and clear parent-child
+                    relationships make the file easier to inspect.
+                  </figcaption>
+                </figure>
+                <h3>Name layers by purpose</h3>
+                <p>
+                  Replace names such as <code>Rectangle 18</code> or
+                  <code>Group 4</code> with meaningful names. Avoid excessive
+                  nesting: each frame should represent a useful layout,
+                  component, or content section, not merely add another layer of
+                  indirection.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="components">
+            <p class="eyebrow">09 · Design system</p>
+            <h2>Create components with intent</h2>
+            <p>
+              A component is a reusable source element. Its instances stay
+              linked to the main component, so a shared change can flow through
+              the interface. Make components for patterns you expect to repeat
+              or maintain—not every shape.
+            </p>
+            <ol>
+              <li>
+                Design and name the element clearly, for example
+                <code>Button / Primary</code>.
+              </li>
+              <li>
+                Use Auto Layout when the component should adapt to its content.
+              </li>
+              <li>
+                Create a component, then place instances where the pattern is
+                needed.
+              </li>
+              <li>
+                Use component properties and variants for meaningful options,
+                such as size or state.
+              </li>
+              <li>
+                Keep instances connected; detach only when a real exception
+                requires it.
+              </li>
+            </ol>
+            <p>
+              A clear component hierarchy might be
+              <code>Button / Primary</code> and <code>Button / Secondary</code>.
+              Avoid making many variants for differences that belong in separate
+              components or in content.
+            </p>
+            <p class="note">
+              <strong>Figma Learn tutorials:</strong>
+              <a
+                href="https://help.figma.com/hc/en-us/sections/23691657321239"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Components</a
+              >
+            </p>
+            <figure class="interface-figure">
+              <img
+                src="img/components.png"
+                alt="Figma canvas screenshot showing reusable component examples and component instances."
+                width="1278"
+                height="938"
+                loading="lazy"
+              />
+              <figcaption>
+                Figma components on the canvas. Use instances of shared patterns
+                rather than rebuilding each one from scratch.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson" id="prototyping">
+            <p class="eyebrow">10 · Prototyping</p>
+            <h2>Prototype by linking views</h2>
+            <p>
+              A prototype connects frames to demonstrate a user flow. Select a
+              button, menu item, or other interactive layer, switch to the
+              Prototype controls, and connect it to the destination frame.
+            </p>
+            <div class="steps">
+              <p>
+                <span>1</span> Choose a starting frame and set it as the flow
+                starting point.
+              </p>
+              <p>
+                <span>2</span> Select an interactive element and drag its
+                connection to another frame.
+              </p>
+              <p>
+                <span>3</span> Choose a trigger, such as On click, and an
+                action, such as Navigate to.
+              </p>
+              <p>
+                <span>4</span> Set an appropriate transition, then preview and
+                test the flow.
+              </p>
+            </div>
+            <p>
+              Link the views that tell the story: for example,
+              <code>Home → Menu → Project detail</code>. Test every link, the
+              back path, overlays, and any scrolling behavior in presentation
+              mode. A prototype is a model of the intended interaction, not a
+              substitute for implementing it.
+            </p>
+            <p class="note">
+              <strong>Figma Learn tutorial:</strong>
+              <a
+                href="https://help.figma.com/hc/en-us/articles/31010011820311-FD4B-Prototyping-fundamentals"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Prototyping fundamentals</a
+              >
+            </p>
+            <figure class="interface-figure">
+              <img
+                src="img/prototype.png"
+                alt="Figma prototype screenshot showing several connected interface frames and interaction links."
+                width="1720"
+                height="842"
+                loading="lazy"
+              />
+              <figcaption>
+                Figma prototype canvas: connections show how a user moves
+                between frames.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson" id="dev-mode">
+            <p class="eyebrow">11 · Prepare for handoff</p>
+            <h2>Use Dev Mode</h2>
+            <p>
+              A useful handoff connects the design's structure to the way the
+              interface will be built. Before sharing, name frames and layers,
+              use components for repeated elements, apply shared styles, and
+              remove unused experiments from the final working area.
+            </p>
+            <h3 class="subheading">Use Dev Mode to inspect</h3>
+            <p>
+              Open Dev Mode and select a frame or layer. Review its size,
+              position, spacing, layout behavior, typography, colors, and
+              component context. Check relevant breakpoints or mobile and
+              desktop frames rather than assuming one screen describes every
+              state. Developers can inspect values and copy code snippets where
+              available; the design and implementation still need to be
+              discussed.
+            </p>
+            <figure class="interface-figure">
+              <img
+                src="img/dev-mode.png"
+                alt="Figma Dev Mode screenshot showing a selected interface layer with inspected layout and CSS properties."
+                width="2904"
+                height="1538"
+                loading="lazy"
+              />
+              <figcaption>
+                Figma Dev Mode inspection view. Inspect the selected layer and
+                verify how its values relate to the design.
+              </figcaption>
+            </figure>
+          </section>
+
+          <section class="lesson" id="css-properties">
+            <p class="eyebrow">12 · Prepare for handoff</p>
+            <h2>Treat CSS as a reference</h2>
+            <div class="image-text-grid">
+              <article class="image-text-card">
+                <pre><code>.primary-button {
+  background-color: #26352d;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+}</code></pre>
+                <h3>Use standard CSS syntax</h3>
+                <p>
+                  CSS declarations use lowercase, kebab-case property names. The
+                  examples above are <code>background-color</code>,
+                  <code>border-radius</code>, and <code>font-size</code>. In
+                  JavaScript, CSS properties are often written in camelCase when
+                  accessed through an object; ordinary CSS files use kebab-case.
+                </p>
+              </article>
+              <article class="image-text-card">
+                <figure class="interface-figure interface-figure-portrait">
+                  <img
+                    src="img/css-properties.png"
+                    alt="Figma code inspection screenshot showing layout declarations in CSS with kebab-case property names."
+                    width="574"
+                    height="872"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    CSS inspection example: property names use lowercase
+                    kebab-case. Review generated code before using it.
+                  </figcaption>
+                </figure>
+                <h3>Inspect and adapt generated CSS</h3>
+                <p>
+                  Prefer standard properties and avoid unnecessary vendor
+                  prefixes. Do not paste a whole block blindly: remove
+                  irrelevant values, use the project's existing tokens and class
+                  names, and check that the code matches the intended responsive
+                  layout.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="css-gen">
+            <p class="eyebrow">13 · Prepare for handoff</p>
+            <h2>Use CSS Gen plugin</h2>
+            <p>
+              CSS Gen can help collect CSS for designed elements into a
+              stylesheet. Treat its output as a starting point: plugin options
+              and generated code can vary by version and by selection.
+            </p>
+            <ol>
+              <li>
+                Select the screen or frame you want to prepare. Make sure its
+                layers have clear names and repeated elements use components
+                where appropriate.
+              </li>
+              <li>
+                Open Figma's Resources or plugins menu, find and run
+                <strong>CSS Gen</strong>, then choose the option to generate CSS
+                for the selected design or its elements.
+              </li>
+              <li>
+                Generate or copy the CSS output. If the plugin offers a
+                stylesheet or combined-styles option, use it to collect the
+                selected design's rules together.
+              </li>
+              <li>
+                Review the result before adding it to your project: keep useful
+                declarations, remove duplicates and unnecessary vendor prefixes,
+                use kebab-case, and replace generic selectors or values with the
+                project's own class names and tokens.
+              </li>
+              <li>
+                Compare the CSS against Dev Mode and the design at desktop and
+                mobile sizes. Generated CSS does not implement application
+                behavior or guarantee a responsive layout.
+              </li>
+            </ol>
+            <p class="note">
+              <strong>Keep the source of truth clear:</strong> name and reuse
+              Figma styles or variables in the design, then consolidate the
+              generated declarations into your codebase's existing stylesheet
+              and conventions. Do not paste a fresh block on every run without
+              checking for duplicate or conflicting rules.
+            </p>
+          </section>
+
+          <section class="lesson" id="check-styles">
+            <p class="eyebrow">14 · Creating UI</p>
+            <h2>Check the styles, not just the screenshot</h2>
+            <p>
+              Select representative layers in Design or Dev Mode and verify the
+              values behind the appearance. A screen can look right at one zoom
+              level but still contain inconsistent styles, accidental overrides,
+              or awkward resizing.
+            </p>
+            <ul class="checklist">
+              <li>
+                Colors come from named styles or variables where appropriate.
+              </li>
+              <li>
+                Text uses the intended text styles, font weights, and line
+                heights.
+              </li>
+              <li>Repeated spacing and corner radii are consistent.</li>
+              <li>
+                Auto Layout padding, gaps, and resizing behave with real
+                content.
+              </li>
+              <li>
+                Desktop and mobile frames are named and checked separately.
+              </li>
+              <li>
+                Components and instances are used consistently; overrides are
+                intentional.
+              </li>
+              <li>Prototype links, starting points, and destinations work.</li>
+              <li>Layer names describe their content and hierarchy.</li>
+            </ul>
+            <p class="note">
+              <strong>Final check:</strong> select the frame, inspect its
+              properties, then preview the prototype. Share a link with the
+              appropriate access and tell collaborators which page and flow to
+              review.
+            </p>
+          </section>
+
+          <footer class="guide-footer">
+            <span>Multimedia Technologies I · ERam School of Arts</span>
+          </footer>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An introduction to user experience design, Jesse James Garrett's five planes, and foundational UX laws."
+    />
+    <title>UX Design Guide — Multimedia Technologies I</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../figma-guide/css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to guide</a>
+    <input
+      type="checkbox"
+      id="menu-toggle"
+      class="menu-checkbox"
+      aria-label="Show or hide the menu"
+    />
+    <label for="menu-toggle" class="menu-btn" title="Show / hide menu">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <label for="menu-toggle" class="menu-backdrop"></label>
+    <div class="layout">
+      <aside class="sidebar" aria-label="Guide contents">
+        <h1 class="sidebar-title">UX Design <span>Guide</span></h1>
+        <p class="sidebar-context">
+          Digital Interaction<br />Multimedia Technologies
+        </p>
+        <p class="sidebar-label">Guide contents</p>
+        <nav>
+          <h3>UX foundations</h3>
+          <a href="#what-is-ux">What is UX?</a>
+          <a href="#ux-vs-ui">UX vs UI</a>
+          <a href="#fallman">Fallman's design approaches</a>
+          <a href="#frameworks">UX frameworks</a>
+
+          <h3>Garrett's five planes</h3>
+          <a href="#discovery">1 · Discovery</a>
+          <a href="#definition">2 · Definition</a>
+          <a href="#structure">3 · Structure</a>
+          <a href="#skeleton">4 · Skeleton</a>
+          <a href="#surface">5 · Surface</a>
+
+          <h3>UX laws</h3>
+          <a href="#ux-laws">Psychology for designers</a>
+        </nav>
+        <p class="sidebar-note">
+          UX design connects people's needs with the structure, behavior, and
+          appearance of a product.
+        </p>
+      </aside>
+
+      <div class="content">
+        <main id="content">
+          <section class="hero">
+            <p class="eyebrow">Digital interaction</p>
+            <h1>
+              Understand the experience <span>before the interface.</span>
+            </h1>
+            <p class="hero-copy">
+              Explore user experience fundamentals, practical design processes,
+              Jesse James Garrett's five planes, and cognitive principles that
+              help make products easier to use.
+            </p>
+          </section>
+
+          <section class="lesson" id="what-is-ux">
+            <p class="eyebrow">UX foundations · 01</p>
+            <h2>What is UX?</h2>
+            <p>
+              User experience (UX) is the overall experience a person has when
+              interacting with a product, system, or service. It includes how
+              well people can achieve their goals, how accessible and efficient
+              the experience is, and how it makes them feel.
+            </p>
+            <p class="note">
+              UX is not limited to screens. It includes the whole journey:
+              discovering a service, using it, getting help, and understanding
+              what happens next.
+            </p>
+          </section>
+
+          <section class="lesson" id="ux-vs-ui">
+            <p class="eyebrow">UX foundations · 02</p>
+            <h2>UX vs UI: two connected disciplines</h2>
+            <p>
+              UX and UI work together, but they focus on different parts of an
+              experience. UX shapes how the product works and whether it meets
+              people's needs. UI shapes the visual and interactive surface
+              through which people use it.
+            </p>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>UX · Structure and experience</h3>
+                <p>
+                  UX design focuses on how a product works, how efficiently
+                  people can use it, and whether the overall experience
+                  satisfies their needs.
+                </p>
+                <p>
+                  Typical activities include user research, information
+                  architecture, navigation flows, usability testing, and
+                  wireframing.
+                </p>
+                <p class="example">
+                  Example: simplify buying a ticket by finding structural
+                  problems and reducing checkout from five screens to two.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3>UI · Visual and interactive surface</h3>
+                <p>
+                  User interface design is the tangible point of visual
+                  communication and interaction between a person and a computer.
+                </p>
+                <p>
+                  Typical activities include choosing colors, typography, sizes,
+                  shapes, menus, and the spatial layout of interface elements.
+                </p>
+                <p class="example">
+                  Example: design a high-contrast “Buy” button, choose readable
+                  type, and make the confirmation screen clear.
+                </p>
+              </article>
+            </div>
+            <p class="note">
+              A beautiful interface cannot fix a confusing process, and a
+              well-structured process still needs a clear interface. Good
+              products bring UX and UI decisions together.
+            </p>
+          </section>
+
+          <section class="lesson" id="fallman">
+            <p class="eyebrow">UX foundations · 03</p>
+            <h2>Fallman's three ways of understanding design</h2>
+            <p>
+              Daniel Fallman describes three perspectives on design. They help
+              us notice whether a project is being treated mainly as a problem
+              to control, an opportunity for expression, or a process that
+              balances people, context, and technology.
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Conservative · Control and problem-solving</h3>
+                <p>
+                  Design is a systematic, rational process similar to
+                  engineering. It prioritizes control, predictability, and
+                  solving a defined problem.
+                </p>
+                <p class="example">
+                  Example: a hospital X-ray interface must follow strict safety
+                  rules and behave predictably to help prevent critical errors.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Romantic · Expression and intuition</h3>
+                <p>
+                  Design is a subjective, artistic activity guided by intuition
+                  and a strong creative vision.
+                </p>
+                <p class="example">
+                  Example: an immersive luxury-fashion campaign site might break
+                  familiar navigation conventions to create a striking visual
+                  emotion, even if it becomes less usable.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Pragmatic · Reflection and collaboration</h3>
+                <p>
+                  Design is iterative, reflective, and collaborative. The
+                  designer mediates between the people, the context, and the
+                  available technology.
+                </p>
+                <p class="example">
+                  Example: a ride-hailing route map balances visual clarity,
+                  complex GPS technology, and the practical needs of both
+                  drivers and passengers.
+                </p>
+              </article>
+            </div>
+            <p class="note">
+              These perspectives are not a ranking. Real projects often need all
+              three: control where safety matters, expression where it helps
+              communicate, and pragmatic iteration to bring the pieces together.
+            </p>
+          </section>
+
+          <section class="lesson" id="frameworks">
+            <p class="eyebrow">UX foundations · 04</p>
+            <h2>Frameworks for moving from problem to solution</h2>
+            <p>
+              UX frameworks help teams organize their work. Each provides a
+              different way to explore a problem, make decisions, and learn from
+              a solution.
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Design Thinking</h3>
+                <p>
+                  A five-phase, people-centered framework: empathize to
+                  understand the problem, define it, ideate, prototype, and
+                  test. Teams can revisit earlier phases as they learn.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Double Diamond</h3>
+                <p>
+                  Alternates divergent exploration with convergent selection:
+                  discover the problem, define it, develop possible solutions,
+                  and deliver a chosen direction.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Lean UX</h3>
+                <p>
+                  Uses short, collaborative cycles instead of heavy
+                  documentation: build the smallest useful version, measure real
+                  user response, learn, and iterate.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="garrett">
+            <p class="eyebrow">A process from abstract to concrete</p>
+            <h2>Jesse James Garrett's five planes</h2>
+            <p>
+              Jesse James Garrett's model organizes UX design into five
+              connected planes. The process moves from abstract decisions toward
+              concrete ones: strategy, requirements, structure, skeleton, and
+              surface. Each plane builds on the questions answered in the one
+              below it.
+            </p>
+            <div
+              class="tree"
+              aria-label="Garrett's five planes, from abstract to concrete"
+            >
+              <div>Most concrete <span>Surface · visual appearance</span></div>
+              <div class="tree-child">
+                Skeleton <span>Interface blueprint</span>
+              </div>
+              <div class="tree-grandchild">
+                Structure <span>Organization and behavior</span>
+              </div>
+              <div class="tree-grandchild">
+                Definition <span>Requirements and features</span>
+              </div>
+              <div class="tree-child">
+                Discovery <span>Goals and user needs</span>
+              </div>
+              <div>Most abstract <span>Strategy</span></div>
+            </div>
+          </section>
+
+          <section class="lesson" id="discovery">
+            <p class="eyebrow">Garrett's planes · 01</p>
+            <h2>Discovery · Research and strategy</h2>
+            <p>
+              Start by asking what the project needs to achieve and what the
+              users need. Meaningful solutions begin with understanding people's
+              goals, interests, and context.
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Debrief</h3>
+                <p>
+                  Bring the team onto the same page by recording objectives,
+                  conclusions, measures of success, and unanswered questions.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Desk research</h3>
+                <p>
+                  Learn from existing resources such as articles, books,
+                  reports, and documentaries. Search broadly, then assess how
+                  relevant and reliable each source is.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Questionnaires and interviews</h3>
+                <p>
+                  Turn the questions that remain after initial research into
+                  questionnaires and direct conversations with people.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Benchmarking · State of the art</h3>
+                <p>
+                  Examine other tools and services people use for similar
+                  purposes. Notice the expectations and conventions they have
+                  learned.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Personas</h3>
+                <p>
+                  Summarize research in accessible user profiles. Base personas
+                  on evidence from research, not assumptions or stereotypes.
+                </p>
+              </article>
+            </div>
+            <p class="note">
+              <strong>Example:</strong> A persona for Mark, a 36-year-old
+              resident of Los Angeles, might summarize his goals and the app
+              features he prefers. Those details should come from research,
+              rather than being invented to make the profile feel complete.
+            </p>
+          </section>
+
+          <section class="lesson" id="definition">
+            <p class="eyebrow">Garrett's planes · 02</p>
+            <h2>Definition · Requirements and opportunities</h2>
+            <p>
+              Turn strategy into formal requirements: decide which
+              characteristics the product needs. This abstract phase moves from
+              research findings toward opportunities and plausible solutions.
+            </p>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>Brainstorming</h3>
+                <p>
+                  Share and make sense of research findings, identify patterns,
+                  and explore possible solutions together.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3>User scenarios</h3>
+                <p>
+                  Tell a story about how a person interacts with the product.
+                  Scenarios reveal which features are needed and what
+                  requirements the team may have missed.
+                </p>
+              </article>
+            </div>
+            <p class="note">
+              <strong>Example:</strong> Describe Jonathan's first use of an app:
+              from installing it through the app store, to understanding his
+              goals, to exploring the brand's video. The story helps identify
+              the information and steps he needs along the way.
+            </p>
+          </section>
+
+          <section class="lesson" id="structure">
+            <p class="eyebrow">Garrett's planes · 03</p>
+            <h2>Structure · Organization and behavior</h2>
+            <p>
+              Define the project's scope and how its parts fit together and
+              behave. Structure turns requirements into diagrams and flows that
+              make the experience coherent.
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Information architecture</h3>
+                <p>
+                  Organize content so people can find it naturally. A confusing
+                  structure is like putting oranges beside toothpaste: items
+                  that do not belong together become difficult to locate.
+                </p>
+                <p class="example">
+                  Example: map a landing page and its subpages, such as About
+                  Us, Opening Hours, Gallery, and Press.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>User flows</h3>
+                <p>
+                  Connect the steps in an experience and show how people move
+                  from one part to another. Use blocks, decisions, and
+                  conditions to make possible paths clear.
+                </p>
+                <p class="example">
+                  Example: map the route from a game's pause screen to
+                  restarting the game or reading its legal terms.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Card sorting</h3>
+                <p>
+                  Ask people to sort information cards into groups. Their
+                  groupings can reveal a useful basis for navigation and the
+                  site's information architecture.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Conventions</h3>
+                <p>
+                  People already know many established patterns. Use familiar
+                  conventions to help them, because changing existing habits
+                  takes effort.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Error handling</h3>
+                <p>
+                  Prevent errors where possible, but plan for them to happen.
+                  Explain what went wrong and give people a clear way to recover
+                  and continue.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="skeleton">
+            <p class="eyebrow">Garrett's planes · 04</p>
+            <h2>Skeleton · The interface blueprint</h2>
+            <p>
+              Make the structure concrete by deciding which components let
+              people use the finished product. The skeleton is the blueprint for
+              the interface.
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Interaction design</h3>
+                <p>
+                  Consider how people interact with the product. New devices can
+                  bring new forms of interaction; do not design only for an
+                  isolated clickable screen.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Navigation design</h3>
+                <p>
+                  Help people move through content easily and intuitively, so
+                  they can understand where they are and feel confident choosing
+                  what to do next.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Sketching</h3>
+                <p>
+                  Try several screen layouts and interface concepts quickly.
+                  Early on, prioritize quantity over polish; then review,
+                  select, and iterate toward quality. Share sketches with the
+                  team to get feedback.
+                </p>
+                <p class="example">
+                  Example: sketch different blog app layouts to explore how
+                  images, articles, and a share icon might fit together.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Wireframes</h3>
+                <p>
+                  Bring the skeleton's elements together into a blueprint that
+                  designers and developers can use to understand each screen.
+                  Focus on communication, annotate clearly, consider each
+                  screen's goals and real content, and reuse master elements
+                  where appropriate.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="surface">
+            <p class="eyebrow">Garrett's planes · 05</p>
+            <h2>Surface · The visual experience</h2>
+            <p>
+              The surface is the final plane, where the work comes together
+              visually. It defines what the finished product looks like: visual
+              hierarchy, color, typography, imagery, and the details of the
+              interface.
+            </p>
+            <p class="note">
+              The surface is more than decoration. Its visual choices should
+              communicate the structure, support the user's goals, and make
+              important actions easy to recognize.
+            </p>
+          </section>
+
+          <section class="lesson" id="ux-laws">
+            <p class="eyebrow">Psychology for designers</p>
+            <h2>UX laws and cognitive principles</h2>
+            <p>
+              These principles describe common patterns in how people perceive,
+              decide, and act. Use them as prompts for design decisions, then
+              test whether those decisions work for the people and context in
+              your project.
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Jakob's Law · Familiarity</h3>
+                <p>
+                  People spend much of their time using other products. They
+                  expect a new system to work in familiar ways.
+                </p>
+                <p class="example">
+                  <strong>Example:</strong> a magnifying-glass icon usually
+                  means search, and a website logo at the upper left commonly
+                  links to the home page.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Hick's Law · Decision time</h3>
+                <p>
+                  The time and mental effort needed to make a decision tend to
+                  grow as the number of choices increases.
+                </p>
+                <p class="example">
+                  <strong>Example:</strong> a focused search page with one clear
+                  search field can make it easier to begin than a page crowded
+                  with competing links and panels.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Fitts's Law · Target accessibility</h3>
+                <p>
+                  The time and effort needed to reach an interactive target
+                  depend in part on its size and its distance from the current
+                  pointer or touch position.
+                </p>
+                <p class="example">
+                  <strong>Example:</strong> make a frequently used mobile action
+                  large enough to tap reliably and place it where a thumb can
+                  reach it.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Gestalt · Proximity</h3>
+                <p>
+                  People tend to perceive objects close to each other as
+                  belonging to the same group.
+                </p>
+                <p class="example">
+                  <strong>Example:</strong> place a product's price directly
+                  below its image and use spacing to distinguish it from the
+                  next product.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Gestalt · Similarity</h3>
+                <p>
+                  People tend to group objects that share visual characteristics
+                  such as size, shape, color, or behavior.
+                </p>
+                <p class="example">
+                  <strong>Example:</strong> if links share a consistent visual
+                  treatment, people can recognize them as having a similar
+                  function.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Zeigarnik effect · Unfinished tasks</h3>
+                <p>
+                  People tend to remember unfinished or interrupted tasks more
+                  readily than completed ones.
+                </p>
+                <p class="example">
+                  <strong>Example:</strong> a course progress indicator can show
+                  what remains and help learners decide where to continue.
+                </p>
+              </article>
+            </div>
+            <p class="note">
+              UX laws are useful starting points, not substitutes for research.
+              Consider accessibility, the task, and the people using the
+              product; validate important decisions with testing.
+            </p>
+          </section>
+
+          <footer class="guide-footer">
+            <span>Multimedia Technologies I · ERAM School of Arts</span>
+          </footer>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
