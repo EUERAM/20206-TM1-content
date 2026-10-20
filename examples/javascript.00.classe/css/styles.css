@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex; /* it allows to center the content */
+  justify-content: center; /* it allows to center the content horizontally */
+  align-items: center; /* it allows to center the content vertically */
+  height: 100vh; /* it sets the height of the body to 100% of the viewport height  */
+  transition: background-color 0.5s; /* it adds a smooth transition effect when the background color changes */
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0; /* it removes the default margin of the headings */
+}
+
+.container {
+  background-color: #f5f5f5;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+}
+h1 {
+  font-size: 4rem;
+  font-family: "Barrio", system-ui;
+  margin-bottom: 20px;
+}
+.btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.toy {
+  position: absolute;
+  right: 0;
+  top: 0px;
+  z-index: -1;
+
+  /* it applies the moveToy animation to the toy element */
+}
+.animated {
+  animation: moveToy 2s;
+}
+@keyframes moveToy {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-100px);
+  }
+  80% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

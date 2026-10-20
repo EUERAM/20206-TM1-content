@@ -1,0 +1,15 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    height:100vw;
+}
+.row{
+    display:flex;
+    flex-wrap:wrap;
+}
+.col{
+    width:33.33%;
+    transition: all 1s;
+    border:1px solid black;
+}
