@@ -5,7 +5,12 @@ body {
   margin: auto;
   padding: 0 100px;
 }
+button {
+}
 video {
+  width: 100%;
 }
 iframe {
+  width: 100%;
+  aspect-ratio: 16/9; /* to give aspect ratio to iframe */
 }
