@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- HTML Meta Tags -->
+  <title>NanoBox — Zero-dependency vanila js lightbox</title>
+  <meta name="description" content="A zero-dependency lightbox for images, YouTube, Vimeo, iframes, and inline HTML. Drop in two files. Under 7 KB gzip.">
+
+  <meta property="og:logo" content="Nanobox" />
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content="https://monzuralam.github.io/Nanobox/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NanoBox — Zero-dependency lightbox">
+  <meta property="og:description" content="A zero-dependency lightbox for images, YouTube, Vimeo, iframes, and inline HTML. Drop in two files. Under 7 KB gzip.">
+  <meta property="og:image" content="/Nanobox/assets/images/nanobox.jpg">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="twitter:domain" content="monzuralam.github.io">
+  <meta property="twitter:url" content="https://monzuralam.github.io/Nanobox/">
+  <meta name="twitter:title" content="NanoBox — Zero-dependency lightbox">
+  <meta name="twitter:description" content="A zero-dependency lightbox for images, YouTube, Vimeo, iframes, and inline HTML. Drop in two files. Under 7 KB gzip.">
+  <meta name="twitter:image" content="/Nanobox/assets/images/nanobox.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Geist:wght@300;400;500;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="nanobox.css" />
+  <style>
+    /* ── Reset ─────────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --bg: #080810;
+      --bg2: #0e0e1a;
+      --bg3: #14141f;
+      --line: rgba(255, 255, 255, .08);
+      --muted: #4a4a6a;
+      --body: #b8b8d0;
+      --hi: #e8e8f8;
+      --acc: #7b5ea7;
+      --acc2: #c084fc;
+      --acc3: #38bdf8;
+      --green: #34d399;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Geist', system-ui, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--body);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    img {
+      display: block;
+      max-width: 100%
+    }
+
+    /* ── Noise overlay ──────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .4;
+    }
+
+    /* ── Glow blobs ─────────────────────────────────────────── */
+    .blob {
+      position: fixed;
+      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: .12;
+      z-index: 0
+    }
+
+    .blob-1 {
+      width: 600px;
+      height: 600px;
+      background: #7b5ea7;
+      top: -200px;
+      left: -150px
+    }
+
+    .blob-2 {
+      width: 500px;
+      height: 500px;
+      background: #38bdf8;
+      bottom: -100px;
+      right: -100px
+    }
+
+    /* ── Layout ─────────────────────────────────────────────── */
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 1
+    }
+
+    /* ── Nav ────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(8, 8, 16, .7);
+    }
+
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--hi);
+      letter-spacing: -.01em
+    }
+
+    .nav-logo span {
+      color: var(--acc2)
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px
+    }
+
+    .nav-links a {
+      font-size: .82rem;
+      color: var(--muted);
+      transition: color .2s
+    }
+
+    .nav-links a:hover {
+      color: var(--hi)
+    }
+
+    .nav-gh {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      font-size: .8rem;
+      color: var(--body);
+      transition: border-color .2s, color .2s;
+    }
+
+    .nav-gh:hover {
+      border-color: rgba(255, 255, 255, .2);
+      color: var(--hi)
+    }
+
+    /* ── Hero ───────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      background: rgba(123, 94, 167, .12);
+      border: 1px solid rgba(123, 94, 167, .28);
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--acc2);
+      letter-spacing: .06em;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .3
+      }
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-weight: 400;
+      line-height: .95;
+      letter-spacing: -.02em;
+      color: var(--hi);
+      margin-bottom: 24px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--acc2)
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--body);
+      max-width: 420px;
+      margin-bottom: 40px
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      border-radius: 8px;
+      font-size: .9rem;
+      font-weight: 500;
+      background: var(--acc);
+      color: #fff;
+      border: 1px solid transparent;
+      transition: background .2s, transform .15s;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: #6b4e97;
+      transform: translateY(-1px)
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 24px;
+      border-radius: 8px;
+      font-size: .9rem;
+      color: var(--body);
+      border: 1px solid var(--line);
+      transition: border-color .2s, color .2s, transform .15s;
+      cursor: pointer;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(255, 255, 255, .2);
+      color: var(--hi);
+      transform: translateY(-1px)
+    }
+
+    /* stats row */
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid var(--line)
+    }
+
+    .stat-val {
+      font-family: var(--mono);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--hi);
+      display: block
+    }
+
+    .stat-lbl {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    /* hero code panel */
+    .hero-code {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      font-family: var(--mono);
+      font-size: .82rem;
+    }
+
+    .code-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%
+    }
+
+    .dot-r {
+      background: #ff5f57
+    }
+
+    .dot-y {
+      background: #ffbd2e
+    }
+
+    .dot-g {
+      background: #28c840
+    }
+
+    .code-file {
+      margin-left: auto;
+      font-size: .7rem;
+      color: var(--muted)
+    }
+
+    .code-body {
+      padding: 22px 24px;
+      line-height: 1.9
+    }
+
+    .c-comment {
+      color: var(--muted)
+    }
+
+    .c-tag {
+      color: var(--acc3)
+    }
+
+    .c-attr {
+      color: var(--acc2)
+    }
+
+    .c-str {
+      color: var(--green)
+    }
+
+    .c-fn {
+      color: #f9a8d4
+    }
+
+    .c-kw {
+      color: var(--acc2)
+    }
+
+    /* ── Section shared ─────────────────────────────────────── */
+    section {
+      padding: 96px 0
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--acc2);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      color: var(--hi);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 1rem;
+      color: var(--body);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--line)
+    }
+
+    /* ── Demo section ───────────────────────────────────────── */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 16px
+    }
+
+    .demo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      background: var(--bg2);
+      transition: border-color .2s, transform .2s;
+    }
+
+    .demo-card:hover {
+      border-color: rgba(123, 94, 167, .5);
+      transform: translateY(-3px)
+    }
+
+    .demo-thumb {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      display: block;
+      background: var(--bg3)
+    }
+
+    .demo-icon-thumb {
+      width: 100%;
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      background: var(--bg3);
+    }
+
+    .demo-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(8, 8, 16, .5);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .demo-card:hover .demo-overlay {
+      opacity: 1
+    }
+
+    .demo-play {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .15);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, .2);
+    }
+
+    .demo-meta {
+      padding: 12px 14px
+    }
+
+    .demo-type {
+      font-family: var(--mono);
+      font-size: .65rem;
+      color: var(--acc2);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 3px
+    }
+
+    .demo-name {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--hi)
+    }
+
+    .demo-row2 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px
+    }
+
+    /* ── Features ───────────────────────────────────────────── */
+    #features {
+      background: var(--bg2);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line)
+    }
+
+    .feature {
+      background: var(--bg2);
+      padding: 36px 32px
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      background: rgba(123, 94, 167, .15);
+      border: 1px solid rgba(123, 94, 167, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .feature-title {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--hi);
+      margin-bottom: 8px
+    }
+
+    .feature-body {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.65
+    }
+
+    /* ── Install ────────────────────────────────────────────── */
+    .install-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px
+    }
+
+    .code-block {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      font-family: var(--mono);
+    }
+
+    .code-block-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      font-size: .7rem;
+      color: var(--muted);
+    }
+
+    .copy-btn {
+      cursor: pointer;
+      padding: 3px 10px;
+      border-radius: 5px;
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .68rem;
+      transition: color .2s, border-color .2s;
+    }
+
+    .copy-btn:hover {
+      color: var(--hi);
+      border-color: rgba(255, 255, 255, .2)
+    }
+
+    .code-block-body {
+      padding: 20px 20px;
+      font-size: .82rem;
+      line-height: 1.85;
+      overflow-x: auto
+    }
+
+    /* ── API table ──────────────────────────────────────────── */
+    .api-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .86rem
+    }
+
+    .api-table th {
+      text-align: left;
+      padding: 10px 16px;
+      font-family: var(--mono);
+      font-size: .7rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .api-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
+      vertical-align: top;
+    }
+
+    .api-table tr:last-child td {
+      border-bottom: none
+    }
+
+    .api-table tr:hover td {
+      background: rgba(255, 255, 255, .02)
+    }
+
+    code {
+      font-family: var(--mono);
+      font-size: .8em;
+      background: rgba(255, 255, 255, .06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--acc2);
+    }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    footer {
+      padding: 48px 0;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px
+    }
+
+    .footer-links a:hover {
+      color: var(--hi)
+    }
+
+    .footer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(52, 211, 153, .08);
+      border: 1px solid rgba(52, 211, 153, .15);
+      color: var(--green);
+      font-size: .7rem;
+    }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media(max-width:900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 48px
+      }
+
+      .hero-code {
+        display: none
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .demo-row2 {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .install-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width:640px) {
+      .wrap {
+        padding: 0 20px
+      }
+
+      .demo-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr
+      }
+
+      .nav-links .nav-hide {
+        display: none
+      }
+
+      .hero-stats {
+        flex-wrap: wrap;
+        gap: 24px
+      }
+    }
+
+    /* ── Entrance animations ────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s var(--ease), transform .6s var(--ease)
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: none
+    }
+
+    :root {
+      --ease: cubic-bezier(.22, 1, .36, 1)
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- ── Nav ─────────────────────────────────────────── -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">Nano<span>box</span></div>
+      <div class="nav-links">
+        <a href="#demo" class="nav-hide">Demo</a>
+        <a href="#features" class="nav-hide">Features</a>
+        <a href="#install">Install</a>
+        <a href="#api">API</a>
+        <a href="https://github.com/monzuralam/nanobox" class="nav-gh">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- hidden inline demo content -->
+  <div id="nb-contact" style="display:none">
+    <h2 style="font-family:'Instrument Serif',serif;font-size:1.6rem;font-weight:400;color:#111;margin-bottom:12px">Get
+      in touch</h2>
+    <p style="color:#555;font-size:.9rem;margin-bottom:20px;line-height:1.65">This is inline HTML content — cloned from
+      the page DOM. The source element stays untouched.</p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <input placeholder="Your email"
+        style="padding:10px 14px;border-radius:8px;border:1px solid #ddd;font-size:.9rem;outline:none" />
+      <textarea placeholder="Message" rows="3"
+        style="padding:10px 14px;border-radius:8px;border:1px solid #ddd;font-size:.9rem;resize:none;outline:none"></textarea>
+      <button
+        style="padding:10px;border-radius:8px;background:#7b5ea7;color:#fff;border:none;font-size:.9rem;cursor:pointer">Send
+        Message</button>
+    </div>
+  </div>
+
+  <!-- ── Hero ─────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="wrap">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-eyebrow">v1.0 — Zero dependencies</div>
+          <h1>The lightbox<br />that gets out<br /><em>of the way</em></h1>
+          <p class="hero-sub">Images, YouTube, Vimeo, iframes, inline HTML — all in under 7 KB. Drop in two files. No
+            config required.</p>
+          <div class="hero-actions">
+            <a href="#install" class="btn-primary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+              </svg>
+              Get NanoBox
+            </a>
+            <a href="#demo" class="btn-ghost">See it live →</a>
+          </div>
+          <div class="hero-stats">
+            <div><span class="stat-val">&lt; 7 KB</span>
+              <div class="stat-lbl">gzipped total</div>
+            </div>
+            <div><span class="stat-val">0</span>
+              <div class="stat-lbl">dependencies</div>
+            </div>
+            <div><span class="stat-val">5</span>
+              <div class="stat-lbl">content types</div>
+            </div>
+            <div><span class="stat-val">UMD</span>
+              <div class="stat-lbl">module format</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-code">
+          <div class="code-bar">
+            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+            <span class="code-file">index.html</span>
+          </div>
+          <div class="code-body">
+            <div><span class="c-comment">&lt;!-- 1. Drop in two files --&gt;</span></div>
+            <div><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span
+                class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span
+                class="c-str">"nanobox.css"</span><span class="c-tag">/&gt;</span></div>
+            <div><span class="c-tag">&lt;script</span> <span class="c-attr">src</span>=<span
+                class="c-str">"nanobox.js"</span><span class="c-tag">&gt;&lt;/script&gt;</span></div>
+            <br />
+            <div><span class="c-comment">&lt;!-- 2. Add data-nanobox. Done. --&gt;</span></div>
+            <div><span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span
+                class="c-str">"photo.jpg"</span></div>
+            <div>&nbsp;&nbsp; <span class="c-attr">data-nanobox</span><span class="c-tag">&gt;</span></div>
+            <div>&nbsp;&nbsp;Open photo</div>
+            <div><span class="c-tag">&lt;/a&gt;</span></div>
+            <br />
+            <div><span class="c-comment">&lt;!-- YouTube auto-detected --&gt;</span></div>
+            <div><span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span
+                class="c-str">"youtu.be/ID"</span></div>
+            <div>&nbsp;&nbsp; <span class="c-attr">data-nanobox</span><span class="c-tag">&gt;</span>Watch<span
+                class="c-tag">&lt;/a&gt;</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Live Demo ─────────────────────────────────────── -->
+  <section id="demo">
+    <div class="wrap">
+      <p class="section-label fade-up">// live demo</p>
+      <h2 class="section-title fade-up">Click anything below</h2>
+      <p class="section-sub fade-up">Every card triggers NanoBox. Content type is auto-detected from the URL — no
+        config.</p>
+
+      <div class="demo-grid fade-up">
+        <a href="assets/images/1.jpg" data-nanobox class="demo-card">
+          <img class="demo-thumb" loading="lazy" src="assets/images/1.jpg" alt="Mountain" />
+          <div class="demo-overlay">
+            <div class="demo-play"><svg width="14" height="14" viewBox="0 0 16 16" fill="white">
+                <polygon points="4,2 14,8 4,14" />
+              </svg></div>
+          </div>
+          <div class="demo-meta">
+            <div class="demo-type">Image · JPEG</div>
+            <div class="demo-name">Landscape</div>
+          </div>
+        </a>
+        <a href="assets/images/2.jpg" data-nanobox class="demo-card">
+          <img class="demo-thumb" loading="lazy" src="assets/images/2.jpg" alt="Portrait" />
+          <div class="demo-overlay">
+            <div class="demo-play"><svg width="14" height="14" viewBox="0 0 16 16" fill="white">
+                <polygon points="4,2 14,8 4,14" />
+              </svg></div>
+          </div>
+          <div class="demo-meta">
+            <div class="demo-type">Image · Portrait</div>
+            <div class="demo-name">Tree</div>
+          </div>
+        </a>
+        <a href="assets/images/3.jpg" data-nanobox class="demo-card">
+          <img class="demo-thumb" loading="lazy" src="assets/images/3.jpg" alt="Lake" />
+          <div class="demo-overlay">
+            <div class="demo-play"><svg width="14" height="14" viewBox="0 0 16 16" fill="white">
+                <polygon points="4,2 14,8 4,14" />
+              </svg></div>
+          </div>
+          <div class="demo-meta">
+            <div class="demo-type">Image · JPEG</div>
+            <div class="demo-name">Misty Lake</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="demo-row2 fade-up">
+        <a href="https://youtu.be/Y2IEuGCVu0Y?si=jJF6DS279-qntdtV" data-nanobox class="demo-card">
+          <div class="demo-icon-thumb" style="background:linear-gradient(135deg,#1a0030,#9b1a1a)">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#ff4444">
+              <path
+                d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+            </svg>
+          </div>
+          <div class="demo-overlay">
+            <div class="demo-play"><svg width="14" height="14" viewBox="0 0 16 16" fill="white">
+                <polygon points="4,2 14,8 4,14" />
+              </svg></div>
+          </div>
+          <div class="demo-meta">
+            <div class="demo-type">YouTube</div>
+            <div class="demo-name">Sticky Anything</div>
+          </div>
+        </a>
+        <a href="https://vimeo.com/148751763" data-nanobox class="demo-card">
+          <div class="demo-icon-thumb" style="background:linear-gradient(135deg,#001c2e,#0e5a8a)">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#1ab7ea">
+              <path
+                d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 12.5C4.603 9.913 3.83 8.619 3 8.619c-.179 0-.806.378-1.881 1.132L0 8.364c1.185-1.044 2.351-2.087 3.498-3.13C5.08 3.924 6.275 3.312 7.06 3.236c1.912-.185 3.048 1.16 3.449 4.046.358 2.353.64 3.82.822 4.273.45 1.092 1.001 1.636 1.584 1.636.45 0 1.108-.53 2.009-1.56 1.198-1.389 1.844-2.45 1.91-3.167.208-1.854-1.161-2.256-2.516-1.855.894-2.926 2.654-4.306 5.224-4.12 1.918.14 2.837 1.25 2.836 3.927z" />
+            </svg>
+          </div>
+          <div class="demo-overlay">
+            <div class="demo-play"><svg width="14" height="14" viewBox="0 0 16 16" fill="white">
+                <polygon points="4,2 14,8 4,14" />
+              </svg></div>
+          </div>
+          <div class="demo-meta">
+            <div class="demo-type">Vimeo</div>
+            <div class="demo-name">Vimeo Video</div>
+          </div>
+        </a>
+        <a href="https://www.openstreetmap.org/export/embed.html?bbox=-0.14,51.49,-0.09,51.52&layer=mapnik" data-nanobox
+          class="demo-card">
+          <div class="demo-icon-thumb" style="background:linear-gradient(135deg,#0a1f0a,#1a5c1a)">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="1.5">
+              <circle cx="12" cy="10" r="3" />
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+            </svg>
+          </div>
+          <div class="demo-overlay">
+            <div class="demo-play"><svg width="14" height="14" viewBox="0 0 16 16" fill="white">
+                <polygon points="4,2 14,8 4,14" />
+              </svg></div>
+          </div>
+          <div class="demo-meta">
+            <div class="demo-type">iFrame</div>
+            <div class="demo-name">OpenStreetMap</div>
+          </div>
+        </a>
+        <a href="#nb-contact" data-nanobox class="demo-card">
+          <div class="demo-icon-thumb" style="background:linear-gradient(135deg,#150e1f,#3b1f5e)">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="1.5">
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="M3 7l9 6 9-6" />
+            </svg>
+          </div>
+          <div class="demo-overlay">
+            <div class="demo-play"><svg width="14" height="14" viewBox="0 0 16 16" fill="white">
+                <polygon points="4,2 14,8 4,14" />
+              </svg></div>
+          </div>
+          <div class="demo-meta">
+            <div class="demo-type">Inline HTML</div>
+            <div class="demo-name">Contact form</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Features ──────────────────────────────────────── -->
+  <section id="features">
+    <div class="wrap">
+      <div class="features-grid">
+        <div class="feature fade-up">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-title">Auto-detection</div>
+          <div class="feature-body">Content type is inferred from the URL. Images, YouTube, Vimeo, iframes, and inline
+            HTML — no type attribute needed.</div>
+        </div>
+        <div class="feature fade-up">
+          <div class="feature-icon">🪶</div>
+          <div class="feature-title">Under 7 KB gzip</div>
+          <div class="feature-body">JS and CSS combined weigh less than most PNG thumbnails. Zero dependencies. Zero
+            build
+            step required.</div>
+        </div>
+        <div class="feature fade-up">
+          <div class="feature-icon">♿</div>
+          <div class="feature-title">Accessible</div>
+          <div class="feature-body">Focus trap, <code>role="dialog"</code>, <code>aria-modal</code>, ESC to close, focus
+            returned to trigger on close.</div>
+        </div>
+        <div class="feature fade-up">
+          <div class="feature-icon">🔌</div>
+          <div class="feature-title">Zero config</div>
+          <div class="feature-body">Auto-initialises on <code>DOMContentLoaded</code>. Add <code>data-nanobox</code> to
+            any element and it works.</div>
+        </div>
+        <div class="feature fade-up">
+          <div class="feature-icon">🎨</div>
+          <div class="feature-title">CSS custom properties</div>
+          <div class="feature-body">All visual tokens — z-index, radius, shadow, overlay colour, animation duration —
+            exposed as <code>--nb-*</code> vars.</div>
+        </div>
+        <div class="feature fade-up">
+          <div class="feature-icon">📦</div>
+          <div class="feature-title">UMD module</div>
+          <div class="feature-body">Works as a plain <code>&lt;script&gt;</code> tag, CommonJS <code>require()</code>,
+            or
+            AMD — no bundler needed.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── Install ───────────────────────────────────────── -->
+  <section id="install">
+    <div class="wrap">
+      <p class="section-label fade-up">// install</p>
+      <h2 class="section-title fade-up">Two ways to get it</h2>
+
+      <div class="install-grid fade-up">
+        <div>
+          <div class="code-block" style="margin-bottom:16px">
+            <div class="code-block-bar">
+              <span>CDN / direct download</span>
+              <button class="copy-btn" onclick="copyCode(this, 'cdn')">copy</button>
+            </div>
+            <div class="code-block-body" id="cdn">
+              <div><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span
+                  class="c-str">"stylesheet"</span>&nbsp;<span class="c-attr">href</span>=<span
+                  class="c-str">"nanobox.min.css"</span><span class="c-tag">/&gt;</span></div>
+              <br />
+              <div><span class="c-tag">&lt;script</span> <span class="c-attr">src</span>=<span
+                  class="c-str">"nanobox.min.js"</span><span class="c-tag">&gt;&lt;/script&gt;</span></div>
+            </div>
+          </div>
+          <div class="code-block">
+            <div class="code-block-bar">
+              <span>npm</span>
+              <button class="copy-btn" onclick="copyCode(this, 'npm')">copy</button>
+            </div>
+            <div class="code-block-body" id="npm">
+              <div><span class="c-fn">npm</span> install nanobox-lightbox</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="code-block">
+            <div class="code-block-bar">
+              <span>Usage</span>
+              <button class="copy-btn" onclick="copyCode(this, 'usage')">copy</button>
+            </div>
+            <div class="code-block-body" id="usage">
+              <div><span class="c-comment">&lt;!-- Image --&gt;</span></div>
+              <div><span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span
+                  class="c-str">"photo.jpg"</span> <span class="c-attr">data-nanobox</span><span
+                  class="c-tag">&gt;</span>...<span class="c-tag">&lt;/a&gt;</span></div>
+              <br />
+              <div><span class="c-comment">&lt;!-- YouTube / Vimeo --&gt;</span></div>
+              <div><span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span
+                  class="c-str">"youtu.be/ID"</span> <span class="c-attr">data-nanobox</span><span
+                  class="c-tag">&gt;</span>...<span class="c-tag">&lt;/a&gt;</span></div>
+              <br />
+              <div><span class="c-comment">&lt;!-- Inline HTML --&gt;</span></div>
+              <div><span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span
+                  class="c-str">"#my-div"</span> <span class="c-attr">data-nanobox</span><span
+                  class="c-tag">&gt;</span>...<span class="c-tag">&lt;/a&gt;</span></div>
+              <br />
+              <div><span class="c-comment">// Optional: custom options</span></div>
+              <div><span class="c-fn">NanoBox</span>.<span class="c-fn">init</span>({ <span
+                  class="c-attr">animationDuration</span>: <span class="c-str">400</span> });</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ── API ───────────────────────────────────────────── -->
+  <section id="api">
+    <div class="wrap">
+      <p class="section-label fade-up">// api</p>
+      <h2 class="section-title fade-up">Options &amp; methods</h2>
+
+      <div class="fade-up"
+        style="background:var(--bg2);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:40px">
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Default</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>animationDuration</code></td>
+              <td><code>280</code></td>
+              <td>Fade + scale transition in milliseconds</td>
+            </tr>
+            <tr>
+              <td><code>closeOnOverlayClick</code></td>
+              <td><code>true</code></td>
+              <td>Click the backdrop to close</td>
+            </tr>
+            <tr>
+              <td><code>escToClose</code></td>
+              <td><code>true</code></td>
+              <td>ESC key closes the lightbox</td>
+            </tr>
+            <tr>
+              <td><code>scrollLock</code></td>
+              <td><code>true</code></td>
+              <td>Lock body scroll while open</td>
+            </tr>
+            <tr>
+              <td><code>showSpinner</code></td>
+              <td><code>true</code></td>
+              <td>Loading spinner before content appears</td>
+            </tr>
+            <tr>
+              <td><code>onOpen(lb)</code></td>
+              <td><code>null</code></td>
+              <td>Called when lightbox opens</td>
+            </tr>
+            <tr>
+              <td><code>onClose(lb)</code></td>
+              <td><code>null</code></td>
+              <td>Called after lightbox closes</td>
+            </tr>
+            <tr>
+              <td><code>onReady(lb, el)</code></td>
+              <td><code>null</code></td>
+              <td>Called when content finishes loading</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fade-up"
+        style="background:var(--bg2);border:1px solid var(--line);border-radius:12px;overflow:hidden">
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>NanoBox.init(opts?)</code></td>
+              <td>Re-init the singleton with custom options. Auto-called on load — optional.</td>
+            </tr>
+            <tr>
+              <td><code>NanoBox.open(src, opts?)</code></td>
+              <td>Open programmatically. Per-call options override defaults.</td>
+            </tr>
+            <tr>
+              <td><code>NanoBox.close()</code></td>
+              <td>Close the active lightbox.</td>
+            </tr>
+            <tr>
+              <td><code>NanoBox.destroy()</code></td>
+              <td>Close and remove all event listeners. For SPA teardown.</td>
+            </tr>
+            <tr>
+              <td><code>NanoBox.create(opts?)</code></td>
+              <td>Create an independent instance (e.g. multiple galleries).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div style="display:flex;align-items:center;gap:16px">
+        <span style="font-weight:600;color:var(--hi)">nanobox</span>
+        <span class="footer-badge">MIT License</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/monzuralam/nanobox">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="nanobox.js"></script>
+  <script>
+    // Scroll-triggered fade-up
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+    // Copy button
+    function copyCode(btn, id) {
+      const el = document.getElementById(id);
+      const text = el.innerText.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'copied!';
+        setTimeout(() => btn.textContent = 'copy', 1800);
+      });
+    }
+  </script>
+</body>
+
+</html>
