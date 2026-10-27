@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.mask {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: url("../images/fons1.png") center / cover no-repeat;
+}
+
+.mask__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 2rem;
+  text-align: center;
+  color: #fff;
+  font-family: sans-serif;
+}
+
+.mask__content h1 {
+  font-size: 4rem;
+}
+
+.mask__content p {
+  max-width: 600px;
+}
+
+/* Overlay with fons2.png. The mask makes a transparent circle at (--x, --y) */
+.mask__overlay {
+  --x: -1000px;
+  --y: -1000px;
+  --size: 150px;
+
+  position: absolute;
+  inset: 0;
+  background: url("../images/fons2.png") center / cover no-repeat;
+  pointer-events: none;
+
+  -webkit-mask-image: radial-gradient(
+    circle var(--size) at var(--x) var(--y),
+    transparent 0%,
+    transparent 70%,
+    #000 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--size) at var(--x) var(--y),
+    transparent 0%,
+    transparent 70%,
+    #000 100%
+  );
+}
