@@ -12,7 +12,7 @@ document.addEventListener("scroll", () => {
     //remove class from header
     header.classList.remove("scrolled");
   }
-  //check sections in view and add class to menu items
+  // check sections in view and add class to menu items
   // loop through sections and check if they are in view
   sections.forEach((section, index) => {
     let sectionTop = section.offsetTop; //get the top position of the section
