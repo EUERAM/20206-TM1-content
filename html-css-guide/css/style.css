@@ -1194,6 +1194,66 @@ footer .fa-heart {
   text-decoration: none;
 }
 
+/* Gradient examples */
+.gr-swatch {
+  height: 110px;
+  border-radius: 8px;
+}
+.gr-1 {
+  background: linear-gradient(#6366f1, #ec4899);
+}
+.gr-2 {
+  background: linear-gradient(to right, #06b6d4, #6366f1);
+}
+.gr-3 {
+  background: linear-gradient(
+    90deg,
+    #ef4444 0%,
+    #f97316 30%,
+    #eab308 50%,
+    #22c55e 100%
+  );
+}
+.gr-4 {
+  background: linear-gradient(90deg, #4f46e5 50%, #f97316 50%);
+}
+.gr-5 {
+  background: radial-gradient(circle at 30% 40%, #fde047, #f97316, #7c2d12);
+}
+.gr-6 {
+  width: 110px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: conic-gradient(#4f46e5 0 40%, #f97316 0 70%, #22c55e 0);
+}
+.gr-7 {
+  background: repeating-linear-gradient(
+    45deg,
+    #1f2937 0 10px,
+    #eab308 10px 20px
+  );
+}
+.gr-8 {
+  display: flex;
+  align-items: flex-end;
+  padding: 10px 14px;
+  color: white;
+  font-weight: 600;
+  background:
+    linear-gradient(transparent, rgba(0, 0, 0, 0.8)),
+    url("../img/desktop.svg") center / cover;
+}
+.gr-text {
+  margin: 20px 0;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(90deg, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Small screens (must come after the base rules) */
 @media (max-width: 800px) {
   section {

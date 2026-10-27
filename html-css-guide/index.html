@@ -75,6 +75,7 @@
           <h3>Effects</h3>
           <a href="#transitions">Transitions</a>
           <a href="#animations">Animations</a>
+          <a href="#gradients">Gradients</a>
         </nav>
       </aside>
 
@@ -2053,6 +2054,133 @@ input:checked + .slider::before {
                 <td><code>@keyframes</code> + <code>animation</code></td>
               </tr>
             </table>
+          </section>
+
+          <!-- 22 =========================================================== -->
+          <section id="gradients">
+            <h2>22. CSS gradients</h2>
+            <p>
+              A <strong>gradient</strong> is a smooth change between two or more
+              colours. In CSS a gradient is an <em>image</em>, so you use it
+              with <code>background</code> (or <code>background-image</code>),
+              never with <code>color</code>. No image file is needed.
+            </p>
+
+            <pre><code>selector {
+  background: linear-gradient(direction, colour1, colour2, ...);
+  background: radial-gradient(shape at position, colour1, colour2, ...);
+  background: conic-gradient(from angle, colour1, colour2, ...);
+}</code></pre>
+
+            <table class="tbl">
+              <tr>
+                <th>Type</th>
+                <th>How the colours change</th>
+              </tr>
+              <tr>
+                <td><code>linear-gradient</code></td>
+                <td>Along a straight line (top → bottom by default)</td>
+              </tr>
+              <tr>
+                <td><code>radial-gradient</code></td>
+                <td>From a centre point outwards (circle or ellipse)</td>
+              </tr>
+              <tr>
+                <td><code>conic-gradient</code></td>
+                <td>Around a centre point, like the hands of a clock</td>
+              </tr>
+              <tr>
+                <td><code>repeating-…</code></td>
+                <td>Repeats the pattern again and again (stripes, rings)</td>
+              </tr>
+            </table>
+
+            <div class="demo-grid">
+              <div class="ex-card">
+                <h4>1. Simple linear</h4>
+                <div class="gr-swatch gr-1"></div>
+                <pre><code>background: linear-gradient(#6366f1, #ec4899);
+/* default direction: to bottom */</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>2. Direction or angle</h4>
+                <div class="gr-swatch gr-2"></div>
+                <pre><code>background: linear-gradient(to right, #06b6d4, #6366f1);
+/* or: 45deg, 90deg, to top left... */</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>3. Many colours + stops</h4>
+                <div class="gr-swatch gr-3"></div>
+                <pre><code>background: linear-gradient(90deg,
+  #ef4444 0%, #f97316 30%,
+  #eab308 50%, #22c55e 100%);</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>4. Hard stops (no blend)</h4>
+                <div class="gr-swatch gr-4"></div>
+                <pre><code>/* same position = sharp line */
+background: linear-gradient(90deg,
+  #4f46e5 50%, #f97316 50%);</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>5. Radial</h4>
+                <div class="gr-swatch gr-5"></div>
+                <pre><code>background: radial-gradient(circle at 30% 40%,
+  #fde047, #f97316, #7c2d12);</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>6. Conic (colour wheel / pie)</h4>
+                <div class="gr-swatch gr-6"></div>
+                <pre><code>background: conic-gradient(
+  #4f46e5 0 40%, #f97316 0 70%, #22c55e 0);
+border-radius: 50%;</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>7. Repeating stripes</h4>
+                <div class="gr-swatch gr-7"></div>
+                <pre><code>background: repeating-linear-gradient(45deg,
+  #1f2937 0 10px, #eab308 10px 20px);</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>8. Transparent fade over an image</h4>
+                <div class="gr-swatch gr-8"><span>Readable text</span></div>
+                <pre><code>/* the first layer is drawn on top */
+background:
+  linear-gradient(transparent, rgba(0,0,0,.8)),
+  url("../img/desktop.svg") center / cover;</code></pre>
+              </div>
+
+              <div class="ex-card">
+                <h4>9. Gradient text</h4>
+                <p class="gr-text">Hello gradient</p>
+                <pre><code>background: linear-gradient(90deg, #6366f1, #ec4899);
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;</code></pre>
+              </div>
+            </div>
+
+            <p class="hint">
+              A colour stop is <code>colour position</code> (e.g.
+              <code>#f97316 30%</code>). Without positions, the colours are
+              spread evenly. Use <code>transparent</code> or
+              <code>rgba()</code> to let what is behind show through.
+            </p>
+
+            <p class="tip">
+              <i class="fa-solid fa-lightbulb"></i> Gradients can't be animated
+              with <code>transition</code> directly. To move one, make it bigger
+              with <code>background-size</code> and animate
+              <code>background-position</code> (see the animated gradient in
+              <a href="#animations">section 21</a>).
+            </p>
           </section>
         </main>
 
