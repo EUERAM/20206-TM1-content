@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 290" role="img" aria-labelledby="title desc">
+  <title id="title">Wiring an addressable LED strip</title>
+  <desc id="desc">A 5 volt supply's plus goes to the strip's 5V pad and its minus to the strip's GND pad, with a 1000 microfarad capacitor across the supply. Arduino pin 6 goes through a 330 ohm resistor to the strip's DIN pad. The Arduino GND joins the strip's GND.</desc>
+  <rect width="560" height="290" rx="18" fill="#eef0f8"/>
+  <rect x="20" y="20" width="520" height="250" rx="12" fill="#fff"/>
+
+  <!-- 5 V supply -->
+  <rect x="40" y="32" width="90" height="66" rx="8" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/>
+  <g font-family="sans-serif" fill="#1f2937">
+    <text x="78" y="62" font-size="11" font-weight="700" text-anchor="middle">5 V</text>
+    <text x="78" y="76" font-size="11" font-weight="700" text-anchor="middle">supply</text>
+    <text x="122" y="54" font-size="12" font-weight="700" fill="#b91c1c" text-anchor="end">+</text>
+    <text x="122" y="90" font-size="12" font-weight="700" text-anchor="end">−</text>
+  </g>
+
+  <!-- Arduino -->
+  <text x="40" y="128" font-family="sans-serif" font-size="12" font-weight="700" fill="#1f2937">Arduino</text>
+  <rect x="40" y="134" width="90" height="110" rx="8" fill="#0f766e"/>
+  <g font-family="sans-serif" font-weight="700" fill="#fff" font-size="13" text-anchor="end">
+    <text x="122" y="160">~6</text>
+    <text x="122" y="235">GND</text>
+  </g>
+
+  <!-- 5V line -->
+  <path d="M130 50 H290 V125 H320" fill="none" stroke="#dc2626" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- capacitor across the supply -->
+  <circle cx="200" cy="50" r="4.5" fill="#dc2626"/>
+  <circle cx="200" cy="85" r="4.5" fill="#1f2937"/>
+  <path d="M200 50 V63 M200 73 V85" stroke="#1f2937" stroke-width="3"/>
+  <path d="M188 63 H212" stroke="#1f2937" stroke-width="3"/>
+  <path d="M188 74 Q200 68 212 74" fill="none" stroke="#1f2937" stroke-width="3"/>
+  <text x="186" y="62" font-family="sans-serif" font-size="10" font-weight="700" fill="#b91c1c" text-anchor="end">+</text>
+  <text x="216" y="72" font-family="sans-serif" font-size="10" font-weight="700" fill="#1f2937">1000 µF</text>
+
+  <!-- data line with resistor -->
+  <path d="M130 155 H175 M215 155 H320" stroke="#f97316" stroke-width="4"/>
+  <rect x="175" y="147" width="40" height="16" rx="3" fill="#fde68a" stroke="#1f2937" stroke-width="2"/>
+  <text x="195" y="141" font-family="sans-serif" font-size="11" font-weight="700" fill="#1f2937" text-anchor="middle">330 Ω</text>
+
+  <!-- ground: supply − hops over the data line -->
+  <path d="M130 85 H255 V149 A6 6 0 0 1 255 161 V185 H320" fill="none" stroke="#1f2937" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M130 230 H255 V185" fill="none" stroke="#1f2937" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="255" cy="185" r="5" fill="#1f2937"/>
+
+  <!-- LED strip -->
+  <rect x="320" y="110" width="205" height="90" rx="6" fill="#f8fafc" stroke="#1f2937" stroke-width="2"/>
+  <g font-family="sans-serif" font-size="11" font-weight="700" fill="#1f2937">
+    <text x="327" y="129">5V</text>
+    <text x="327" y="159">DIN</text>
+    <text x="327" y="189">GND</text>
+  </g>
+  <g>
+    <rect x="372" y="143" width="24" height="24" rx="3" fill="#fff" stroke="#9ca3af"/>
+    <circle cx="384" cy="155" r="7" fill="#ef4444"/>
+    <rect x="410" y="143" width="24" height="24" rx="3" fill="#fff" stroke="#9ca3af"/>
+    <circle cx="422" cy="155" r="7" fill="#22c55e"/>
+    <rect x="448" y="143" width="24" height="24" rx="3" fill="#fff" stroke="#9ca3af"/>
+    <circle cx="460" cy="155" r="7" fill="#3b82f6"/>
+    <rect x="486" y="143" width="24" height="24" rx="3" fill="#fff" stroke="#9ca3af"/>
+    <circle cx="498" cy="155" r="7" fill="#f59e0b"/>
+  </g>
+  <text x="441" y="132" font-family="sans-serif" font-size="11" fill="#4b5563" text-anchor="middle">data →</text>
+  <text x="422" y="102" font-family="sans-serif" font-size="12" font-weight="700" fill="#1f2937" text-anchor="middle">WS2812B strip</text>
+
+  <text x="40" y="262" font-family="sans-serif" font-size="11" fill="#4b5563">Shared GND · 330 Ω on DIN · 1000 µF across the power · follow the arrows on the strip.</text>
+</svg>

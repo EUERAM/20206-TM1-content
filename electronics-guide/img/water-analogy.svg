@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 260" role="img" aria-labelledby="title desc">
+  <title id="title">Water analogy for electricity</title>
+  <desc id="desc">A water tank represents voltage, water flowing in a pipe represents current, and a narrow section of the pipe represents resistance.</desc>
+  <rect width="560" height="260" rx="18" fill="#eef0f8"/>
+  <rect x="40" y="40" width="110" height="150" rx="8" fill="#fff" stroke="#9aa3c2" stroke-width="2"/>
+  <rect x="42" y="70" width="106" height="118" rx="6" fill="#93c5fd"/>
+  <path d="M150 165 H270" stroke="#9aa3c2" stroke-width="30"/>
+  <path d="M150 165 H270" stroke="#93c5fd" stroke-width="24"/>
+  <path d="M270 165 H360" stroke="#9aa3c2" stroke-width="12"/>
+  <path d="M270 165 H360" stroke="#93c5fd" stroke-width="7"/>
+  <path d="M360 165 H500" stroke="#9aa3c2" stroke-width="30"/>
+  <path d="M360 165 H500" stroke="#93c5fd" stroke-width="24"/>
+  <path d="M190 165 h40 m-10 -7 l10 7 l-10 7" fill="none" stroke="#1f2937" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M410 165 h40 m-10 -7 l10 7 l-10 7" fill="none" stroke="#1f2937" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <g font-family="sans-serif" font-size="14" fill="#1f2937" text-anchor="middle">
+    <text x="95" y="215" font-weight="700" fill="#4f46e5">Voltage (V)</text>
+    <text x="95" y="234" font-size="12" fill="#4b5563">pressure / push</text>
+    <text x="210" y="215" font-weight="700" fill="#4f46e5">Current (I)</text>
+    <text x="210" y="234" font-size="12" fill="#4b5563">how much flows</text>
+    <text x="315" y="215" font-weight="700" fill="#f97316">Resistance (R)</text>
+    <text x="315" y="234" font-size="12" fill="#4b5563">narrow pipe slows it</text>
+    <text x="455" y="215" font-weight="700" fill="#4f46e5">Less current</text>
+    <text x="455" y="234" font-size="12" fill="#4b5563">after the restriction</text>
+  </g>
+</svg>

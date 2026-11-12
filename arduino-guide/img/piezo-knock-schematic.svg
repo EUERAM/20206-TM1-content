@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 260" role="img" aria-labelledby="title desc">
+  <title id="title">Piezo knock sensor schematic</title>
+  <desc id="desc">An Arduino's A0 pin connects to the top of a piezo element and a 1 megaohm resistor placed in parallel; the bottom of both connects to GND.</desc>
+  <rect width="560" height="260" rx="18" fill="#eef0f8"/>
+  <rect x="20" y="20" width="520" height="220" rx="12" fill="#fff"/>
+
+  <!-- Arduino block -->
+  <rect x="44" y="64" width="96" height="132" rx="8" fill="#0f766e"/>
+  <g font-family="sans-serif" font-weight="700" fill="#fff">
+    <text x="58" y="56" font-size="12" fill="#1f2937">Arduino</text>
+    <text x="104" y="100" font-size="14">A0</text>
+    <text x="94" y="170" font-size="14">GND</text>
+  </g>
+
+  <!-- rails -->
+  <path d="M140 95 H430 V112 M140 165 H430 V150" fill="none" stroke="#1f2937" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="260" cy="95" r="5" fill="#1f2937"/>
+  <circle cx="260" cy="165" r="5" fill="#1f2937"/>
+
+  <!-- piezo branch -->
+  <path d="M260 95 V116 M260 144 V165" stroke="#1f2937" stroke-width="3"/>
+  <path d="M240 116 H280 M240 144 H280" stroke="#1f2937" stroke-width="3"/>
+  <rect x="248" y="122" width="24" height="16" fill="#f97316" stroke="#1f2937" stroke-width="2"/>
+
+  <!-- resistor branch -->
+  <path d="M430 112 l-10 4 l20 6 l-20 6 l20 6 l-20 6 l20 6 l-10 4" fill="none" stroke="#1f2937" stroke-width="3" stroke-linejoin="round"/>
+
+  <g font-family="sans-serif" fill="#1f2937">
+    <text x="292" y="122" font-size="14" font-weight="700">Piezo</text>
+    <text x="292" y="138" font-size="11" fill="#6b7280">red → A0</text>
+    <text x="292" y="152" font-size="11" fill="#6b7280">black → GND</text>
+    <text x="452" y="128" font-size="14" font-weight="700">1 MΩ</text>
+    <text x="452" y="146" font-size="11" fill="#6b7280">in parallel</text>
+    <text x="44" y="222" font-size="12" fill="#4b5563">A knock makes a voltage spike on A0; the resistor drains it before the next one.</text>
+  </g>
+</svg>

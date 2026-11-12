@@ -1,0 +1,1978 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Basic electronics and soldering for tangible interaction: electricity fundamentals, electronic components, prototyping and measuring, and soldering and finishing."
+    />
+    <title>Basic Electronics Guide — Multimedia Technologies I</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../figma-guide/css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to guide</a>
+    <input
+      type="checkbox"
+      id="menu-toggle"
+      class="menu-checkbox"
+      aria-label="Show or hide the menu"
+    />
+    <label for="menu-toggle" class="menu-btn" title="Show / hide menu">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <label for="menu-toggle" class="menu-backdrop"></label>
+    <div class="layout">
+      <aside class="sidebar" aria-label="Guide contents">
+        <h1 class="sidebar-title">Electronics <span>Guide</span></h1>
+        <p class="sidebar-context">
+          Tangible Interaction<br />Multimedia Technologies
+        </p>
+        <p class="sidebar-label">Guide contents</p>
+        <nav>
+          <h3>1 · Electricity fundamentals</h3>
+          <a href="#quantities">Voltage, current, resistance, power</a>
+          <a href="#ohms-law">Ohm's law and the power law</a>
+          <a href="#circuits">What a circuit is</a>
+          <a href="#ground">Ground and common ground</a>
+          <a href="#series-parallel">Series and parallel</a>
+          <a href="#voltage-divider">Voltage dividers</a>
+          <a href="#pull-resistors">Pull-up and pull-down</a>
+          <a href="#logic-levels">Logic levels: 5 V vs 3.3 V</a>
+          <a href="#safety">Safety and protecting your board</a>
+
+          <h3>2 · Electronic components</h3>
+          <a href="#components-overview">Sensors, controllers, actuators</a>
+          <a href="#resistors">Resistors</a>
+          <a href="#potentiometers">Potentiometers</a>
+          <a href="#leds">LEDs</a>
+          <a href="#capacitors">Capacitors</a>
+          <a href="#diodes">Diodes</a>
+          <a href="#transistors">Transistors as switches</a>
+          <a href="#relays">Relays</a>
+          <a href="#switches">Switches and buttons</a>
+          <a href="#power-sources">Power sources</a>
+          <a href="#modules">ICs and modules</a>
+
+          <h3>3 · Prototyping and measuring</h3>
+          <a href="#schematics">Read a schematic</a>
+          <a href="#datasheets">Read a datasheet</a>
+          <a href="#breadboard">The breadboard</a>
+          <a href="#wires">Jumper wires and colours</a>
+          <a href="#multimeter">The multimeter</a>
+          <a href="#simulate">Simulate and document</a>
+          <a href="#debugging">Debug a circuit</a>
+
+          <h3>4 · Soldering and finishing</h3>
+          <a href="#when-to-solder">When to solder</a>
+          <a href="#solder-tools">Tools</a>
+          <a href="#solder-safety">Safety</a>
+          <a href="#solder-technique">Make a good joint</a>
+          <a href="#headers-wires">Headers and wires</a>
+          <a href="#perfboard">Perfboard and shields</a>
+          <a href="#common-faults">Common faults</a>
+
+          <h3>Appendices</h3>
+          <a href="#appendix-b">1 · Resistor code and values</a>
+          <a href="#connectors">2 · Connectors and enclosures</a>
+        </nav>
+        <p class="sidebar-note">
+          When you are ready to program your circuits, continue with the
+          <a href="../arduino-guide/index.html">Arduino guide</a>.
+        </p>
+      </aside>
+
+      <div class="content">
+        <main id="content">
+          <section class="hero">
+            <p class="eyebrow">Tangible interaction</p>
+            <h1>Basic electronics <span>and soldering.</span></h1>
+            <p class="hero-copy">
+              The electrical ideas, components, and workshop skills you need to
+              connect sensors, lights, and motors to an Arduino—and to turn a
+              breadboard test into an object that survives being handled.
+            </p>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 1 — Electricity fundamentals                         -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="quantities">
+            <p class="eyebrow">Chapter 1 · Electricity fundamentals · 1.1</p>
+            <h2>Voltage, current, resistance, and power</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  Electricity is the movement of electric charge through a
+                  conductor. Picture water in a pipe: four quantities describe
+                  what happens.
+                </p>
+                <ul>
+                  <li>
+                    <strong>Voltage (V, volts)</strong> is the push that makes
+                    charge move. An Arduino Uno works at <strong>5 V</strong>;
+                    the MKR WiFi 1010 and many modules work at 3.3 V.
+                  </li>
+                  <li>
+                    <strong>Current (I, amperes)</strong> is how much charge
+                    flows per second. We usually talk in milliamperes: 20 mA =
+                    0.02 A.
+                  </li>
+                  <li>
+                    <strong>Resistance (R, ohms Ω)</strong> is how much a
+                    component opposes the flow. More resistance, less current.
+                  </li>
+                  <li>
+                    <strong>Power (P, watts)</strong> is the energy used per
+                    second. It becomes light, movement, sound—and heat.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/water-analogy.svg"
+                    alt="Water analogy: a tank represents voltage, the flow in a pipe represents current, and a narrow section represents resistance."
+                    width="560"
+                    height="260"
+                    loading="lazy"
+                  />
+                  <figcaption>The water analogy for electricity.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <p class="note">
+              <strong>Remember:</strong> voltage is measured
+              <em>between</em> two points; current flows <em>through</em> a
+              component. A battery has voltage even when nothing is connected,
+              but no current flows until the circuit is closed.
+            </p>
+          </section>
+
+          <section class="lesson" id="ohms-law">
+            <p class="eyebrow">1.2 · Electricity fundamentals</p>
+            <h2>Ohm's law and the power law</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  <strong>Ohm's law</strong> links voltage, current, and
+                  resistance: <code>V = I × R</code>. If you know two values,
+                  you can calculate the third. The
+                  <strong>power law</strong> tells you how much energy a part
+                  handles: <code>P = V × I</code>.
+                </p>
+                <ul>
+                  <li>
+                    A red LED needs about <strong>2 V</strong> and works well at
+                    <strong>10–20 mA</strong>. On a 5 V pin, the resistor takes
+                    the rest: <code>5 V − 2 V = 3 V</code>.
+                  </li>
+                  <li>
+                    <code>R = V ÷ I = 3 V ÷ 0.02 A = 150 Ω</code>. Choose the
+                    next common value <strong>above</strong> it:
+                    <strong>220 Ω</strong>.
+                  </li>
+                  <li>
+                    Power in that resistor:
+                    <code>P = 3 V × 0.014 A ≈ 0.04 W</code>—far below the 0.25 W
+                    a standard resistor can handle.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/ohms-law-triangles.png"
+                    alt="Three Ohm's law triangles with V on top and I and R below, each highlighting the value to find: V equals I times R, I equals V over R, and R equals V over I."
+                    width="806"
+                    height="358"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Cover the value you want to find; what remains is the
+                    formula.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <p class="note">
+              <strong>Try it:</strong> calculate the resistor for a blue LED
+              (about 3 V) at 15 mA on a 5 V pin. Then check your answer against
+              the nearest common value.
+            </p>
+          </section>
+
+          <section class="lesson" id="circuits">
+            <p class="eyebrow">1.3 · Electricity fundamentals</p>
+            <h2>What a circuit is</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A circuit is a closed loop: current leaves the positive side
+                  of the source, passes through the components, and returns to
+                  the negative side. Break the loop anywhere and everything
+                  stops.
+                </p>
+                <p>
+                  <strong>Direct current (DC)</strong> flows in one direction at
+                  a steady voltage: batteries, USB, and Arduino all use DC.
+                  <strong>Alternating current (AC)</strong> changes direction
+                  many times per second: it is what comes out of a wall socket.
+                  In this module we only work with low-voltage DC.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/led-battery-resistor-schematic.png"
+                    alt="Schematic of a battery, a resistor, and an LED connected in a closed loop."
+                    width="323"
+                    height="227"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    The simplest useful circuit: source, resistor, and LED in
+                    series.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>Open circuit</h3>
+                <p>
+                  The path is broken—a loose wire, a switch that is off, a
+                  component in the wrong breadboard row. No current flows.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3>Short circuit</h3>
+                <p>
+                  + connects to GND with almost no resistance. A very large
+                  current flows and can damage the board, the USB port, or a
+                  battery. Always avoid it.
+                </p>
+              </article>
+            </div>
+            <p class="note">
+              <strong>Before powering:</strong> trace the loop with your finger
+              from 5 V, through each component, back to GND. If you reach GND
+              without passing through a resistor or a load, you have found a
+              short circuit.
+            </p>
+          </section>
+
+          <section class="lesson" id="ground">
+            <p class="eyebrow">1.4 · Electricity fundamentals</p>
+            <h2>Ground (GND) and common ground</h2>
+            <p>
+              <strong>Ground</strong> is the reference point of a circuit: the
+              point we call 0 V. Every other voltage is measured relative to it.
+              On an Arduino, all the pins labelled GND are connected together.
+            </p>
+            <p>
+              When a project uses more than one power source—for example, the
+              Arduino on USB and an LED strip on a 5 V adapter—their grounds
+              must be connected. Without a <strong>common ground</strong>, the
+              Arduino's signal has no shared reference, and the strip or motor
+              driver may behave randomly or not at all.
+            </p>
+            <p class="note">
+              Join the <strong>grounds</strong>, never the positive lines of two
+              different supplies.
+            </p>
+          </section>
+
+          <section class="lesson" id="series-parallel">
+            <p class="eyebrow">1.5 · Electricity fundamentals</p>
+            <h2>Series and parallel circuits</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  Components can be connected in two basic ways: one after
+                  another, or side by side. The way you connect them decides how
+                  the voltage and the current are shared.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/series-parallel.jpg"
+                    alt="Two resistors R1 and R2 connected in series, one after the other, and in parallel, side by side."
+                    width="700"
+                    height="350"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Two resistors in series and in parallel.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>Series</h3>
+                <p>
+                  Components one after another, in a single path. The
+                  <strong>same current</strong> flows through all of them; the
+                  <strong>voltage is shared</strong> between them. Resistances
+                  add up: <code>R = R1 + R2</code>.
+                </p>
+                <p class="example">
+                  Think: an LED and its resistor. If one fails, the loop is
+                  broken.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3>Parallel</h3>
+                <p>
+                  Components side by side, each on its own branch. All get the
+                  <strong>same voltage</strong>; the
+                  <strong>current splits</strong> between branches and adds up
+                  at the source.
+                </p>
+                <p class="example">
+                  Think: several LEDs, each with its own resistor, all fed from
+                  5 V.
+                </p>
+              </article>
+            </div>
+            <p>
+              Parallel branches add load: ten LEDs at 15 mA each draw 150 mA
+              from the supply. Always add up the current before choosing how to
+              power a project.
+            </p>
+          </section>
+
+          <section class="lesson" id="voltage-divider">
+            <p class="eyebrow">1.6 · Electricity fundamentals</p>
+            <h2>Voltage dividers</h2>
+            <p>
+              Two resistors in series between a voltage and GND split that
+              voltage. The point between them gives an output that depends on
+              the ratio of the two resistances.
+            </p>
+            <pre><code>Vin ── R1 ──┬── R2 ── GND
+            │
+           Vout = Vin × R2 ÷ (R1 + R2)
+
+Example: 5 V, R1 = 10 kΩ, R2 = 10 kΩ  →  Vout = 2.5 V</code></pre>
+            <p>
+              The divider is the basis of many inputs. A
+              <strong>potentiometer</strong> is a divider whose middle point
+              moves when you turn the knob. An <strong>LDR</strong> or a
+              <strong>force sensor</strong> replaces one of the resistors, so
+              Vout changes with light or pressure—and Arduino can read that
+              voltage on an analog pin.
+            </p>
+            <p class="note">
+              Dividers are for <em>signals</em>, not for powering things: as
+              soon as a load draws current from Vout, the voltage drops.
+            </p>
+          </section>
+
+          <section class="lesson" id="pull-resistors">
+            <p class="eyebrow">1.7 · Electricity fundamentals</p>
+            <h2>Pull-up and pull-down resistors</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A digital input connected to nothing is
+                  <strong>floating</strong>: it picks up electrical noise and
+                  reads random HIGH and LOW values. A pull resistor gives the
+                  input a defined state when the button is not pressed.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/pull-up-pull-down-schematic.jpg"
+                    alt="Two schematics: a pull-up resistor from 5 V to the microcontroller input with the switch to ground, and a switch from 5 V to the input with a pull-down resistor to ground."
+                    width="700"
+                    height="480"
+                    loading="lazy"
+                  />
+                  <figcaption>Pull-up (left) and pull-down (right).</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>Pull-up</h3>
+                <p>
+                  10 kΩ from the pin to 5 V; the switch connects the pin to GND.
+                  Reads <code>HIGH</code> at rest and <code>LOW</code> when
+                  pressed. Arduino has internal pull-ups you can switch on with
+                  <code>INPUT_PULLUP</code>.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3>Pull-down</h3>
+                <p>
+                  10 kΩ from the pin to GND; the switch connects the pin to 5 V.
+                  Reads <code>LOW</code> at rest and <code>HIGH</code> when
+                  pressed.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="logic-levels">
+            <p class="eyebrow">1.8 · Electricity fundamentals</p>
+            <h2>Logic levels: 5 V vs 3.3 V devices</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A digital HIGH is not the same voltage on every board. The
+                  Arduino Uno uses <strong>5 V logic</strong>; the MKR WiFi
+                  1010, the RC522 RFID reader, and many modern sensors use
+                  <strong>3.3 V logic</strong>.
+                </p>
+                <ul>
+                  <li>
+                    <strong>5 V into a 3.3 V pin can damage it.</strong> Use a
+                    voltage divider or a level shifter on signals that go
+                    <em>into</em> a 3.3 V device.
+                  </li>
+                  <li>
+                    A 3.3 V signal going into a 5 V Uno pin is usually read as
+                    HIGH, but it is close to the limit. Test it, or use a level
+                    shifter for reliability.
+                  </li>
+                  <li>
+                    Check the module's operating voltage in its datasheet before
+                    connecting its VCC pin.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/logic-level-shifter-wiring.jpg"
+                    alt="A four-channel logic level shifter module with its HV and LV pins marked, and the module wired on a breadboard between a 3.3 V board and a 5 V circuit."
+                    width="700"
+                    height="393"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    A logic level shifter: HV pins on the 5 V side, LV pins on
+                    the 3.3 V side.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="safety">
+            <p class="eyebrow">1.9 · Electricity fundamentals</p>
+            <h2>Electrical safety and protecting your board</h2>
+            <p>
+              The voltages we use are safe to touch, but mistakes can still
+              damage components, your computer's USB port, or a battery. Good
+              habits prevent most problems.
+            </p>
+            <ul class="checklist">
+              <li>Disconnect USB or batteries before changing the wiring.</li>
+              <li>Check for short circuits before connecting power.</li>
+              <li>Never connect an LED to a pin or 5 V without a resistor.</li>
+              <li>
+                Draw no more than about 20 mA from an Uno pin (7 mA on the MKR).
+                Use a transistor or driver for motors, relays, and LED strips.
+              </li>
+              <li>Never connect an output pin directly to GND or 5 V.</li>
+              <li>
+                If something gets hot or smells, disconnect power immediately.
+              </li>
+              <li>
+                Handle lithium batteries with care: never short, puncture, or
+                bend them.
+              </li>
+              <li>Never connect projects to mains (230 V) electricity.</li>
+            </ul>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 2 — Electronic components                            -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="components-overview">
+            <p class="eyebrow">Chapter 2 · Electronic components · 2.1</p>
+            <h2>Sensors, controllers, and actuators</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  Every interactive object follows the same chain. A
+                  <strong>sensor</strong> detects something in the world, a
+                  <strong>controller</strong> (the Arduino) decides what it
+                  means, and an <strong>actuator</strong> acts: it lights,
+                  moves, or sounds. The other components in this chapter make
+                  that chain safe and reliable.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/sensor-controller-actuator-flow.png"
+                    alt="Flow diagram: a temperature sensor detects heat, sends a signal to a control centre, which sends a command to a sprinkler, the actuator, which puts out the flame."
+                    width="792"
+                    height="311"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Sensor → controller → actuator, illustrated with a fire
+                    sprinkler.
+                  </figcaption>
+                </figure>
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/component-schematic-symbols.png"
+                    alt="Photos of common components next to their schematic symbols: switch, resistor, battery, capacitor, diode, NPN transistor, light-emitting diode, and PNP transistor."
+                    width="732"
+                    height="660"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Common components and their schematic symbols.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="resistors">
+            <p class="eyebrow">2.2 · Electronic components</p>
+            <h2>Resistors</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A resistor <strong>limits current</strong>. It protects LEDs,
+                  sets reference voltages in dividers, and keeps inputs in a
+                  defined state. Resistors have no polarity: they work in either
+                  direction.
+                </p>
+                <ul>
+                  <li>
+                    <strong>Value:</strong> on a 4-band resistor, two digits and
+                    a multiplier. Read from the side opposite the gold or silver
+                    band.
+                  </li>
+                  <li>
+                    <strong>Tolerance:</strong> how far the real value may be
+                    from the label. Gold = ±5%, brown = ±1%.
+                  </li>
+                  <li>
+                    <strong>Power rating:</strong> the heat a resistor can
+                    dissipate. Standard through-hole resistors are 0.25 W, which
+                    is plenty for signals and LEDs.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/resistor-colour-code.png"
+                    alt="Resistor colour code chart for 4, 5, and 6-band resistors, showing digit, multiplier, tolerance, and temperature coefficient colours."
+                    width="621"
+                    height="489"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Colour code for 4-, 5-, and 6-band resistors.
+                  </figcaption>
+                </figure>
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/resistor-code.svg"
+                    alt="A resistor with red, red, brown, and gold bands read as 2, 2, times 10, which equals 220 ohms with five percent tolerance."
+                    width="560"
+                    height="260"
+                    loading="lazy"
+                  />
+                  <figcaption>Reading a 220 Ω resistor.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <p class="note">
+              Not sure about the colours? Measure the resistor with a
+              <a href="#multimeter">multimeter</a>. See the
+              <a href="#appendix-b">appendix</a> for the values used most in
+              this module.
+            </p>
+          </section>
+
+          <section class="lesson" id="potentiometers">
+            <p class="eyebrow">2.3 · Electronic components</p>
+            <h2>Potentiometers and variable resistors</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A potentiometer has three legs. The outer legs are the two
+                  ends of a fixed resistor; the middle leg (the
+                  <strong>wiper</strong>) slides along it. Connect the outer
+                  legs to 5 V and GND, and the wiper gives a voltage between 0 V
+                  and 5 V depending on the knob position.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/potentiometers.jpg"
+                    alt="Several potentiometers: rotary potentiometers with long and short shafts, a large precision potentiometer, and a small trimmer."
+                    width="500"
+                    height="453"
+                    loading="lazy"
+                  />
+                  <figcaption>Rotary potentiometers and a trimmer.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Rotary and slide</h3>
+                <p>
+                  Knobs and faders work the same way. Choose by the gesture you
+                  want: turning or sliding.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Linear or log</h3>
+                <p>
+                  Linear (often marked “B”) changes evenly. Logarithmic (“A”) is
+                  designed for audio volume. Use linear for sensors.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Trimmers</h3>
+                <p>
+                  Tiny potentiometers adjusted with a screwdriver, used to set a
+                  value once—like the sensitivity of a sound module.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Variable resistors</h3>
+                <p>
+                  LDRs (light), FSRs (force), and flex sensors are resistors
+                  that change with the world. Read them in a
+                  <a href="#voltage-divider">voltage divider</a>.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="leds">
+            <p class="eyebrow">2.4 · Electronic components</p>
+            <h2>LEDs</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  An LED (light-emitting diode) only lets current flow in one
+                  direction. Connected backwards it simply stays off, so turn it
+                  round and try again. Connected without a resistor, it burns
+                  out.
+                </p>
+                <ul>
+                  <li>
+                    <strong>Anode (+):</strong> the longer leg. Goes towards the
+                    Arduino pin or 5 V.
+                  </li>
+                  <li>
+                    <strong>Cathode (−):</strong> the shorter leg, next to the
+                    flat edge of the LED. Goes towards GND.
+                  </li>
+                </ul>
+                <p>
+                  Each colour needs a different
+                  <strong>forward voltage</strong> to light up. Use it in
+                  <a href="#ohms-law">Ohm's law</a> to size the resistor.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/led-polarity.png"
+                    alt="A green and a red LED with their legs labelled: the longer leg is positive, the shorter leg is negative."
+                    width="403"
+                    height="480"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Long leg = anode (+). Short leg = cathode (−).
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>LED colour</th>
+                  <th>Typical forward voltage</th>
+                  <th>Resistor on 5 V (≈ 15 mA)</th>
+                </tr>
+                <tr>
+                  <td>Red, yellow</td>
+                  <td>≈ 2.0 V</td>
+                  <td>220 Ω</td>
+                </tr>
+                <tr>
+                  <td>Green</td>
+                  <td>2.1–3.0 V</td>
+                  <td>150–220 Ω</td>
+                </tr>
+                <tr>
+                  <td>Blue, white</td>
+                  <td>≈ 3.0–3.2 V</td>
+                  <td>100–150 Ω</td>
+                </tr>
+              </table>
+            </div>
+            <h3 class="subheading">RGB LEDs</h3>
+            <p>
+              An RGB LED contains a red, a green, and a blue LED in one package,
+              with four legs. Each colour needs its own resistor and its own PWM
+              pin.
+            </p>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>Common cathode</h3>
+                <p>
+                  The long leg goes to <strong>GND</strong>. A colour lights up
+                  when its pin is HIGH.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3>Common anode</h3>
+                <p>
+                  The long leg goes to <strong>5 V</strong>. A colour lights up
+                  when its pin is LOW, so the logic is inverted:
+                  <code>analogWrite(pin, 255 - value)</code>.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="capacitors">
+            <p class="eyebrow">2.5 · Electronic components</p>
+            <h2>Capacitors</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A capacitor stores a small amount of charge and releases it
+                  quickly. In our projects it acts as a tiny local reservoir
+                  that smooths the power supply when a component suddenly
+                  demands more current.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/capacitors.jpg"
+                    alt="Ceramic capacitors, small orange and beige components, next to cylindrical electrolytic capacitors."
+                    width="700"
+                    height="315"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Ceramic (left) vs electrolytic (right) capacitors.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>Ceramic</h3>
+                <p>
+                  Small, <strong>no polarity</strong>. A 100 nF ceramic next to
+                  a chip's power pins (<strong>decoupling</strong>) filters fast
+                  noise.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3>Electrolytic</h3>
+                <p>
+                  Cylindrical, larger values (µF), <strong>polarised</strong>:
+                  the stripe marks the negative leg. Used for
+                  <strong>smoothing</strong>, like the 1000 µF capacitor across
+                  an LED strip's power.
+                </p>
+              </article>
+            </div>
+            <p class="note">
+              Respect an electrolytic capacitor's polarity and voltage rating
+              (choose one rated above your supply voltage). Reversed or
+              overloaded, it can bulge or burst.
+            </p>
+          </section>
+
+          <section class="lesson" id="diodes">
+            <p class="eyebrow">2.6 · Electronic components</p>
+            <h2>Diodes</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A diode lets current flow in only one direction, from anode to
+                  cathode. The <strong>stripe</strong> on the body marks the
+                  cathode.
+                </p>
+                <p>
+                  Motors, relays, and solenoids are coils. When they switch off,
+                  the coil produces a voltage spike that can destroy the
+                  transistor driving it. A <strong>flyback diode</strong> (such
+                  as a 1N4007) connected across the coil, with its stripe
+                  towards +, gives that spike a safe path.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/diode.jpg"
+                    alt="A black rectifier diode with a grey stripe at one end and a long leg on each side."
+                    width="600"
+                    height="236"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    A rectifier diode: the stripe marks the cathode.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="transistors">
+            <p class="eyebrow">2.7 · Electronic components</p>
+            <h2>Transistors as switches</h2>
+            <p>
+              An Arduino pin can only supply a few milliamperes. A transistor
+              works as an <strong>electronic switch</strong>: a small signal
+              from the pin controls a much larger current from another
+              supply—enough for a motor, a lamp, or a long LED strip.
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/transistor-2n2222.jpg"
+                  alt="Three 2N2222 transistors in small black plastic packages with three legs."
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>NPN · 2N2222</h3>
+                <p>
+                  Small transistor for loads up to a few hundred mA. Pin → 1 kΩ
+                  → base; load between + and collector; emitter → GND.
+                </p>
+              </article>
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/transistor-tip120.jpg"
+                  alt="A TO-220 power transistor with a metal tab and three legs."
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>Darlington · TIP120</h3>
+                <p>
+                  Handles larger currents, but loses 1–2 V and gets warm. Wired
+                  like an NPN.
+                </p>
+              </article>
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/mosfet-irlz44n.jpg"
+                  alt="An IRLZ44N MOSFET in a TO-220 package."
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>MOSFET · IRLZ44N</h3>
+                <p>
+                  A logic-level MOSFET switches big loads efficiently from a 5 V
+                  pin. Pin → 220 Ω → gate, plus 10 kΩ from gate to GND.
+                </p>
+              </article>
+            </div>
+            <pre><code>Load (motor, lamp, strip)
+  + ── external supply +
+  − ── collector / drain
+emitter / source ── GND  (shared with Arduino GND)
+Arduino pin ── resistor ── base / gate
+Coils only: flyback diode across the load, stripe to +</code></pre>
+            <p class="note">
+              Pin order differs between models. Always check the datasheet
+              pinout before wiring. For direction control of DC motors, use an
+              H-bridge driver—see
+              <a href="../arduino-guide/index.html#dc-motors">DC motors</a> in
+              the Arduino guide.
+            </p>
+          </section>
+
+          <section class="lesson" id="relays">
+            <p class="eyebrow">2.8 · Electronic components</p>
+            <h2>Relays</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A relay is a switch moved by an electromagnet. Because the
+                  coil and the switch contacts are physically separate, it
+                  provides
+                  <strong>isolation</strong>: a low-voltage Arduino circuit can
+                  switch a completely separate circuit, such as a 12 V lamp or a
+                  pump.
+                </p>
+                <ul>
+                  <li>
+                    A bare relay coil needs a transistor and a flyback diode. A
+                    <strong>relay module</strong> includes both: connect VCC,
+                    GND, and IN.
+                  </li>
+                  <li>
+                    Relays click, are slow, and wear out. For fast switching or
+                    PWM, use a MOSFET instead.
+                  </li>
+                  <li>
+                    In this course, relays only switch low-voltage DC circuits.
+                    Never connect anything to mains electricity.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/relay-module.jpg"
+                    alt="Two single-channel relay modules: a blue relay on a red board with screw terminals and a header for VCC, GND, and IN."
+                    width="500"
+                    height="500"
+                    loading="lazy"
+                  />
+                  <figcaption>Relay modules.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="switches">
+            <p class="eyebrow">2.9 · Electronic components</p>
+            <h2>Switches and buttons</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A switch opens or closes a circuit mechanically. Choose it for
+                  the gesture you want: a quick press, a position that stays, or
+                  an object that is detected without being touched.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/buttons.jpg"
+                    alt="Several buttons: large blue and red arcade buttons, a red panel-mount pushbutton, and small tactile buttons."
+                    width="500"
+                    height="331"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Buttons come in many sizes, from arcade buttons to tiny
+                    tactile switches.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/tactile-switch.jpg"
+                  alt="A small four-leg tactile pushbutton."
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>Momentary / tactile</h3>
+                <p>
+                  Only closed while pressed. The small four-leg breadboard
+                  button has its legs connected in pairs: place it across the
+                  central gap.
+                </p>
+              </article>
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/toggle-switch.jpg"
+                  alt="A metal toggle switch with ON and OFF labels."
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>Toggle</h3>
+                <p>
+                  Stays in the position you leave it: on/off switches, slide
+                  switches, rocker switches.
+                </p>
+              </article>
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/reed-switch.jpg"
+                  alt="A white magnetic reed switch in two parts: the switch and the magnet."
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>Reed</h3>
+                <p>
+                  Closes when a magnet comes near. Perfect for detecting a lid,
+                  a door, or a hidden object.
+                </p>
+              </article>
+            </div>
+            <p>
+              Every switch needs a
+              <a href="#pull-resistors">pull-up or pull-down</a> to give a clean
+              reading.
+            </p>
+          </section>
+
+          <section class="lesson" id="power-sources">
+            <p class="eyebrow">2.10 · Electronic components</p>
+            <h2>Power sources (overview)</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  Every project needs a source of energy. While developing, USB
+                  is enough; for the final object, choose a supply or battery
+                  that matches the voltage and current your parts need.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/power-supply.jpg"
+                    alt="An enclosed metal switching power supply with a perforated case and screw terminals for the input and output."
+                    width="500"
+                    height="281"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    An enclosed switching power supply, common in LED
+                    installations.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>USB</h3>
+                <p>
+                  5 V and about 500 mA from a computer. Ideal while developing.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Batteries</h3>
+                <p>
+                  AA packs, LiPo cells, and power banks make objects portable.
+                  Capacity is measured in mAh.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Power supplies</h3>
+                <p>
+                  5 V or 12 V adapters and enclosed supplies rated in amperes,
+                  for LED strips and motors.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Regulators</h3>
+                <p>
+                  Convert one voltage into another: linear regulators, buck
+                  (step-down), and boost (step-up) converters.
+                </p>
+              </article>
+            </div>
+            <p class="note">
+              The Arduino guide's
+              <a href="../arduino-guide/index.html#power-basics"
+                >Powering your project</a
+              >
+              chapter covers batteries, supplies, regulators, and power budgets
+              in detail.
+            </p>
+          </section>
+
+          <section class="lesson" id="modules">
+            <p class="eyebrow">2.11 · Electronic components</p>
+            <h2>Integrated circuits and modules</h2>
+            <p>
+              An <strong>integrated circuit (IC)</strong> is a complete circuit
+              inside a chip: a microcontroller, a motor driver, an amplifier. A
+              <strong>module</strong> or <strong>breakout board</strong> puts an
+              IC on a small board with the extra components it needs and clearly
+              labelled pins.
+            </p>
+            <ul>
+              <li>
+                Most modules have power pins (<code>VCC</code>/<code>VIN</code>
+                and <code>GND</code>) and signal pins (<code>OUT</code>,
+                <code>SDA</code>/<code>SCL</code>,
+                <code>TX</code>/<code>RX</code>…).
+              </li>
+              <li>
+                Check the operating voltage: some modules accept 3.3–5 V, others
+                are 3.3 V only.
+              </li>
+              <li>
+                Modules usually arrive with loose header pins that you need to
+                <a href="#headers-wires">solder</a>.
+              </li>
+            </ul>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 3 — Prototyping and measuring                        -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="schematics">
+            <p class="eyebrow">Chapter 3 · Prototyping and measuring · 3.1</p>
+            <h2>Read a schematic</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A schematic shows how components are <em>connected</em>, not
+                  where they physically sit. It is the clearest way to
+                  understand and share a circuit.
+                </p>
+                <ul>
+                  <li>
+                    Each component has a
+                    <a href="#components-overview">symbol</a>
+                    and a label: R1, LED1, C1.
+                  </li>
+                  <li>
+                    Lines are wires. Lines that cross without a dot are not
+                    connected.
+                  </li>
+                  <li>A dot marks a junction where wires join.</li>
+                  <li>
+                    Power is usually drawn at the top and GND at the bottom; a
+                    ground symbol (⏚) means “connect to GND”.
+                  </li>
+                  <li>
+                    Labels such as <code>5V</code> or <code>A0</code> connect
+                    points that share the same name, even without a drawn line.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/led-schematic.jpg"
+                    alt="Schematic of an Arduino with six LEDs: digital pins 2 to 7 each go through an LED and a resistor (R1 to R6) to a common ground line."
+                    width="800"
+                    height="673"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Six LEDs on pins 2–7, each with its own resistor, sharing
+                    GND.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="datasheets">
+            <p class="eyebrow">3.2 · Prototyping and measuring</p>
+            <h2>Read a datasheet</h2>
+            <p>
+              A datasheet is the manufacturer's description of a component. It
+              can be dozens of pages long, but you usually only need a few
+              things.
+            </p>
+            <div class="system-list">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Pinout</h3>
+                  <p>Which leg or pin does what, seen from which side.</p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Operating voltage</h3>
+                  <p>The supply range: 3.3 V only, 5 V, or 3–5.5 V.</p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Maximum current</h3>
+                  <p>
+                    What the part draws, and the most it can handle before it is
+                    damaged.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <span>04</span>
+                <div>
+                  <h3>Typical application</h3>
+                  <p>
+                    A recommended circuit, often with the exact resistor and
+                    capacitor values to use.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="breadboard">
+            <p class="eyebrow">3.3 · Prototyping and measuring</p>
+            <h2>The breadboard</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A breadboard (protoboard) lets you build circuits without
+                  soldering. Metal strips inside connect certain holes; once you
+                  know which, wiring becomes predictable.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/breadboard-layout.jpg"
+                    alt="A half-size breadboard next to a diagram of its internal connections: horizontal power rails along the edges and vertical columns of five holes on each side of the central gap."
+                    width="800"
+                    height="302"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Breadboard and its internal connections (“Connexions en la
+                    protoboard”).
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Power rails</h3>
+                <p>
+                  The long lines marked + (red) and − (blue) run along the
+                  edges. Connect 5V to + and GND to − once, then take power from
+                  anywhere along the rail. On some boards the rails are split in
+                  the middle.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Rows</h3>
+                <p>
+                  In the central area, each short line of five holes is
+                  connected. Two legs in the same row are joined; legs in
+                  different rows are not.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Centre gap</h3>
+                <p>
+                  Separates the two halves. Place buttons and chips across it so
+                  their pins are not short-circuited together.
+                </p>
+              </article>
+            </div>
+
+            <p class="note">
+              <strong>Common mistake:</strong> both legs of a component in the
+              same row. They are then connected to each other, and the component
+              is bypassed.
+            </p>
+          </section>
+
+          <section class="lesson" id="wires">
+            <p class="eyebrow">3.4 · Prototyping and measuring</p>
+            <h2>Jumper wires and the colour convention</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  Jumper wires come male–male (breadboard to Arduino),
+                  male–female, and female–female (for module pins). Pick a
+                  colour convention and keep it throughout the project.
+                </p>
+                <div class="table-wrap">
+                  <table class="data-table">
+                    <tr>
+                      <th>Colour</th>
+                      <th>Use</th>
+                    </tr>
+                    <tr>
+                      <td><strong>Black</strong> or white</td>
+                      <td>GND</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Red</strong></td>
+                      <td>Power: 5 V, 3.3 V, or VIN</td>
+                    </tr>
+                    <tr>
+                      <td>Other colours</td>
+                      <td>
+                        Signals: one colour per type, e.g. yellow for analog,
+                        blue for digital
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/jumper-wires.jpg"
+                    alt="A bundle of male-to-male jumper wires in different colours."
+                    width="500"
+                    height="500"
+                    loading="lazy"
+                  />
+                  <figcaption>Male–male jumper wires.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="multimeter">
+            <p class="eyebrow">3.5 · Prototyping and measuring</p>
+            <h2>The multimeter</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A multimeter turns invisible problems into numbers. Turn the
+                  dial to choose what to measure, plug the black probe into
+                  <strong>COM</strong>, and the red probe into the right socket.
+                </p>
+                <ul>
+                  <li>
+                    <strong>Voltage (V⎓):</strong> power <strong>on</strong>.
+                    Black on GND, red on the point to check. The 5 V rail should
+                    read about 5 V.
+                  </li>
+                  <li>
+                    <strong>Resistance (Ω):</strong> component
+                    <strong>out of the circuit</strong>. Check resistors,
+                    potentiometers, an LDR in light and dark.
+                  </li>
+                  <li>
+                    <strong>Continuity (🔊):</strong> power
+                    <strong>off</strong>. A beep means two points are connected:
+                    wires, solder joints, breadboard rows.
+                  </li>
+                  <li>
+                    <strong>Current (A):</strong> the meter goes
+                    <em>in series</em>, breaking the circuit. Use the mA socket
+                    for small currents and 10A for larger ones.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/multimeter-ntk244.jpg"
+                    alt="Digital multimeter (Neoteck NTK244) with probes: a dial for voltage, resistance, continuity, and current, and COM, VΩmA, and 10A sockets."
+                    width="600"
+                    height="600"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Digital multimeter: dial for V, Ω, continuity, and A; COM,
+                    VΩmA, and 10A sockets.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <p class="note">
+              After measuring current, move the red probe back to VΩ. In the
+              current socket the meter behaves like a wire, and touching it
+              across a power supply causes a short circuit.
+            </p>
+          </section>
+
+          <section class="lesson" id="simulate">
+            <p class="eyebrow">3.6 · Prototyping and measuring</p>
+            <h2>Simulate and document circuits</h2>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Tinkercad Circuits</h3>
+                <p>
+                  Build Arduino circuits on a virtual breadboard and run the
+                  code in the browser.
+                  <a
+                    href="https://www.tinkercad.com/circuits"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >tinkercad.com/circuits</a
+                  >
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Wokwi</h3>
+                <p>
+                  Simulator with many modules: LED strips, screens, servos,
+                  sensors. Projects can be shared with a link.
+                  <a
+                    href="https://wokwi.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >wokwi.com</a
+                  >
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Fritzing</h3>
+                <p>
+                  Draw breadboard views, schematics, and PCB layouts to document
+                  your project.
+                  <a
+                    href="https://fritzing.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >fritzing.org</a
+                  >
+                </p>
+              </article>
+            </div>
+            <p class="note">
+              A simulator does not catch everything: real components have loose
+              contacts, noise, and limited power. Always confirm on the real
+              circuit.
+            </p>
+          </section>
+
+          <section class="lesson" id="debugging">
+            <p class="eyebrow">3.7 · Prototyping and measuring</p>
+            <h2>Debug a circuit step by step</h2>
+            <p>
+              Check the hardware and the code separately. Change one thing at a
+              time and test after each change.
+            </p>
+            <ul class="checklist">
+              <li>Is the board powered? Is the ON LED lit?</li>
+              <li>Do 5 V and GND reach the breadboard rails? Measure them.</li>
+              <li>
+                Are polarised parts (LEDs, capacitors, sensors) the right way
+                round?
+              </li>
+              <li>
+                Are component legs in the right rows, not in the same one?
+              </li>
+              <li>Does each wire go to the pin number used in the code?</li>
+              <li>Is there a common ground between all supplies?</li>
+              <li>Does the Serial Monitor show the value you expect?</li>
+              <li>Simplify: remove everything except the part that fails.</li>
+            </ul>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 4 — Soldering and finishing                          -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="when-to-solder">
+            <p class="eyebrow">Chapter 4 · Soldering and finishing · 4.1</p>
+            <h2>When to solder</h2>
+            <p>
+              A breadboard is perfect for testing, but its connections come
+              loose as soon as an object is carried, shaken, or touched by
+              visitors. Solder the parts of the circuit that already work, so
+              the prototype becomes permanent and reliable.
+            </p>
+            <ul>
+              <li>Test on the breadboard first; solder only what is stable.</li>
+              <li>
+                Draw the circuit before you start—it is your soldering map.
+              </li>
+              <li>
+                Keep a way to open and reprogram the object: leave the USB port
+                accessible and use connectors between parts.
+              </li>
+            </ul>
+          </section>
+
+          <section class="lesson" id="solder-tools">
+            <p class="eyebrow">4.2 · Soldering and finishing</p>
+            <h2>Tools</h2>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/soldering-iron.jpg"
+                  alt="A soldering iron with a fine conical tip and a green grip."
+                  width="387"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>Soldering iron or station</h3>
+                <p>
+                  A station with temperature control is easier to use. Work at
+                  about <strong>330–370 °C</strong>. A medium chisel or conical
+                  tip suits most jobs; keep it tinned and clean.
+                </p>
+              </article>
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/soldering-iron-stand.jpg"
+                  alt="A soldering iron stand with a metal spiral holder and a cleaning sponge tray."
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>Stand</h3>
+                <p>
+                  Holds the hot iron safely between joints. Always return the
+                  iron to it.
+                </p>
+              </article>
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/solder-spool.jpg"
+                  alt="A spool of lead-free solder wire."
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>Solder</h3>
+                <p>
+                  Lead-free solder is the standard; it needs slightly higher
+                  temperatures. 60/40 tin-lead flows more easily but contains
+                  lead.
+                </p>
+              </article>
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/solder-flux.jpg"
+                  alt="A jar of soldering paste flux."
+                  width="500"
+                  height="454"
+                  loading="lazy"
+                />
+                <h3>Flux</h3>
+                <p>
+                  Cleans the metal so solder flows. Most solder wire has a flux
+                  core; extra flux helps with difficult joints.
+                </p>
+              </article>
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/brass-sponge.jpg"
+                  alt="A brass wire sponge in a metal holder, with spare brass sponges."
+                  width="481"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>Brass sponge</h3>
+                <p>
+                  Cleans the tip without cooling it as much as a wet sponge.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Helping hands and extraction</h3>
+                <p>
+                  Clips hold the board and wires steady; a small extractor fan
+                  pulls flux smoke away from your face.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Small tools</h3>
+                <p>
+                  Wire strippers, flush cutters, tweezers, and heat-shrink
+                  tubing.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="solder-safety">
+            <p class="eyebrow">4.3 · Soldering and finishing</p>
+            <h2>Safety</h2>
+            <ul class="checklist">
+              <li>
+                The tip is hot enough to burn instantly. Always return the iron
+                to its stand.
+              </li>
+              <li>
+                Never touch the tip or a freshly soldered joint to check if it
+                is hot.
+              </li>
+              <li>Wear safety glasses: leads can flick and solder can spit.</li>
+              <li>
+                Work in a ventilated space and keep flux smoke away from your
+                face.
+              </li>
+              <li>
+                Wash your hands after soldering, especially with lead solder; do
+                not eat at the bench.
+              </li>
+              <li>
+                Switch the station off when you finish or leave the bench.
+              </li>
+            </ul>
+          </section>
+
+          <section class="lesson" id="solder-technique">
+            <p class="eyebrow">4.4 · Soldering and finishing</p>
+            <h2>Make a good joint</h2>
+            <div class="split">
+              <div class="split-text">
+                <div class="table-wrap">
+                  <table class="data-table">
+                    <tr>
+                      <th>Step</th>
+                      <th>Action</th>
+                      <th>How</th>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td><strong>Tin the tip</strong></td>
+                      <td>
+                        Melt a little solder on the clean, hot tip so it
+                        conducts heat well.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td><strong>Heat both</strong></td>
+                      <td>
+                        Touch the tip to the pad <em>and</em> the lead at the
+                        same time for 1–2 seconds.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td><strong>Feed solder</strong></td>
+                      <td>
+                        Touch the solder to the joint—not to the iron—and let it
+                        flow around the lead.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td><strong>Remove</strong></td>
+                      <td>
+                        Take the solder away first, then the iron. Do not move
+                        the parts while it cools.
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/good-solder-joint-diagram.gif"
+                    alt="Cross-section of a good solder joint: a smooth, shiny, concave fillet around the lead, with a wetting angle of 40 to 70 degrees from horizontal."
+                    width="532"
+                    height="307"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    A good joint is shiny, smooth, and concave—a small volcano
+                    that wets both the pad and the lead.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="headers-wires">
+            <p class="eyebrow">4.5 · Soldering and finishing</p>
+            <h2>Soldering headers and wires</h2>
+            <h3 class="subheading">Headers onto modules</h3>
+            <p>
+              Push the header's long pins into a breadboard, place the module on
+              top, and solder. The breadboard keeps the pins straight. Solder
+              one pin first, check the alignment, then do the rest.
+            </p>
+            <h3 class="subheading">Wires</h3>
+            <ol>
+              <li>Strip 3–5 mm of insulation.</li>
+              <li>Twist the strands and tin them with a little solder.</li>
+              <li>Slide heat-shrink onto the wire <em>before</em> joining.</li>
+              <li>Join the wires, solder, and let them cool.</li>
+              <li>
+                Move the heat-shrink over the joint and shrink it with heat.
+              </li>
+            </ol>
+          </section>
+
+          <section class="lesson" id="perfboard">
+            <p class="eyebrow">4.6 · Soldering and finishing</p>
+            <h2>Perfboard, stripboard, and proto shields</h2>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Perfboard</h3>
+                <p>
+                  A grid of separate pads. You make every connection with solder
+                  bridges or wire. Flexible, but slower.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Stripboard</h3>
+                <p>
+                  Pads joined in copper strips, like a breadboard row. Cut a
+                  strip with a drill bit where you need a break.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Proto shield</h3>
+                <p>
+                  A perfboard shaped to plug on top of an Arduino Uno, with 5 V
+                  and GND already available.
+                </p>
+              </article>
+            </div>
+            <p>
+              Plan the layout on paper with the board's grid before you solder,
+              and mark where strips must be cut.
+            </p>
+          </section>
+
+          <section class="lesson" id="common-faults">
+            <p class="eyebrow">4.7 · Soldering and finishing</p>
+            <h2>Common faults</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  Most problems in a soldered circuit come from a few typical
+                  bad joints. Learn to recognise them by their shape and shine,
+                  and redo them before you close the object.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/header-joints-good-vs-bad.jpg"
+                    alt="A row of header pins on a circuit board with labelled joints: cold joints, insufficient wetting, too much solder, and two that are OK."
+                    width="800"
+                    height="377"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Good and bad joints on a row of header pins.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Cold joint</h3>
+                <p>
+                  Dull, grainy, or lumpy. The parts were not hot enough. Reheat
+                  and add a little flux.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Insufficient wetting</h3>
+                <p>
+                  Solder sits on the pin or pad without flowing onto both. Heat
+                  both surfaces at the same time.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Bridge</h3>
+                <p>
+                  Solder joins two neighbouring pads. Drag it away with a clean
+                  tip.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Too much solder</h3>
+                <p>A round ball that may hide a bad connection.</p>
+              </article>
+              <article class="info-card">
+                <h3>Lifted pad</h3>
+                <p>
+                  Too much heat or force peels the copper off the board. Work
+                  quickly and do not pull leads.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Overheated part</h3>
+                <p>
+                  LEDs, sensors, and plastic connectors can melt. Limit contact
+                  to a few seconds.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Appendix                                                     -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="appendix-b">
+            <p class="eyebrow">Appendix 1</p>
+            <h2>Resistor colour code and common values</h2>
+            <pre><code>0 black   1 brown   2 red     3 orange  4 yellow
+5 green   6 blue    7 violet  8 grey    9 white
+Tolerance: gold ±5%   silver ±10%   brown ±1%</code></pre>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Value</th>
+                  <th>4-band colours</th>
+                  <th>Typical use in this module</th>
+                </tr>
+                <tr>
+                  <td>220 Ω</td>
+                  <td>red · red · brown</td>
+                  <td>Current-limiting resistor for an LED on 5 V</td>
+                </tr>
+                <tr>
+                  <td>330 Ω</td>
+                  <td>orange · orange · brown</td>
+                  <td>Data line of an addressable LED strip</td>
+                </tr>
+                <tr>
+                  <td>1 kΩ</td>
+                  <td>brown · black · red</td>
+                  <td>Transistor base; DFPlayer RX line</td>
+                </tr>
+                <tr>
+                  <td>10 kΩ</td>
+                  <td>brown · black · orange</td>
+                  <td>
+                    Pull-up / pull-down; FSR and LDR dividers; MOSFET gate
+                    pull-down
+                  </td>
+                </tr>
+                <tr>
+                  <td>100 kΩ</td>
+                  <td>brown · black · yellow</td>
+                  <td>LDR divider for bright spaces</td>
+                </tr>
+                <tr>
+                  <td>1 MΩ</td>
+                  <td>brown · black · green</td>
+                  <td>In parallel with a piezo knock sensor</td>
+                </tr>
+              </table>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Other common parts</th>
+                  <th>Use</th>
+                </tr>
+                <tr>
+                  <td>100 nF ceramic capacitor</td>
+                  <td>Decoupling next to a chip or module</td>
+                </tr>
+                <tr>
+                  <td>1000 µF electrolytic capacitor</td>
+                  <td>Smoothing the power of an LED strip</td>
+                </tr>
+                <tr>
+                  <td>1N4007 diode</td>
+                  <td>Flyback protection for motors and relays</td>
+                </tr>
+                <tr>
+                  <td>2N2222 / TIP120 / IRLZ44N</td>
+                  <td>Switching loads larger than a pin can drive</td>
+                </tr>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson" id="connectors">
+            <p class="eyebrow">Appendix 2</p>
+            <h2>Connectors, cables, and enclosures</h2>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/dupont-connectors.jpg"
+                  alt="Multi-pin Dupont connectors, male and female, on coloured ribbon wires."
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>Dupont</h3>
+                <p>
+                  The connectors on jumper wires. Quick for modules, but they
+                  can slip off—glue or tape them in final objects.
+                </p>
+              </article>
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/jst-connectors.jpg"
+                  alt="Pairs of small white JST connectors with red, black, and yellow wires."
+                  width="500"
+                  height="500"
+                  loading="lazy"
+                />
+                <h3>JST</h3>
+                <p>
+                  Small locking connectors, common on batteries and LED strips.
+                  Let you unplug parts without cutting wires.
+                </p>
+              </article>
+              <article class="info-card">
+                <img
+                  class="card-thumb"
+                  src="img/screw-terminals.jpg"
+                  alt="Pluggable screw terminal blocks in green, blue, black, and orange, with two to five positions."
+                  width="500"
+                  height="288"
+                  loading="lazy"
+                />
+                <h3>Screw terminals</h3>
+                <p>
+                  Clamp wires with a screw. Good for power and thicker wires.
+                </p>
+              </article>
+            </div>
+            <ul class="checklist">
+              <li>Wires are the right length to fit inside the object.</li>
+              <li>Wires are colour-coded and labelled at both ends.</li>
+              <li>
+                <strong>Strain relief:</strong> cables are fixed with clips,
+                ties, or glue so a pull does not reach the solder joint.
+              </li>
+              <li>
+                The enclosure hides the electronics but leaves access to the USB
+                port, battery, and power switch.
+              </li>
+              <li>
+                Sensors sit where the user actually touches or approaches.
+              </li>
+              <li>Nothing metal can touch the bottom of the board.</li>
+            </ul>
+            <p class="note">
+              <strong>Next:</strong> continue with
+              <a href="../arduino-guide/index.html#meet-arduino"
+                >Meet Arduino</a
+              >
+              in the Arduino guide.
+            </p>
+          </section>
+
+          <footer class="guide-footer">
+            <span>Multimedia Technologies I · ERam School of Arts</span>
+          </footer>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

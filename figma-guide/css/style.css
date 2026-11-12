@@ -1268,3 +1268,156 @@ h2 {
     transform: translateX(0);
   }
 }
+
+/* Data tables (used by the tangible interaction guides) */
+.table-wrap {
+  margin: 20px 0;
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.data-table th,
+.data-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  vertical-align: top;
+}
+
+.data-table th {
+  background: #eef2ff;
+  color: var(--dark);
+  font-weight: 600;
+}
+
+.data-table tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Small images (used by the tangible interaction guides) */
+.interface-figure.figure-small {
+  max-width: 380px;
+}
+
+.card-thumb {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 110px;
+  margin: 0 auto 10px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: white;
+}
+
+/* Text + image in two columns (used by the tangible interaction guides) */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  align-items: start;
+  gap: 28px;
+  margin: 18px 0;
+}
+
+.split-media {
+  order: 2;
+}
+
+.split-media .interface-figure {
+  max-width: none;
+  margin: 0 0 16px;
+}
+
+.split-text > :first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 800px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .split-media {
+    order: 0;
+  }
+}
+
+/* Side-by-side image comparison (used by the tangible interaction guides) */
+.image-compare {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  max-width: 640px;
+  margin: 20px 0;
+}
+
+.compare-figure {
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f8fafc;
+  text-align: center;
+}
+
+.compare-figure img {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  border-radius: 5px;
+  background: white;
+}
+
+.compare-figure figcaption {
+  padding-top: 10px;
+  color: var(--dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.compare-figure figcaption span {
+  display: block;
+  color: #6b7280;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.image-compare-vs {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .image-compare {
+    gap: 8px;
+  }
+
+  .compare-figure img {
+    height: 110px;
+  }
+
+  .image-compare-vs {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+}

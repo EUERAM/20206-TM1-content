@@ -1,0 +1,4256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Tangible interaction with Arduino: concepts, Arduino foundations, sensors, RFID, LED strips, motors, screens, sound, and power."
+    />
+    <title>Arduino Guide — Multimedia Technologies I</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../figma-guide/css/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to guide</a>
+    <input
+      type="checkbox"
+      id="menu-toggle"
+      class="menu-checkbox"
+      aria-label="Show or hide the menu"
+    />
+    <label for="menu-toggle" class="menu-btn" title="Show / hide menu">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <label for="menu-toggle" class="menu-backdrop"></label>
+    <div class="layout">
+      <aside class="sidebar" aria-label="Guide contents">
+        <h1 class="sidebar-title">Arduino <span>Guide</span></h1>
+        <p class="sidebar-context">
+          Tangible Interaction<br />Multimedia Technologies
+        </p>
+        <p class="sidebar-label">Guide contents</p>
+        <nav>
+          <h3>1 · Meet Arduino</h3>
+          <a href="#meet-arduino">What Arduino is</a>
+          <a href="#board-anatomy">Board anatomy</a>
+          <a href="#uno-vs-mkr">Uno and MKR WiFi 1010</a>
+          <a href="#mkr-5v">5 V modules on the MKR</a>
+          <a href="#install-ide">Install and upload</a>
+
+          <h3>2 · Digital output and input</h3>
+          <a href="#sketch-structure">Sketch structure</a>
+          <a href="#digital-functions">Digital functions</a>
+          <a href="#blink">Drive and blink an LED</a>
+          <a href="#button">Read a push button</a>
+          <a href="#serial-debug">Debug with Serial</a>
+
+          <h3>3 · Analog input and PWM</h3>
+          <a href="#analog-digital">Analog vs digital</a>
+          <a href="#potentiometer">Read a potentiometer</a>
+          <a href="#pwm">PWM and fading</a>
+          <a href="#map-constrain">map() and constrain()</a>
+
+          <h3>4 · Interaction logic</h3>
+          <a href="#variables-conditions">Variables and conditions</a>
+          <a href="#arrays">Arrays</a>
+          <a href="#functions">Functions</a>
+          <a href="#edge-detection">Edges and debouncing</a>
+          <a href="#state-machines">State machines</a>
+          <a href="#millis">Timing with millis()</a>
+
+          <h3>5 · Libraries</h3>
+          <a href="#libraries">What a library is and how to use it</a>
+          <a href="#library-list">Libraries in this guide</a>
+
+          <h3>6 · Sensing the environment</h3>
+          <a href="#ldr">Light (LDR)</a>
+          <a href="#distance">Distance</a>
+          <a href="#dht">Temperature and humidity</a>
+          <a href="#fsr">Pressure and force</a>
+          <a href="#knock">Knock and vibration</a>
+          <a href="#smoothing">Smoothing readings</a>
+
+          <h3>7 · RFID</h3>
+          <a href="#rfid-basics">How RFID works, read a tag</a>
+          <a href="#uid-action">From UID to action</a>
+          <a href="#mifare-blocks">Data blocks</a>
+          <a href="#rfid-tangible">RFID in interaction</a>
+
+          <h3>8 · LED strips (FastLED)</h3>
+          <a href="#addressable-leds">How they work, wiring and power</a>
+          <a href="#fastled-setup">Setup</a>
+          <a href="#fastled-colour">Colour</a>
+          <a href="#fastled-fill">Filling and palettes</a>
+          <a href="#fastled-animation">Animation tools</a>
+          <a href="#fastled-effects">Classic effects</a>
+          <a href="#fastled-matrix">Segments and matrices</a>
+          <a href="#fastled-mappings">Interaction mappings</a>
+
+          <h3>9 · Motors</h3>
+          <a href="#choose-motor">Choose a motor</a>
+          <a href="#servo">Micro servo SG90</a>
+          <a href="#dc-motors">DC motors</a>
+          <a href="#motor-power">Powering motors</a>
+
+          <h3>10 · Screens</h3>
+          <a href="#lcd">Character LCDs and I2C</a>
+          <a href="#lcd-code">LiquidCrystal_I2C</a>
+
+          <h3>11 · Sound</h3>
+          <a href="#sound-sensors">Sound sensors</a>
+          <a href="#piezo-buzzer">Piezo buzzer</a>
+          <a href="#dfplayer">DFPlayer Mini</a>
+
+          <h3>12 · Power</h3>
+          <a href="#power-basics">Power basics</a>
+          <a href="#power-boards">Powering the boards</a>
+          <a href="#batteries">Batteries and safety</a>
+          <a href="#supplies-regulators">Supplies and regulators</a>
+          <a href="#power-distribution">Distributing power</a>
+          <a href="#saving-energy">Saving energy</a>
+          <a href="#power-setups">Typical set-ups</a>
+
+          <h3>Appendices</h3>
+          <a href="#appendix-a">A · Pin and wiring cheat sheet</a>
+          <a href="#appendix-b">B · Function reference</a>
+          <a href="#appendix-c">C · Components per chapter</a>
+          <a href="#appendix-d">D · Troubleshooting</a>
+          <a href="#appendix-e">E · Glossary and references</a>
+        </nav>
+        <p class="sidebar-note">
+          Electricity, components, prototyping, and soldering are in the
+          <a href="../electronics-guide/index.html">Basic Electronics guide</a>.
+        </p>
+      </aside>
+
+      <div class="content">
+        <main id="content">
+          <section class="hero">
+            <p class="eyebrow">Module 2 · Tangible Interactions</p>
+            <h1>Make physical objects <span>sense and respond.</span></h1>
+            <p class="hero-copy">
+              A change of paradigm towards physical hardware: the logic of
+              sensors and actuators, with Arduino as the central tool for
+              creating interactive prototypes.
+            </p>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 1 — Meet Arduino                          -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="meet-arduino">
+            <p class="eyebrow">Chapter 1 · Meet Arduino · 1.1</p>
+            <h2>What Arduino is</h2>
+            <p>
+              Arduino is an open-source platform made of
+              <strong>boards</strong> with a microcontroller and the
+              <strong>Arduino IDE</strong> to program them. It reads
+              <strong>inputs</strong> (buttons, sensors), runs your program, and
+              controls <strong>outputs</strong> (LEDs, motors, sound), many
+              times per second.
+            </p>
+            <p>
+              <strong>Open source</strong> means the board designs and the
+              software are public. Anyone can study, copy, or improve them,
+              which is why there are so many compatible boards, libraries, and
+              examples.
+            </p>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Board</th>
+                  <th>Notes</th>
+                </tr>
+                <tr>
+                  <td><strong>Uno</strong></td>
+                  <td>
+                    The classic: 5 V, robust, the most examples and shields.
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Leonardo / Micro</strong></td>
+                  <td>Can act as a USB keyboard or mouse for the computer.</td>
+                </tr>
+                <tr>
+                  <td><strong>Mega</strong></td>
+                  <td>Many more pins, for large installations.</td>
+                </tr>
+                <tr>
+                  <td><strong>Nano</strong></td>
+                  <td>
+                    Same chip as the Uno in a small board that fits on a
+                    breadboard.
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>MKR WiFi 1010</strong></td>
+                  <td>3.3 V, Wi-Fi, Bluetooth, and a battery connector.</td>
+                </tr>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson" id="board-anatomy">
+            <p class="eyebrow">1.2 · Meet Arduino</p>
+            <h2>Board anatomy</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  The Uno packs everything you need on one board: a USB
+                  connection to the computer, rows of pins for inputs and
+                  outputs, and power pins for your components.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/uno-board-anatomy-labelled.jpg"
+                    alt="Arduino Uno with nine labelled parts: USB port, USB-to-serial chip, digital pins, microcontroller, analog pins, VIN, GND, 5V, and 3.3V."
+                    width="800"
+                    height="566"
+                    loading="lazy"
+                  />
+                  <figcaption>The main parts of an Arduino Uno.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>USB port and USB-serial chip</h3>
+                <p>
+                  Power, uploading, and Serial communication with the computer.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Digital pins 0–13</h3>
+                <p>
+                  Read or write HIGH/LOW. Avoid 0 and 1 (RX/TX): they are used
+                  by USB serial.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>PWM pins (~)</h3>
+                <p>
+                  3, 5, 6, 9, 10, and 11 can output intermediate levels with
+                  <code>analogWrite()</code>.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Microcontroller</h3>
+                <p>The ATmega328P chip that stores and runs your sketch.</p>
+              </article>
+              <article class="info-card">
+                <h3>Analog pins A0–A5</h3>
+                <p>
+                  Read a voltage from 0 to 5 V as a number from 0 to 1023. They
+                  also work as digital pins.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Power pins</h3>
+                <p>
+                  <strong>5V</strong> and <strong>3.3V</strong> supply your
+                  components, <strong>GND</strong> is ground, and
+                  <strong>VIN</strong> takes an external 7–12 V supply.
+                </p>
+              </article>
+            </div>
+            <h3 class="subheading">Pin current limits</h3>
+
+            <p>
+              Each Uno pin should supply <strong>about 20 mA</strong> at most:
+              enough for one LED, not for a motor. The MKR WiFi 1010's pins are
+              limited to about <strong>7 mA</strong>. Anything bigger needs a
+              <a href="../electronics-guide/index.html#transistors"
+                >transistor</a
+              >
+              or a driver.
+            </p>
+          </section>
+
+          <section class="lesson" id="uno-vs-mkr">
+            <p class="eyebrow">1.3 · Meet Arduino</p>
+            <h2>The school's boards: Uno and MKR WiFi 1010</h2>
+            <p>
+              The school has two kinds of board. The <strong>Uno</strong> is the
+              default for this module; the <strong>MKR WiFi 1010</strong> is for
+              projects that need wireless or a battery.
+            </p>
+            <div class="image-compare">
+              <figure class="compare-figure">
+                <img
+                  src="img/arduino-uno-smd-front.webp"
+                  alt="Arduino Uno board seen from above."
+                  width="300"
+                  height="300"
+                  loading="lazy"
+                />
+                <figcaption>
+                  Arduino Uno Rev3
+                  <span>5 V · the default board</span>
+                </figcaption>
+              </figure>
+              <span class="image-compare-vs" aria-hidden="true">vs</span>
+              <figure class="compare-figure">
+                <img
+                  src="img/arduino-mkr-wifi-1010.jpg"
+                  alt="Arduino MKR WiFi 1010: a long, narrow board with pins on both sides, a Wi-Fi module, and a battery connector."
+                  width="900"
+                  height="675"
+                  loading="lazy"
+                />
+                <figcaption>
+                  Arduino MKR WiFi 1010
+                  <span>3.3 V · Wi-Fi, Bluetooth, battery</span>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th></th>
+                  <th>Arduino Uno Rev3</th>
+                  <th>Arduino MKR WiFi 1010</th>
+                </tr>
+                <tr>
+                  <td>Microcontroller</td>
+                  <td>ATmega328P (8-bit)</td>
+                  <td>SAMD21 Cortex-M0+ (32-bit)</td>
+                </tr>
+                <tr>
+                  <td>Logic voltage</td>
+                  <td><strong>5 V</strong></td>
+                  <td><strong>3.3 V</strong> (pins not 5 V tolerant)</td>
+                </tr>
+                <tr>
+                  <td>Wireless</td>
+                  <td>None</td>
+                  <td>Wi-Fi and Bluetooth (NINA module)</td>
+                </tr>
+                <tr>
+                  <td>Battery</td>
+                  <td>External only</td>
+                  <td>LiPo connector with on-board charging</td>
+                </tr>
+                <tr>
+                  <td>Current per pin</td>
+                  <td>≈ 20 mA</td>
+                  <td>≈ 7 mA</td>
+                </tr>
+                <tr>
+                  <td>Size</td>
+                  <td>Larger, accepts shields</td>
+                  <td>Small and light</td>
+                </tr>
+                <tr>
+                  <td>Use it for</td>
+                  <td>Most projects, 5 V modules, learning</td>
+                  <td>Wireless, portable, and wearable objects</td>
+                </tr>
+              </table>
+            </div>
+            <h3 class="subheading">MKR WiFi 1010 specifics</h3>
+            <ul>
+              <li>
+                <strong>3.3 V pins:</strong> never connect a 5 V signal to them.
+                Power analog sensors and potentiometers from the
+                <code>VCC</code> (3.3 V) pin, not from 5V.
+              </li>
+              <li>
+                <strong>LiPo connector:</strong> a single-cell 3.7 V LiPo (700
+                mAh or more) plugs into the JST connector and charges while USB
+                is connected.
+              </li>
+              <li>
+                <strong>Board package:</strong> install
+                <em>Arduino SAMD Boards (32-bits ARM Cortex-M0+)</em> from the
+                Boards Manager before selecting the MKR.
+              </li>
+              <li>
+                <strong>Libraries:</strong> <code>WiFiNINA</code> for Wi-Fi and
+                <code>ArduinoBLE</code> for Bluetooth Low Energy.
+              </li>
+              <li>
+                <strong>Arduino Cloud:</strong> connect the board to online
+                dashboards and control it from a browser or phone.
+              </li>
+              <li>
+                Pins differ from the Uno: on the MKR, SPI is MOSI 8, SCK 9, MISO
+                10, and I2C is SDA 11, SCL 12.
+              </li>
+            </ul>
+          </section>
+
+          <section class="lesson" id="mkr-5v">
+            <p class="eyebrow">1.4 · Meet Arduino</p>
+            <h2>Using 5 V modules with the MKR</h2>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Module</th>
+                  <th>On the MKR</th>
+                </tr>
+                <tr>
+                  <td>Potentiometers, LDR, FSR dividers</td>
+                  <td>Work directly if powered from 3.3 V.</td>
+                </tr>
+                <tr>
+                  <td>Buttons, reed switches</td>
+                  <td>Work directly with <code>INPUT_PULLUP</code>.</td>
+                </tr>
+                <tr>
+                  <td>RC522 RFID</td>
+                  <td>Already 3.3 V: work directly.</td>
+                </tr>
+                <tr>
+                  <td>SG90 servo</td>
+                  <td>Power from 5V; the 3.3 V signal usually works.</td>
+                </tr>
+                <tr>
+                  <td>HC-SR04 ultrasonic</td>
+                  <td>
+                    Needs 5 V power; its <strong>ECHO</strong> output is 5 V, so
+                    use a voltage divider (e.g. 1 kΩ + 2 kΩ) or a level shifter.
+                  </td>
+                </tr>
+                <tr>
+                  <td>5 V I2C LCD backpack</td>
+                  <td>Pulls SDA/SCL up to 5 V: use a level shifter.</td>
+                </tr>
+                <tr>
+                  <td>WS2812B LED strip</td>
+                  <td>
+                    Powered at 5 V; the 3.3 V data signal may be unreliable. A
+                    level shifter (e.g. 74AHCT125) fixes it.
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson" id="install-ide">
+            <p class="eyebrow">1.5 · Meet Arduino</p>
+            <h2>Install the IDE, select the board, upload</h2>
+            <div class="split">
+              <div class="split-text">
+                <div class="table-wrap">
+                  <table class="data-table">
+                    <tr>
+                      <th>Step</th>
+                      <th>Action</th>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>
+                        Download Arduino IDE 2 from
+                        <a
+                          href="https://www.arduino.cc/en/software"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >arduino.cc/en/software</a
+                        >.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>
+                        Connect the board with a USB cable that carries data
+                        (some cables only charge).
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>
+                        <strong>Tools → Board:</strong> choose
+                        <em>Arduino Uno</em> (or the MKR after installing its
+                        package).
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>
+                        <strong>Tools → Port:</strong> choose the port that
+                        appears when the board is connected.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>
+                        Click <strong>Verify</strong> (✓) to compile, then
+                        <strong>Upload</strong> (→).
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/arduino-ide-2.jpg"
+                    alt="Arduino IDE 2 with the Tools menu open, showing Board: Arduino Uno selected under Arduino AVR Boards, the Port option, Manage Libraries, Serial Monitor, and Serial Plotter."
+                    width="800"
+                    height="423"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Arduino IDE 2: choose the board and port in the Tools menu.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <p class="note">
+              <strong>Upload fails?</strong> Check the board and port, close
+              other programs using the port (such as a web page connected over
+              Web Serial), and try a different USB cable.
+            </p>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 2 — Digital output and input                         -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="sketch-structure">
+            <p class="eyebrow">Chapter 2 · Digital output and input · 2.1</p>
+            <h2>Sketch structure: setup() and loop()</h2>
+            <p>
+              Arduino programs are called <strong>sketches</strong> and are
+              written in C++. Every sketch has two functions: Arduino runs
+              <code>setup()</code> once when the board starts, then repeats
+              <code>loop()</code> forever.
+            </p>
+            <pre><code>// 1. Global variables: before setup()
+const int ledPin = 2;
+
+// 2. setup(): runs once, to configure pins and libraries
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+// 3. loop(): runs again and again
+void loop() {
+  // read inputs → decide → update outputs
+}</code></pre>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>JavaScript</h3>
+                <pre><code>let count = 0;
+const speed = 1.5;
+let isOpen = false;
+
+function twice(n) {
+  return n * 2;
+}</code></pre>
+              </article>
+              <article class="compare-card">
+                <h3>Arduino C++</h3>
+                <pre><code>int count = 0;
+const float speed = 1.5;
+bool isOpen = false;
+
+int twice(int n) {
+  return n * 2;
+}</code></pre>
+              </article>
+            </div>
+            <p>
+              Coming from the
+              <a href="../js-guide/index.html">JavaScript guide</a>? The ideas
+              are the same, but every value has a
+              <strong>type</strong> (<code>int</code>, <code>float</code>,
+              <code>bool</code>, <code>char</code>, <code>unsigned long</code>),
+              and every statement ends with <code>;</code>.
+            </p>
+          </section>
+
+          <section class="lesson" id="digital-functions">
+            <p class="eyebrow">2.2 · Digital output and input</p>
+            <h2>pinMode, digitalWrite, digitalRead</h2>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3><code>pinMode(pin, mode)</code></h3>
+                <p>
+                  In <code>setup()</code>, declare each pin as
+                  <code>OUTPUT</code>, <code>INPUT</code>, or
+                  <code>INPUT_PULLUP</code>.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3><code>digitalWrite(pin, value)</code></h3>
+                <p>
+                  Sets an output to <code>HIGH</code> (5 V) or
+                  <code>LOW</code> (0 V).
+                </p>
+              </article>
+              <article class="info-card">
+                <h3><code>digitalRead(pin)</code></h3>
+                <p>Returns <code>HIGH</code> or <code>LOW</code>.</p>
+              </article>
+            </div>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3><code>INPUT</code></h3>
+                <p>
+                  The pin floats unless you add an external
+                  <a href="../electronics-guide/index.html#pull-resistors"
+                    >pull-down</a
+                  >
+                  resistor. With a pull-down, pressed = <code>HIGH</code>.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3><code>INPUT_PULLUP</code></h3>
+                <p>
+                  Turns on an internal pull-up resistor: no external resistor
+                  needed. Wire the button to GND; pressed = <code>LOW</code>.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="blink">
+            <p class="eyebrow">2.3 · Digital output and input</p>
+            <h2>Drive an LED and make it blink</h2>
+            <div class="split">
+              <div class="split-text">
+                <pre><code>const int ledPin = 2;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(ledPin, HIGH); // on
+  delay(500);                 // wait half a second
+  digitalWrite(ledPin, LOW);  // off
+  delay(500);
+}</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/led-circuit-wiring.jpg"
+                    alt="Arduino Uno wired to a breadboard: digital pin 2 connects through a resistor to an LED, whose other leg connects to the ground rail."
+                    width="800"
+                    height="499"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Pin 2 → resistor → LED anode; LED cathode → GND.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <p class="note">
+              <code>delay(ms)</code> pauses the whole program: while it waits,
+              Arduino cannot read buttons or sensors. Fine for a first sketch;
+              for interaction, see <a href="#millis">timing with millis()</a>.
+            </p>
+          </section>
+
+          <section class="lesson" id="button">
+            <p class="eyebrow">2.4 · Digital output and input</p>
+            <h2>Read a push button</h2>
+            <div class="split">
+              <div class="split-text">
+                <pre><code>//------------------------ BASIC BUTTON ------------------------
+const int led = 12;     // LED pin
+const int button = 2;   // button pin
+
+bool buttonValue = false;  // true if pressed, false if not
+
+void setup() {
+  pinMode(led, OUTPUT);    // LED as a digital output
+  pinMode(button, INPUT);  // button as a digital input (external pull-down)
+}
+
+void loop() {
+  buttonValue = digitalRead(button);  // read the button
+
+  if (buttonValue == true) {      // if the button is pressed
+    digitalWrite(led, HIGH);      // turn on the LED
+  } else {                        // when the condition is false
+    digitalWrite(led, LOW);       // turn off the LED
+  }
+}</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/push-button-wiring.jpg"
+                    alt="Arduino Uno and breadboard: a push button connects 5 V to digital pin 2, with a resistor from pin 2 to ground; an LED with its resistor is connected to pin 12."
+                    width="800"
+                    height="400"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Button on pin 2 with a pull-down resistor; LED on pin 12.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="split">
+              <div class="split-text">
+                <h3>Variant: no external resistor</h3>
+                <pre><code>pinMode(button, INPUT_PULLUP);
+// pressed → LOW, released → HIGH
+if (digitalRead(button) == LOW) {
+  digitalWrite(led, HIGH);
+}</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/input-wiring.svg"
+                    alt="Wiring diagram: a pushbutton between digital pin 2 and GND using the internal pull-up, and a potentiometer with its middle leg on A0."
+                    width="560"
+                    height="260"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Original illustration: button with the internal pull-up.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="serial-debug">
+            <p class="eyebrow">2.5 · Digital output and input</p>
+            <h2>Debugging with the Serial Monitor</h2>
+            <p>
+              <code>Serial</code> sends text from the board to the computer
+              through the USB cable. It is the easiest way to see what your
+              sketch is doing. Open it with
+              <strong>Tools → Serial Monitor</strong> and select the same speed
+              (baud rate) used in <code>Serial.begin()</code>.
+            </p>
+            <pre><code>const int redLedPin = 12;
+const int pushbuttonPin = 2;
+
+void setup() {
+  pinMode(redLedPin, OUTPUT);
+  Serial.begin(9600);          // start Serial at 9600 baud
+}
+
+void loop() {
+  bool buttonValue = digitalRead(pushbuttonPin);
+  Serial.println(buttonValue);  // prints 1 or 0
+}</code></pre>
+            <ul>
+              <li>
+                <code>Serial.print()</code> stays on the same line;
+                <code>Serial.println()</code> ends the line.
+              </li>
+              <li>
+                Print labels to know which value is which:
+                <code>Serial.print("button: ");</code>
+              </li>
+              <li>
+                <strong>Serial Plotter:</strong> print
+                <code>label:value</code> pairs separated by commas to see live
+                graphs, e.g. <code>light:512,threshold:400</code>.
+              </li>
+            </ul>
+            <h3 class="subheading">Receive commands from the computer</h3>
+            <p>
+              Serial also works in the other direction. Type in the Serial
+              Monitor's input field and press Enter:
+            </p>
+            <pre><code>void loop() {
+  if (Serial.available() &gt; 0) {
+    char command = Serial.read();
+    if (command == '1') digitalWrite(redLedPin, HIGH);
+    if (command == '0') digitalWrite(redLedPin, LOW);
+    // other characters (such as the line ending) are ignored
+  }
+}</code></pre>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 3 — Analog input and PWM                            -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="analog-digital">
+            <p class="eyebrow">Chapter 3 · Analog input and PWM · 3.1</p>
+            <h2>Analog vs digital signals</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  An <strong>analog</strong> signal can take any value in a
+                  range, like the light in a room. A
+                  <strong>digital</strong> signal only has two states, like a
+                  button. Arduino reads and writes both, each with its own
+                  functions and range.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/analog-vs-digital-signal.jpg"
+                    alt="Two graphs of value over time: an analog signal (señal analógica) that changes smoothly, and a digital signal (señal digital) that jumps between fixed levels."
+                    width="800"
+                    height="256"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    a. Analog signal: changes continuously. b. Digital signal:
+                    jumps between fixed levels.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Function</th>
+                  <th>Range</th>
+                  <th>Pins on the Uno</th>
+                </tr>
+                <tr>
+                  <td>
+                    <code>digitalRead()</code> / <code>digitalWrite()</code>
+                  </td>
+                  <td>0 or 1 (LOW / HIGH)</td>
+                  <td>Any digital or analog pin</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>analogRead()</code> — analog <strong>input</strong>
+                  </td>
+                  <td><strong>0–1023</strong> (10 bits)</td>
+                  <td>A0–A5</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>analogWrite()</code> — PWM <strong>output</strong>
+                  </td>
+                  <td><strong>0–255</strong> (8 bits)</td>
+                  <td>~3, 5, 6, 9, 10, 11</td>
+                </tr>
+              </table>
+            </div>
+            <p class="note">
+              Analog <em>readings</em> go from 0 to 1023. The 0–255 range
+              belongs to PWM <em>output</em>. Mixing them up is one of the most
+              common bugs—use <a href="#map-constrain"><code>map()</code></a>
+              to convert.
+            </p>
+          </section>
+
+          <section class="lesson" id="potentiometer">
+            <p class="eyebrow">3.2 · Analog input and PWM</p>
+            <h2>Read a potentiometer or fader</h2>
+            <div class="split">
+              <div class="split-text">
+                <pre><code>void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int value = analogRead(A0);  // 0–1023
+  Serial.println(value);
+  delay(50);
+}</code></pre>
+                <p>
+                  If the value goes “the wrong way” when you turn the knob, swap
+                  the two outer legs.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/potentiometer-wiring.jpg"
+                    alt="A rotary potentiometer next to its wiring: outer legs to 5V and GND, middle leg to analog pin A0 of an Arduino Uno."
+                    width="800"
+                    height="414"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Outer legs to 5V and GND; the middle leg (wiper) to A0.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="pwm">
+            <p class="eyebrow">3.3 · Analog input and PWM</p>
+            <h2>analogWrite and PWM: fade an LED</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  Arduino cannot output real intermediate voltages. Instead,
+                  <strong>PWM</strong> (pulse-width modulation) switches the pin
+                  on and off very fast. The percentage of time it is on—the
+                  <em>duty cycle</em>—decides how bright an LED looks or how
+                  fast a motor turns.
+                </p>
+                <pre><code>const int ledPin = 9;  // must be a ~PWM pin
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  for (int b = 0; b &lt;= 255; b++) {   // fade in
+    analogWrite(ledPin, b);
+    delay(5);
+  }
+  for (int b = 255; b &gt;= 0; b--) {   // fade out
+    analogWrite(ledPin, b);
+    delay(5);
+  }
+}</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/pwm.svg"
+                    alt="Three PWM signals with 25, 50, and 100 percent duty cycles, next to an LED that gets brighter with each one."
+                    width="560"
+                    height="260"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Original illustration: a longer “on” time looks brighter.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="map-constrain">
+            <p class="eyebrow">3.4 · Analog input and PWM</p>
+            <h2>map() and constrain()</h2>
+            <p>
+              <code>map(value, fromLow, fromHigh, toLow, toHigh)</code>
+              rescales a number from one range to another. This sketch maps a
+              10-bit reading to 8 bits and uses it to dim an LED on pin 9:
+            </p>
+            <pre><code>/* Map an analog value to 8 bits (0 to 255) */
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int val = analogRead(A0);
+
+  Serial.print("Input value: ");
+  Serial.print(val);
+
+  val = map(val, 0, 1023, 0, 255);  // mapping function
+
+  Serial.print(", Output value: ");
+  Serial.println(val);
+
+  analogWrite(9, val);  // PWM output
+  delay(200);
+}</code></pre>
+            <p>
+              <code>map()</code> does not limit its result: a reading outside
+              the input range produces a value outside the output range.
+              <code>constrain(value, min, max)</code> clamps it.
+            </p>
+            <pre><code>// measured: 180 in darkness, 760 with a torch
+int light = analogRead(A0);
+int level = map(light, 180, 760, 0, 100);
+level = constrain(level, 0, 100);
+
+// invert a range by swapping the output limits
+int angle = map(light, 180, 760, 180, 0);</code></pre>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 4 — Programming interaction logic                   -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="variables-conditions">
+            <p class="eyebrow">Chapter 4 · Interaction logic · 4.1</p>
+            <h2>Variables, conditionals, and comparisons</h2>
+            <p>
+              Variables store values; conditionals choose what to do. Combine
+              conditions with <code>&amp;&amp;</code> (and),
+              <code>||</code> (or), and <code>!</code> (not).
+            </p>
+            <pre><code>int light = analogRead(A0);
+bool isDark = light &lt; 300;
+bool isPressed = digitalRead(2) == LOW;
+
+if (isDark &amp;&amp; isPressed) {
+  // dark AND pressed
+} else if (isDark || isPressed) {
+  // only one of them
+} else {
+  // neither
+}</code></pre>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Operator</th>
+                  <th>Meaning</th>
+                </tr>
+                <tr>
+                  <td><code>==</code> / <code>!=</code></td>
+                  <td>
+                    equal / not equal (<code>=</code> alone assigns a value)
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>&lt;</code> <code>&gt;</code> <code>&lt;=</code>
+                    <code>&gt;=</code>
+                  </td>
+                  <td>less / greater (or equal)</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>&amp;&amp;</code> <code>||</code> <code>!</code>
+                  </td>
+                  <td>and / or / not</td>
+                </tr>
+              </table>
+            </div>
+            <p class="note">
+              Give conditions meaningful names:
+              <code>isDark &amp;&amp; isPressed</code> is far easier to read and
+              debug than a long expression full of numbers.
+            </p>
+          </section>
+
+          <section class="lesson" id="arrays">
+            <p class="eyebrow">4.2 · Interaction logic</p>
+            <h2>Arrays: lists of values</h2>
+            <p>
+              An array stores several values of the same type under one name.
+              Each value has an <strong>index</strong>, starting at
+              <strong>0</strong>.
+            </p>
+            <pre><code>// declaring a collection (array) of 10 integers
+int myArray[10] = {3, 2, 6, 1, 9, 7, 0, 2, 2, 1};
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  for (int i = 0; i &lt; 10; i++) {
+    Serial.print("Index: ");
+    Serial.print(i);
+    Serial.print(" | Value: ");
+    Serial.println(myArray[i]);
+  }
+}</code></pre>
+            <h3 class="subheading">Looping over pins</h3>
+            <p>
+              Arrays are perfect for groups of LEDs or buttons: configure and
+              control them all with one <code>for</code> loop.
+            </p>
+            <pre><code>const int ledPins[] = {2, 3, 4, 5, 6};  // 4 green LEDs and 1 red
+const int buttonPin = 7;
+
+void setup() {
+  // configure the LED pins as outputs
+  for (int i = 0; i &lt; 5; i++) {
+    pinMode(ledPins[i], OUTPUT);
+  }
+  // button as input (with an external pull-down resistor)
+  pinMode(buttonPin, INPUT);
+}</code></pre>
+            <p class="note">
+              The last valid index of a 5-element array is <code>4</code>.
+              Reading <code>ledPins[5]</code> does not give an error—it reads
+              random memory. Check your loop limits.
+            </p>
+          </section>
+
+          <section class="lesson" id="functions">
+            <p class="eyebrow">4.3 · Interaction logic</p>
+            <h2>Functions</h2>
+            <p>
+              A function gives a name to a block of code so you can reuse it.
+              Its type says what it gives back: <code>void</code> means nothing.
+            </p>
+            <div class="image-text-grid">
+              <article class="image-text-card">
+                <h3><code>void</code>: just do something</h3>
+                <pre><code>void startGame() {
+  Serial.println("Game starting in 3...");
+
+  // a quick light show to alert the player
+  for (int i = 0; i &lt; 3; i++) {
+    digitalWrite(2, HIGH);
+    delay(200);
+    digitalWrite(2, LOW);
+    delay(800);
+  }
+
+  Serial.println("GO!");
+}</code></pre>
+              </article>
+              <article class="image-text-card">
+                <h3>With parameters</h3>
+                <pre><code>// 1. DEFINE with two parameters
+void flashLED(int pin, int duration) {
+  digitalWrite(pin, HIGH);
+  delay(duration);
+  digitalWrite(pin, LOW);
+  delay(50);  // short gap between flashes
+}
+
+void loop() {
+  // 2. CALL with specific values
+  flashLED(2, 500);  // pin 2 for 500 ms
+  flashLED(3, 100);  // pin 3 for 100 ms
+}</code></pre>
+              </article>
+            </div>
+            <h3 class="subheading">With a return value</h3>
+            <pre><code>const int buttonPins[] = {8, 9, 10, 11};
+
+// 'int' instead of 'void' because it returns a number
+int checkButton() {
+  while (true) {                    // wait until something happens
+    for (int i = 0; i &lt; 4; i++) {
+      if (digitalRead(buttonPins[i]) == HIGH) {
+        delay(50);                  // simple debounce
+        return i;                   // exit and give back the index
+      }
+    }
+  }
+}
+
+void loop() {
+  Serial.println("Waiting for player...");
+
+  int pressed = checkButton();      // catch the returned value
+
+  Serial.print("The player pressed button: ");
+  Serial.println(pressed);
+}</code></pre>
+          </section>
+
+          <section class="lesson" id="edge-detection">
+            <p class="eyebrow">4.4 · Interaction logic</p>
+            <h2>Button edge detection and debouncing</h2>
+            <p>
+              <code>loop()</code> runs thousands of times per second, so a
+              single press is read as “pressed” many times. To count presses or
+              toggle something, detect the <strong>edge</strong>: the moment the
+              button changes from released to pressed.
+            </p>
+            <pre><code>const int buttonPin = 2;   // with INPUT_PULLUP: pressed = LOW
+const int ledPin = 12;
+
+bool ledOn = false;
+int lastButton = HIGH;
+int counter = 0;
+
+void setup() {
+  pinMode(buttonPin, INPUT_PULLUP);
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int button = digitalRead(buttonPin);
+
+  if (button == LOW &amp;&amp; lastButton == HIGH) {  // edge: just pressed
+    counter++;
+    ledOn = !ledOn;                             // toggle
+    digitalWrite(ledPin, ledOn ? HIGH : LOW);
+    Serial.println(counter);
+    delay(50);                                  // ignore contact bounce
+  }
+
+  lastButton = button;
+}</code></pre>
+            <p>
+              <strong>Bounce:</strong> a button's metal contacts vibrate for a
+              few milliseconds when pressed, producing several fast edges. A
+              short delay after the edge is the simplest fix. To debounce
+              without blocking, ignore new edges for 50 ms using
+              <a href="#millis"><code>millis()</code></a
+              >.
+            </p>
+          </section>
+
+          <section class="lesson" id="state-machines">
+            <p class="eyebrow">4.5 · Interaction logic</p>
+            <h2>State variables and switch/case</h2>
+            <p>
+              Interactive objects have <strong>states</strong>: waiting, active,
+              celebrating. Store the current state in a variable, change it when
+              an event happens, and use <code>switch</code> to decide what to do
+              in each state. This is a simple <strong>state machine</strong>.
+            </p>
+            <pre><code>int currentMode = 0;   // 0 = off, 1 = on, 2 = rainbow
+
+void loop() {
+  // an edge on the button moves to the next mode
+  // (see 4.4) → currentMode++; if (currentMode &gt; 2) currentMode = 0;
+
+  switch (currentMode) {
+    case 0: modeOff();     break;
+    case 1: modeOn();      break;
+    case 2: modeRainbow(); break;
+  }
+}</code></pre>
+            <p>
+              This pattern comes from the course's FastLED “mode button”
+              exercise: each button press moves to the next animation.
+            </p>
+          </section>
+
+          <section class="lesson" id="millis">
+            <p class="eyebrow">4.6 · Interaction logic</p>
+            <h2>Timing without blocking: millis()</h2>
+            <p>
+              While <code>delay()</code> waits, nothing else happens.
+              <code>millis()</code> returns the milliseconds since the board
+              started; compare it with the last time something happened to act
+              at intervals while the rest of <code>loop()</code> keeps reading
+              sensors.
+            </p>
+            <pre><code>unsigned long previousTime = 0;
+const unsigned long interval = 500;
+bool ledOn = false;
+
+void loop() {
+  unsigned long now = millis();
+
+  if (now - previousTime &gt;= interval) {
+    previousTime = now;
+    ledOn = !ledOn;
+    digitalWrite(12, ledOn ? HIGH : LOW);
+  }
+
+  // the rest of loop() keeps running: read buttons and sensors here
+}</code></pre>
+            <p class="note">
+              Use <code>unsigned long</code> for time values. An
+              <code>int</code> overflows after about 32 seconds.
+            </p>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 5 — Libraries                                       -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="libraries">
+            <p class="eyebrow">Chapter 5 · Working with libraries · 5.1</p>
+            <h2>What a library is and how to use it</h2>
+            <p>
+              A library is code someone else wrote to control a specific
+              component or task. Instead of generating the exact pulses a servo
+              needs, you write <code>servo.write(90)</code>. Libraries save time
+              and hide complexity, so you can focus on the interaction.
+            </p>
+            <h3 class="subheading">Install a library</h3>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Library Manager</h3>
+                <p>
+                  <strong>Tools → Manage Libraries…</strong> Search by name,
+                  check the author, and click Install. The usual way.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>.zip libraries</h3>
+                <p>
+                  <strong>Sketch → Include Library → Add .ZIP Library…</strong>
+                  for libraries downloaded from GitHub or a manufacturer.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Built-in libraries</h3>
+                <p>
+                  <code>Servo</code>, <code>Wire</code>, <code>SPI</code>, and
+                  <code>SoftwareSerial</code> come with the IDE.
+                </p>
+              </article>
+            </div>
+            <h3 class="subheading">Use a library</h3>
+            <pre><code>#include &lt;Servo.h&gt;   // 1. include the library
+
+Servo myServo;          // 2. create an object
+
+void setup() {
+  myServo.attach(9);    // 3. call its methods with object.method()
+}
+
+void loop() {
+  myServo.write(90);
+}</code></pre>
+            <p>
+              The fastest way to learn a library is through its examples:
+              <strong>File → Examples</strong>, then scroll to the library's
+              name. Open one, upload it unchanged, then modify it. Its
+              documentation (usually on GitHub) lists every method.
+            </p>
+            <h3 class="subheading">Versions, conflicts, and common errors</h3>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Error</th>
+                  <th>Likely cause and fix</th>
+                </tr>
+                <tr>
+                  <td><code>No such file or directory</code></td>
+                  <td>
+                    The library is not installed, or the name in
+                    <code>#include</code> is misspelt. Install it or check the
+                    capitals.
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>'X' was not declared in this scope</code></td>
+                  <td>
+                    Missing <code>#include</code>, or the example was written
+                    for a different library or version.
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>Multiple libraries were found</code></td>
+                  <td>
+                    Two libraries share a file name. Read which one was used and
+                    remove the one you do not need.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Compiles but does nothing</td>
+                  <td>
+                    Wrong pin, wrong I2C address, or wrong board selected.
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <p class="note">
+              Different libraries for the same component often have different
+              method names (for example, LCD libraries use
+              <code>lcd.init()</code> or <code>lcd.begin()</code>). Follow the
+              examples of the library you actually installed.
+            </p>
+          </section>
+
+          <section class="lesson" id="library-list">
+            <p class="eyebrow">5.2 · Working with libraries</p>
+            <h2>Libraries used in this guide</h2>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Library</th>
+                  <th>For</th>
+                  <th>Chapter</th>
+                </tr>
+                <tr>
+                  <td>FastLED</td>
+                  <td>Addressable LED strips</td>
+                  <td><a href="#addressable-leds">8</a></td>
+                </tr>
+                <tr>
+                  <td>Servo</td>
+                  <td>Servomotors (built-in)</td>
+                  <td><a href="#servo">9</a></td>
+                </tr>
+                <tr>
+                  <td>LiquidCrystal_I2C</td>
+                  <td>Character LCDs with I2C backpack</td>
+                  <td><a href="#lcd-code">10</a></td>
+                </tr>
+                <tr>
+                  <td>DHT sensor library</td>
+                  <td>DHT11 / DHT22</td>
+                  <td><a href="#dht">6</a></td>
+                </tr>
+                <tr>
+                  <td>MX1508</td>
+                  <td>MX1508 motor driver</td>
+                  <td><a href="#dc-motors">9</a></td>
+                </tr>
+                <tr>
+                  <td>NewPing</td>
+                  <td>HC-SR04 ultrasonic sensor</td>
+                  <td><a href="#distance">6</a></td>
+                </tr>
+                <tr>
+                  <td>DFRobotDFPlayerMini</td>
+                  <td>MP3 player module</td>
+                  <td><a href="#dfplayer">11</a></td>
+                </tr>
+                <tr>
+                  <td>SoftwareSerial</td>
+                  <td>Extra serial port (built-in)</td>
+                  <td><a href="#dfplayer">11</a></td>
+                </tr>
+                <tr>
+                  <td>SPI + MFRC522</td>
+                  <td>RFID reader</td>
+                  <td><a href="#rc522">7</a></td>
+                </tr>
+              </table>
+            </div>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 6 — Sensing the environment               -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="ldr">
+            <p class="eyebrow">Chapter 6 · Sensing the environment · 6.1</p>
+            <h2>Light: LDR</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  An <strong>LDR</strong> (light-dependent resistor or
+                  photoresistor) has a resistance that falls as light increases.
+                  Arduino reads voltage, not resistance, so the LDR goes in a
+                  <a href="../electronics-guide/index.html#voltage-divider"
+                    >voltage divider</a
+                  >
+                  with a fixed resistor. Use a <strong>100 kΩ</strong> resistor
+                  for a wide range in normal rooms; try 10 kΩ in very bright
+                  spaces.
+                </p>
+                <pre><code>const int ldrPin = A0;
+const int ledPin = 4;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int ldrValue = analogRead(ldrPin);
+  Serial.println(ldrValue);
+  delay(100);
+}</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/ldr-components.png"
+                    alt="An LDR with long legs next to a small black light sensor with three legs."
+                    width="503"
+                    height="291"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    An LDR and another small light sensor.
+                  </figcaption>
+                </figure>
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/ldr-wiring.jpg"
+                    alt="Arduino Uno and breadboard: an LDR and a resistor form a voltage divider between 5 V and GND with the middle point to A0, and an LED with its resistor is connected to digital pin 4."
+                    width="800"
+                    height="317"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    LDR divider on A0 and an LED on pin 4.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <h3 class="subheading">A night light with hysteresis</h3>
+            <p>
+              With a single threshold, the LED flickers when the light is near
+              the limit. Two thresholds—a gap called
+              <strong>hysteresis</strong>—keep it stable.
+            </p>
+            <pre><code>const int darkLevel = 300;   // below this: switch on
+const int lightLevel = 400;  // above this: switch off
+
+void loop() {
+  int light = analogRead(ldrPin);
+
+  if (light &lt; darkLevel) {
+    digitalWrite(ledPin, HIGH);
+  } else if (light &gt; lightLevel) {
+    digitalWrite(ledPin, LOW);
+  }
+  delay(100);
+}</code></pre>
+          </section>
+
+          <section class="lesson" id="distance">
+            <p class="eyebrow">6.2 · Sensing the environment</p>
+            <h2>Distance: IR and ultrasonic</h2>
+            <div class="split">
+              <div class="split-text">
+                <h3>IR Sharp proximity sensor (analog)</h3>
+                <p>
+                  Emits infrared light and measures the reflection angle. Gives
+                  an analog voltage that
+                  <strong>rises as objects get closer</strong>, within its range
+                  (e.g. 10–80 cm for the GP2Y0A21). Wires: red 5V, black GND,
+                  yellow signal → A0.
+                </p>
+                <p>
+                  This course sketch (<em>CarSensor</em>) works like a car's
+                  parking sensor: the closer the object, the faster a buzzer on
+                  pin 9 beeps.
+                </p>
+                <pre><code>int sensorPin = A0;  // analog pin
+int buzzerPin = 9;
+
+void setup() {
+  pinMode(buzzerPin, OUTPUT);
+  Serial.begin(9600);  // for debugging
+}
+
+void loop() {
+  int sensorValue = analogRead(sensorPin);
+  int delayTime = 500;
+
+  if (sensorValue &gt; 700) {
+    delayTime = 50;
+  } else if (sensorValue &gt; 500) {
+    delayTime = 150;
+  } else if (sensorValue &gt; 300) {
+    delayTime = 300;
+  }
+
+  Serial.println(sensorValue);
+
+  // beep faster as the object gets closer
+  digitalWrite(buzzerPin, HIGH);
+  delay(delayTime);
+  digitalWrite(buzzerPin, LOW);
+  delay(delayTime);
+}</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/sharp-ir-and-pir-sensors.jpg"
+                    alt="A Sharp infrared distance sensor and a PIR motion sensor with its white dome."
+                    width="310"
+                    height="153"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Sharp IR distance sensor and PIR motion sensor.
+                  </figcaption>
+                </figure>
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/sharp-ir-wiring.jpg"
+                    alt="A Sharp IR sensor wired to an Arduino Uno: red to 5V, black to GND, yellow to A0."
+                    width="800"
+                    height="413"
+                    loading="lazy"
+                  />
+                  <figcaption>Sharp IR: signal to A0.</figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <h3 class="subheading">Ultrasonic HC-SR04</h3>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  The HC-SR04 sends a 40 kHz sound pulse from
+                  <strong>TRIG</strong> and measures how long the echo takes to
+                  return on <strong>ECHO</strong>. The distance comes from that
+                  time and the speed of sound.
+                </p>
+                <p>
+                  The <strong>NewPing</strong> library (by Tim Eckel) does the
+                  timing and the maths for you, and ignores readings beyond a
+                  maximum distance you choose. Install it from the Library
+                  Manager.
+                </p>
+                <pre><code>#include &lt;NewPing.h&gt;
+
+const int trigPin = 9;
+const int echoPin = 10;
+const int maxDistance = 200;   // cm: ignore anything farther
+
+NewPing sonar(trigPin, echoPin, maxDistance);
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int distance = sonar.ping_cm();   // 0 = nothing in range
+
+  if (distance &gt; 0) {
+    Serial.print("Distance: ");
+    Serial.print(distance);
+    Serial.println(" cm");
+  }
+  delay(50);                        // at least ~30 ms between pings
+}</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/ultrasonic-sensor-ping.jpg"
+                    alt="An ultrasonic sensor sending a sound pulse that bounces off an object and returns as an echo."
+                    width="286"
+                    height="185"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Ultrasonic sensing: send a ping, time the echo.
+                  </figcaption>
+                </figure>
+
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/ultrasonic-hc-sr04-wiring.jpg"
+                    alt="An HC-SR04 ultrasonic sensor on a breadboard: VCC to 5V, GND to ground, and the TRIG and ECHO pins to two digital pins of an Arduino Uno."
+                    width="800"
+                    height="297"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    VCC → 5V, GND → GND, TRIG and ECHO → two digital pins. This
+                    diagram uses pins 2 and 3; set <code>trigPin</code> and
+                    <code>echoPin</code> to match your wiring.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <p class="note">
+              Soft materials and angled surfaces absorb or deflect the sound.
+              For steadier values, use <code>sonar.ping_median(5)</code>, which
+              takes five pings and returns the median time in microseconds;
+              convert it with <code>sonar.convert_cm()</code>.
+            </p>
+          </section>
+
+          <section class="lesson" id="dht">
+            <p class="eyebrow">6.3 · Sensing the environment</p>
+            <h2>Temperature and humidity (digital): DHT11 / DHT22</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  DHT sensors send temperature and humidity as digital data on one
+                  pin. The DHT22 is more precise; the DHT11 is cheaper. Both are
+                  slow: read the DHT11 at most once per second and the DHT22 once
+                  every two seconds. Install the <strong>DHT sensor library</strong>
+                  (Adafruit).
+                </p>
+                <p>
+                  Both modules have three pins: <strong>S</strong> (signal) to a
+                  digital pin, <strong>+</strong> to 5V, and <strong>−</strong> to GND.
+                  The pin order differs between boards, so read the labels.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/dht11-vs-dht22.jpg"
+                    alt="A DHT11 module with a blue sensor and a DHT22 module with a larger white sensor, each on a small black board with three pins labelled S, plus, and minus."
+                    width="500"
+                    height="218"
+                    loading="lazy"
+                  />
+                  <figcaption>DHT11 (blue, cheaper) and DHT22 (white, more precise).</figcaption>
+                </figure>
+              </div>
+            </div>
+            <pre><code>#include &lt;DHT.h&gt;
+
+DHT dht(2, DHT22);   // data pin 2; use DHT11 for the DHT11
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+}
+
+void loop() {
+  delay(2000);
+  float humidity = dht.readHumidity();
+  float tempC = dht.readTemperature();
+
+  if (isnan(humidity) || isnan(tempC)) {
+    Serial.println("Failed to read the DHT sensor");
+    return;
+  }
+
+  Serial.print(tempC);
+  Serial.print(" C, ");
+  Serial.print(humidity);
+  Serial.println(" %");
+}</code></pre>
+            <p>
+              Bare sensors (four pins) need a 10 kΩ pull-up from data to VCC;
+              most three-pin modules already include it.
+            </p>
+          </section>
+
+          <section class="lesson" id="fsr">
+            <p class="eyebrow">6.4 · Sensing the environment</p>
+            <h2>Pressure and force: FSR</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A <strong>force-sensitive resistor</strong> has a very high
+                  resistance when untouched, which drops as it is pressed. Put
+                  it in a voltage divider with a
+                  <strong>10 kΩ</strong> resistor: 5V → FSR → A0 → 10 kΩ → GND.
+                  Use it to detect touch, a squeeze, or someone sitting down.
+                </p>
+                <pre><code>void loop() {
+  int force = analogRead(A0);    // 0 untouched … ~900+ hard press
+
+  if (force &lt; 10) {
+    Serial.println("No touch");
+  } else if (force &lt; 300) {
+    Serial.println("Light touch");
+  } else if (force &lt; 700) {
+    Serial.println("Squeeze");
+  } else {
+    Serial.println("Strong press");
+  }
+  delay(100);
+}</code></pre>
+                <ul>
+                  <li>
+                    The response is <strong>non-linear</strong>: small forces
+                    change the value a lot, large forces very little. Measure
+                    the real values and set thresholds by testing.
+                  </li>
+                  <li>
+                    FSRs show <em>how hard</em> something is pressed, not
+                    <em>how much it weighs</em>.
+                  </li>
+                  <li>
+                    Map force to light, sound, or speed:
+                    <code>int brightness = map(force, 0, 1023, 0, 255);</code>
+                  </li>
+                  <li>
+                    Do not solder the tail directly; use a connector or clip.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/fsr-sizes-and-shapes.jpg"
+                    alt="Force-sensitive resistors in different sizes and shapes: round pads and long strips with two-pin tails."
+                    width="375"
+                    height="500"
+                    loading="lazy"
+                  />
+                  <figcaption>FSRs come in many sizes and shapes.</figcaption>
+                </figure>
+
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/fsr-symbol.png"
+                    alt="Schematic symbol of a force-sensitive resistor."
+                    width="600"
+                    height="424"
+                    loading="lazy"
+                  />
+                  <figcaption>FSR schematic symbol.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="knock">
+            <p class="eyebrow">6.5 · Sensing the environment</p>
+            <h2>Knock and vibration</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A <strong>piezo element</strong> generates a small voltage
+                  when it is hit or bent. Connect it between A0 and GND, with a
+                  <strong>1 MΩ</strong> resistor in parallel to discharge it
+                  between knocks. Glue it inside a box or under a table to make
+                  the whole surface sensitive.
+                </p>
+                <pre><code>const int threshold = 100;
+const unsigned long ignoreTime = 150;   // ms after a hit
+unsigned long lastKnock = 0;
+
+void loop() {
+  int value = analogRead(A0);
+
+  if (value &gt; threshold &amp;&amp; millis() - lastKnock &gt; ignoreTime) {
+    lastKnock = millis();
+    Serial.println("Knock!");
+  }
+}</code></pre>
+                <ul>
+                  <li>
+                    One hit makes the piezo vibrate for a moment, producing
+                    several readings. Ignoring new readings for 100–200 ms
+                    counts it once.
+                  </li>
+                  <li>
+                    <strong>KY-031</strong> (knock module) and
+                    <strong>SW-420</strong> (vibration switch) give a digital
+                    signal: read them with <code>digitalRead()</code>.
+                  </li>
+                  <li>
+                    <strong>Secret knock:</strong> store the time between knocks
+                    in an array and compare the rhythm with a saved pattern,
+                    allowing a tolerance.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/piezo-knock-sensor.jpg"
+                    alt="A piezo element: a thin brass disc with a ceramic centre and two wires."
+                    width="822"
+                    height="552"
+                    loading="lazy"
+                  />
+                  <figcaption>A piezo disc works as a knock sensor.</figcaption>
+                </figure>
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/piezo-knock-schematic.svg"
+                    alt="Schematic: Arduino pin A0 connects to the top of a piezo element and a 1 megaohm resistor in parallel; the bottom of both connects to GND."
+                    width="560"
+                    height="260"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Piezo and 1 MΩ resistor in parallel between A0 and GND.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="smoothing">
+            <p class="eyebrow">6.6 · Sensing the environment</p>
+            <h2>Smoothing noisy readings</h2>
+            <p>
+              Real sensors jitter. The values in the classroom are not the
+              values in the exhibition space. Always measure first with the
+              Serial Monitor, then smooth and calibrate.
+            </p>
+            <div class="image-text-grid">
+              <article class="image-text-card">
+                <h3>Averaging</h3>
+                <pre><code>int readAverage(int pin) {
+  long total = 0;
+  for (int i = 0; i &lt; 10; i++) {
+    total += analogRead(pin);
+    delay(2);
+  }
+  return total / 10;
+}</code></pre>
+              </article>
+              <article class="image-text-card">
+                <h3>Thresholds and hysteresis</h3>
+                <p>
+                  Turn a noisy value into a clear decision with a threshold, and
+                  use two thresholds (on above X, off below Y) so the state does
+                  not flicker. See the
+                  <a href="#ldr">night light</a> example.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 7 — RFID                                            -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="rfid-basics">
+            <p class="eyebrow">Chapter 7 · Identifying objects: RFID · 7.1</p>
+            <h2>How RFID works and how to read a tag</h2>
+            <p>
+              RFID (radio-frequency identification) lets a
+              <strong>reader</strong> identify a <strong>tag</strong> without
+              contact. The reader's antenna creates a radio field; a passive tag
+              has no battery—it takes energy from that field and answers with
+              its unique ID (<strong>UID</strong>).
+            </p>
+            <p>
+              In this module we use <strong>13.56 MHz (HF)</strong> tags: MIFARE and
+              NFC tags, which can also store data. They are read by the RC522 and
+              PN532 readers, and by phones (NFC).
+            </p>
+            <p>
+              Tags come as cards, key fobs, and stickers. The RC522 reads them
+              at about <strong>2–5 cm</strong>: close enough that placing an
+              object is a deliberate action.
+            </p>
+            <h3 class="subheading" id="rc522">The RC522 (MFRC522) module</h3>
+            <div class="split">
+              <div class="split-text">
+                <p class="note">
+                  <strong>The RC522 is a 3.3 V module.</strong> Power it from
+                  the 3.3V pin, never from 5V.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/rfid-rc522-wiring-photo.jpg"
+                    alt="An RC522 RFID reader module being wired with jumper wires to an Arduino-compatible board on a breadboard."
+                    width="800"
+                    height="299"
+                    loading="lazy"
+                  />
+                  <figcaption>Wiring an RC522 reader.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>RC522 pin</th>
+                  <th>Arduino Uno</th>
+                  <th>MKR WiFi 1010</th>
+                </tr>
+                <tr>
+                  <td>SDA (SS)</td>
+                  <td>10</td>
+                  <td>any digital pin, e.g. 7</td>
+                </tr>
+                <tr>
+                  <td>SCK</td>
+                  <td>13</td>
+                  <td>9</td>
+                </tr>
+                <tr>
+                  <td>MOSI</td>
+                  <td>11</td>
+                  <td>8</td>
+                </tr>
+                <tr>
+                  <td>MISO</td>
+                  <td>12</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>IRQ</td>
+                  <td>not connected</td>
+                  <td>not connected</td>
+                </tr>
+                <tr>
+                  <td>GND</td>
+                  <td>GND</td>
+                  <td>GND</td>
+                </tr>
+                <tr>
+                  <td>RST</td>
+                  <td>9</td>
+                  <td>any digital pin, e.g. 6</td>
+                </tr>
+                <tr>
+                  <td>3.3V</td>
+                  <td>3.3V</td>
+                  <td>VCC</td>
+                </tr>
+              </table>
+            </div>
+            <h3 class="subheading" id="rfid-code">Read a tag's UID</h3>
+            <p>
+              Install the <strong>MFRC522</strong> library (by miguelbalboa).
+              The newer <em>MFRC522v2</em> has a slightly different API; the
+              examples here use the classic one.
+            </p>
+            <pre><code>#include &lt;SPI.h&gt;
+#include &lt;MFRC522.h&gt;
+
+#define SS_PIN 10
+#define RST_PIN 9
+
+MFRC522 rfid(SS_PIN, RST_PIN);
+
+void setup() {
+  Serial.begin(9600);
+  SPI.begin();
+  rfid.PCD_Init();                       // start the reader
+  Serial.println("Place a tag on the reader");
+}
+
+void loop() {
+  if (!rfid.PICC_IsNewCardPresent()) return;  // no new tag
+  if (!rfid.PICC_ReadCardSerial()) return;    // could not read it
+
+  Serial.print("UID:");
+  for (byte i = 0; i &lt; rfid.uid.size; i++) {
+    Serial.print(rfid.uid.uidByte[i] &lt; 0x10 ? " 0" : " ");
+    Serial.print(rfid.uid.uidByte[i], HEX);
+  }
+  Serial.println();
+
+  rfid.PICC_HaltA();        // stop reading this tag
+  rfid.PCD_StopCrypto1();
+}</code></pre>
+          </section>
+
+          <section class="lesson" id="uid-action">
+            <p class="eyebrow">7.2 · RFID</p>
+            <h2>From UID to action</h2>
+            <p>
+              Read each of your tags once and copy its UID from the Serial
+              Monitor. Store the known UIDs in an array, then compare each new
+              reading against them to decide what to do.
+            </p>
+            <pre><code>// UIDs copied from the Serial Monitor (4-byte tags)
+byte knownTags[][4] = {
+  {0x04, 0xA2, 0x3B, 0x1C},   // tag 0: the key
+  {0x7E, 0x11, 0x90, 0xD5},   // tag 1: the map
+};
+const int numTags = 2;
+
+int findTag() {
+  for (int i = 0; i &lt; numTags; i++) {
+    if (memcmp(rfid.uid.uidByte, knownTags[i], 4) == 0) {
+      return i;            // found: return its index
+    }
+  }
+  return -1;               // unknown tag
+}
+
+// in loop(), after PICC_ReadCardSerial():
+int tag = findTag();
+switch (tag) {
+  case 0:  /* play a sound, change a colour… */ break;
+  case 1:  /* move a servo… */                  break;
+  default: Serial.println("Unknown tag");       break;
+}</code></pre>
+            <p>
+              <strong>Detecting when a tag is removed</strong> needs extra work,
+              because the reader reports new tags, not continuous presence. A
+              common approach: do not halt the tag, try to read it again every
+              few hundred milliseconds, and treat it as removed when two reads
+              in a row fail.
+            </p>
+          </section>
+
+          <section class="lesson" id="mifare-blocks">
+            <p class="eyebrow">7.3 · RFID</p>
+            <h2>Reading and writing data blocks (introduction)</h2>
+            <p>
+              Besides the UID, MIFARE Classic 1K tags store 1 KB of data in
+              <strong>16 sectors</strong> of <strong>4 blocks</strong> of 16
+              bytes. Each sector is protected by keys (by default
+              <code>FF FF FF FF FF FF</code>), so you must authenticate before
+              reading or writing.
+            </p>
+            <ul>
+              <li>Block 0 holds the manufacturer data and UID: read-only.</li>
+              <li>
+                The last block of each sector (3, 7, 11…) is the
+                <strong>sector trailer</strong> with the keys. Writing it
+                incorrectly can lock the sector forever—leave it alone.
+              </li>
+              <li>
+                The library's <em>ReadAndWrite</em> example shows
+                <code>PCD_Authenticate()</code>, <code>MIFARE_Read()</code>, and
+                <code>MIFARE_Write()</code>.
+              </li>
+            </ul>
+            <p class="note">
+              For most interactions the UID is enough. Store data on a tag only
+              when the object must carry information between different readers.
+            </p>
+          </section>
+
+          <section class="lesson" id="rfid-tangible">
+            <p class="eyebrow">7.4 · RFID</p>
+            <h2>RFID in tangible interaction</h2>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Objects as tokens</h3>
+                <p>
+                  Each tagged object means something: placing it on the reader
+                  is the command.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Museum cards</h3>
+                <p>Visitors tap a card to collect content or unlock a story.</p>
+              </article>
+              <article class="info-card">
+                <h3>Object-triggered stories</h3>
+                <p>
+                  Each figure placed on a stage plays its own sound or scene.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Toys that recognise pieces</h3>
+                <p>A board knows which piece is where and reacts.</p>
+              </article>
+            </div>
+            <p>
+              Hide tags inside objects—under felt, inside wood or 3D-printed
+              parts—but not near metal, which blocks the field. Test the read
+              distance through the final material.
+            </p>
+            <h3 class="subheading">Alternatives</h3>
+            <ul>
+              <li>
+                <strong>PN532:</strong> NFC reader (I2C or SPI) that also reads
+                phones and NFC stickers.
+              </li>
+            </ul>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 8 — FastLED                                         -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="addressable-leds">
+            <p class="eyebrow">Chapter 8 · LED strips with FastLED · 8.1</p>
+            <h2>How addressable LEDs work and how to wire them</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  In an addressable strip, every LED has a tiny chip. The
+                  Arduino sends a <strong>“data train”</strong> of colours
+                  through one wire: the first LED keeps the first colour and
+                  passes the rest on, the second keeps the next, and so on. So
+                  each LED can show its own colour.
+                </p>
+                <ul>
+                  <li>
+                    <strong>WS2812B / NeoPixel:</strong> the most common. One
+                    data wire, 5 V.
+                  </li>
+                  <li>
+                    <strong>SK6812:</strong> similar, some versions with an
+                    extra white LED (RGBW).
+                  </li>
+                  <li>
+                    <strong>APA102:</strong> data + clock wires. Faster and more
+                    reliable for long strips and high refresh rates.
+                  </li>
+                </ul>
+                <p class="note">
+                  The strip has a direction: data enters at <strong>DIN</strong>
+                  and leaves at DOUT. Follow the arrows printed on it.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/led-strip-reel.jpg"
+                    alt="A reel of addressable LED strip."
+                    width="220"
+                    height="220"
+                    loading="lazy"
+                  />
+                  <figcaption>Addressable LED strip on a reel.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <h3 class="subheading" id="strip-wiring">Wiring and power budget</h3>
+            <div class="split">
+              <div class="split-text">
+                <pre><code>Strip 5V  ── 5 V supply +   (USB for a few LEDs; external supply for more)
+Strip GND ── supply − AND Arduino GND   (shared ground)
+Strip DIN ── 330 Ω resistor ── Arduino data pin
+1000 µF capacitor across 5V and GND, near the strip (stripe to GND)</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/led-strip-wiring.svg"
+                    alt="Wiring diagram: a 5 V supply to the strip's 5V and GND with a 1000 microfarad capacitor across it, Arduino pin 6 through a 330 ohm resistor to DIN, and the Arduino GND joined to the strip's GND."
+                    width="560"
+                    height="290"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Pin 6 → 330 Ω → DIN; 5 V supply to the strip; shared GND.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="system-list">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Count the current</h3>
+                  <p>
+                    Each LED can draw up to <strong>~60 mA</strong> at full
+                    white. 30 LEDs → 1.8 A. 60 LEDs → 3.6 A.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Respect the USB limit</h3>
+                  <p>
+                    USB gives about <strong>500 mA</strong>. Keep strips on USB
+                    short and dim; use a 5 V external supply for anything
+                    bigger.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Let FastLED limit the power</h3>
+                  <p>
+                    <code>FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);</code>
+                    automatically dims the strip so it never draws more than 500
+                    mA.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="fastled-setup">
+            <p class="eyebrow">8.2 · LED strips with FastLED</p>
+            <h2>Setup: addLeds, brightness, show, clear</h2>
+            <p>Install <strong>FastLED</strong> from the Library Manager.</p>
+            <pre><code>#include &lt;FastLED.h&gt;
+
+#define LED_PIN     6        // pin connected to DIN
+#define NUM_LEDS    30       // how many LEDs are in your strip
+#define BRIGHTNESS  64       // 0 to 255
+#define LED_TYPE    WS2812B  // change based on your hardware
+#define COLOR_ORDER GRB
+
+CRGB leds[NUM_LEDS];         // this array holds the colour of each LED
+
+void setup() {
+  FastLED.addLeds&lt;LED_TYPE, LED_PIN, COLOR_ORDER&gt;(leds, NUM_LEDS);
+  FastLED.setBrightness(BRIGHTNESS);
+  FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);
+}
+
+void loop() {
+  leds[0] = CRGB::Red;       // change the array…
+  FastLED.show();            // …then send it to the strip
+  delay(500);
+  FastLED.clear();           // all LEDs black (in the array)
+  FastLED.show();
+  delay(500);
+}</code></pre>
+            <p class="note">
+              Nothing changes on the strip until you call
+              <code>FastLED.show()</code>. If the colours look swapped (red
+              shows green), change <code>COLOR_ORDER</code>.
+            </p>
+          </section>
+
+          <section class="lesson" id="fastled-colour">
+            <p class="eyebrow">8.3 · LED strips with FastLED</p>
+            <h2>Colour: CRGB and CHSV</h2>
+            <pre><code>leds[0] = CRGB(255, 80, 0);       // red, green, blue: 0–255
+leds[1] = CRGB::Purple;           // named colours
+leds[2] = CHSV(160, 255, 255);    // hue, saturation, value</code></pre>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>RGB</h3>
+                <p>
+                  Mixes red, green, and blue light. Good for exact colours, but
+                  awkward to animate.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3>HSV</h3>
+                <p>
+                  <strong>Hue</strong> picks the colour on a wheel,
+                  <strong>saturation</strong> how intense,
+                  <strong>value</strong>
+                  how bright. Increase hue to travel through the rainbow—ideal
+                  for animation and sensor mappings.
+                </p>
+              </article>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>FastLED hue</th>
+                  <td>0</td>
+                  <td>32</td>
+                  <td>64</td>
+                  <td>96</td>
+                  <td>128</td>
+                  <td>160</td>
+                  <td>192</td>
+                  <td>224</td>
+                </tr>
+                <tr>
+                  <th>Colour</th>
+                  <td>red</td>
+                  <td>orange</td>
+                  <td>yellow</td>
+                  <td>green</td>
+                  <td>aqua</td>
+                  <td>blue</td>
+                  <td>purple</td>
+                  <td>pink</td>
+                </tr>
+              </table>
+            </div>
+            <p>
+              FastLED's hue wheel goes from 0 to 255 (not 0–360°) and wraps back
+              to red.
+            </p>
+          </section>
+
+          <section class="lesson" id="fastled-fill">
+            <p class="eyebrow">8.4 · LED strips with FastLED</p>
+            <h2>Filling and palettes</h2>
+            <pre><code>// rainbow by hand: each LED a different hue
+for (int i = 0; i &lt; NUM_LEDS; i++) {
+  leds[i] = CHSV(i * (255 / NUM_LEDS), 255, 255);
+}
+FastLED.show();
+
+// the same with built-in helpers
+fill_solid(leds, NUM_LEDS, CRGB::Blue);
+fill_rainbow(leds, NUM_LEDS, 0, 7);      // start hue, hue step per LED
+fill_gradient_RGB(leds, NUM_LEDS, CRGB::Blue, CRGB::Purple);</code></pre>
+            <h3 class="subheading">Palettes</h3>
+            <p>
+              A palette is a set of 16 colours FastLED blends between. Built-in
+              palettes include <code>RainbowColors_p</code>,
+              <code>LavaColors_p</code>, <code>OceanColors_p</code>,
+              <code>PartyColors_p</code>, <code>ForestColors_p</code>, and
+              <code>HeatColors_p</code>.
+            </p>
+            <pre><code>CRGBPalette16 currentPalette = OceanColors_p;
+CRGBPalette16 targetPalette  = LavaColors_p;
+uint8_t startIndex = 0;
+
+void loop() {
+  for (int i = 0; i &lt; NUM_LEDS; i++) {
+    leds[i] = ColorFromPalette(currentPalette, startIndex + i * 8, 255, LINEARBLEND);
+  }
+  startIndex++;                                          // move along the palette
+  nblendPaletteTowardPalette(currentPalette, targetPalette, 24);  // blend slowly
+  FastLED.show();
+  delay(20);
+}</code></pre>
+          </section>
+
+          <section class="lesson" id="fastled-animation">
+            <p class="eyebrow">8.5 · LED strips with FastLED</p>
+            <h2>Animation building blocks</h2>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3><code>fadeToBlackBy(leds, n, amount)</code></h3>
+                <p>
+                  Dims every LED a little: leaves trails behind moving dots.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3><code>blur1d(leds, n, amount)</code></h3>
+                <p>Spreads each LED's colour into its neighbours.</p>
+              </article>
+              <article class="info-card">
+                <h3><code>leds[i].nscale8(192)</code></h3>
+                <p>Scales one LED's brightness (192/256 = 75%).</p>
+              </article>
+              <article class="info-card">
+                <h3><code>random8()</code>, <code>random16(n)</code></h3>
+                <p>Fast random numbers for twinkles and sparks.</p>
+              </article>
+              <article class="info-card">
+                <h3><code>beatsin8(bpm, low, high)</code></h3>
+                <p>
+                  A value that waves smoothly between low and high at a tempo.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3><code>beat8(bpm)</code></h3>
+                <p>A sawtooth ramp from 0 to 255 at a tempo.</p>
+              </article>
+              <article class="info-card">
+                <h3><code>EVERY_N_MILLISECONDS(ms) { }</code></h3>
+                <p>Runs a block at an interval without blocking.</p>
+              </article>
+              <article class="info-card">
+                <h3><code>inoise8(x, t)</code></h3>
+                <p>
+                  Smooth “Perlin” noise for organic, natural-looking motion.
+                </p>
+              </article>
+            </div>
+            <pre><code>uint8_t hue = 0;
+
+void loop() {
+  EVERY_N_MILLISECONDS(20) { hue++; }          // slowly change colour
+
+  // organic motion with noise: each LED's brightness drifts
+  for (int i = 0; i &lt; NUM_LEDS; i++) {
+    uint8_t level = inoise8(i * 40, millis() / 4);
+    leds[i] = CHSV(hue, 255, level);
+  }
+  FastLED.show();
+}</code></pre>
+          </section>
+
+          <section class="lesson" id="fastled-effects">
+            <p class="eyebrow">8.6 · LED strips with FastLED</p>
+            <h2>Classic effects</h2>
+            <div class="image-text-grid">
+              <article class="image-text-card">
+                <h3>Comet (scanner with a tail)</h3>
+                <pre><code>void loop() {
+  fadeToBlackBy(leds, NUM_LEDS, 40);
+  int pos = beatsin8(30, 0, NUM_LEDS - 1);
+  leds[pos] = CRGB::Red;
+  FastLED.show();
+}</code></pre>
+              </article>
+              <article class="image-text-card">
+                <h3>Breathing</h3>
+                <pre><code>void loop() {
+  uint8_t level = beatsin8(12, 20, 255);
+  fill_solid(leds, NUM_LEDS, CHSV(160, 255, level));
+  FastLED.show();
+}</code></pre>
+              </article>
+              <article class="image-text-card">
+                <h3>Twinkle</h3>
+                <pre><code>void loop() {
+  fadeToBlackBy(leds, NUM_LEDS, 10);
+  if (random8() &lt; 40) {
+    leds[random16(NUM_LEDS)] = CHSV(random8(), 200, 255);
+  }
+  FastLED.show();
+  delay(20);
+}</code></pre>
+              </article>
+              <article class="image-text-card">
+                <h3>Colour wipe</h3>
+                <pre><code>void colourWipe(CRGB colour) {
+  for (int i = 0; i &lt; NUM_LEDS; i++) {
+    leds[i] = colour;
+    FastLED.show();
+    delay(30);
+  }
+}</code></pre>
+              </article>
+            </div>
+            <p>
+              The <strong>scanner</strong> (one LED travelling up and down) is
+              the course's first FastLED exercise. For <strong>fire</strong>,
+              open <strong>File → Examples → FastLED → Fire2012</strong>.
+            </p>
+          </section>
+
+          <section class="lesson" id="fastled-matrix">
+            <p class="eyebrow">8.7 · LED strips with FastLED</p>
+            <h2>Segments, multiple strips, and matrices</h2>
+            <ul>
+              <li>
+                <strong>Segments:</strong> treat ranges of one strip as separate
+                zones, e.g. LEDs 0–9 for the eyes and 10–29 for the mouth.
+              </li>
+              <li>
+                <strong>Multiple strips:</strong> call <code>addLeds</code> once
+                per strip, each with its own pin and array.
+              </li>
+            </ul>
+            <pre><code>CRGB ringLeds[12];
+CRGB stripLeds[30];
+
+void setup() {
+  FastLED.addLeds&lt;WS2812B, 5, GRB&gt;(ringLeds, 12);
+  FastLED.addLeds&lt;WS2812B, 6, GRB&gt;(stripLeds, 30);
+}</code></pre>
+            <p>
+              <strong>LED matrices</strong> are a strip folded into rows. In a
+              <em>serpentine</em> layout, every other row runs backwards, so
+              convert (x, y) coordinates to the LED index:
+            </p>
+            <pre><code>const uint8_t WIDTH = 8;
+const uint8_t HEIGHT = 8;
+
+uint16_t XY(uint8_t x, uint8_t y) {
+  if (y % 2 == 1) {
+    return y * WIDTH + (WIDTH - 1 - x);   // odd rows run backwards
+  }
+  return y * WIDTH + x;
+}
+
+leds[XY(3, 5)] = CRGB::Green;</code></pre>
+          </section>
+
+          <section class="lesson" id="fastled-mappings">
+            <p class="eyebrow">8.8 · LED strips with FastLED</p>
+            <h2>Interaction mappings</h2>
+            <p>
+              The interaction lives in the mapping between a sensor and the
+              light. Pick what the sensor controls:
+            </p>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Hue</h3>
+                <p>A knob that chooses the colour (course exercise 2).</p>
+              </article>
+              <article class="info-card">
+                <h3>Brightness</h3>
+                <p>Light that grows with pressure or closeness.</p>
+              </article>
+              <article class="info-card">
+                <h3>Position</h3>
+                <p>A dot that follows your hand along the strip.</p>
+              </article>
+              <article class="info-card">
+                <h3>Speed</h3>
+                <p>An animation that accelerates with sound or movement.</p>
+              </article>
+            </div>
+            <pre><code>// course exercise 2: interactive colour selector
+int potValue = analogRead(A0);                  // 0–1023
+int hue = map(potValue, 0, 1023, 0, 255);       // to the hue wheel
+fill_solid(leds, NUM_LEDS, CHSV(hue, 255, 255));
+FastLED.show();</code></pre>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 9 — Motors                                          -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="choose-motor">
+            <p class="eyebrow">Chapter 9 · Movement: motors · 9.1</p>
+            <h2>Choosing a motor</h2>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th></th>
+                  <th>Servo</th>
+                  <th>DC motor</th>
+                </tr>
+                <tr>
+                  <td>Control</td>
+                  <td>Goes to an angle</td>
+                  <td>Spins; speed by PWM</td>
+                </tr>
+                <tr>
+                  <td>Range</td>
+                  <td>0–180° (or continuous)</td>
+                  <td>Continuous</td>
+                </tr>
+                <tr>
+                  <td>Speed</td>
+                  <td>Medium</td>
+                  <td>Fast</td>
+                </tr>
+                <tr>
+                  <td>Precision</td>
+                  <td>Good</td>
+                  <td>Low</td>
+                </tr>
+                <tr>
+                  <td>Torque</td>
+                  <td>Small–medium</td>
+                  <td>Depends on gearing</td>
+                </tr>
+                <tr>
+                  <td>Needs</td>
+                  <td>Signal pin + 5 V</td>
+                  <td>Transistor or H-bridge</td>
+                </tr>
+                <tr>
+                  <td>Think</td>
+                  <td>Needle, flap, lock</td>
+                  <td>Fan, wheel, spinning disc</td>
+                </tr>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson" id="servo">
+            <p class="eyebrow">9.2 · Movement: motors</p>
+            <h2>Micro servo SG90</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A servo moves to the angle you ask for and holds it. Three
+                  wires:
+                </p>
+                <ul>
+                  <li><strong>Brown</strong> → GND</li>
+                  <li><strong>Red</strong> → 5V</li>
+                  <li><strong>Orange</strong> → signal (any digital pin)</li>
+                </ul>
+                <p>
+                  One SG90 can run from the Arduino's 5V for tests. Several
+                  servos, or larger ones, need an
+                  <a href="#motor-power">external supply</a>.
+                </p>
+                <pre><code>#include &lt;Servo.h&gt;
+
+Servo myServo;  // create a servo object
+
+void setup() {
+  myServo.attach(9);  // signal wire to pin 9
+}
+
+void loop() {
+  myServo.write(0);    // move to 0 degrees
+  delay(1000);
+  myServo.write(90);   // move to 90 degrees
+  delay(1000);
+  myServo.write(180);  // move to 180 degrees
+  delay(1000);
+}</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/micro-servo.jpg"
+                    alt="A blue SG90 micro servo with a white horn and a three-wire cable."
+                    width="233"
+                    height="246"
+                    loading="lazy"
+                  />
+                  <figcaption>SG90 micro servo.</figcaption>
+                </figure>
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/servo-wiring.svg"
+                    alt="Wiring diagram: the servo’s red wire goes to the Arduino 5V pin, the brown wire to GND, and the orange signal wire to pin 9."
+                    width="560"
+                    height="260"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Red → 5V, brown → GND, orange → pin 9.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3><code>attach(pin)</code></h3>
+                <p>Connects the servo object to a pin.</p>
+              </article>
+              <article class="info-card">
+                <h3><code>write(angle)</code></h3>
+                <p>Moves to an angle from 0 to 180.</p>
+              </article>
+              <article class="info-card">
+                <h3><code>read()</code></h3>
+                <p>Returns the last angle written.</p>
+              </article>
+              <article class="info-card">
+                <h3><code>attached()</code></h3>
+                <p>Returns true if the servo is attached to a pin.</p>
+              </article>
+            </div>
+            <p>
+              <strong>Gauge:</strong> map a sensor to the angle—<code
+                >myServo.write(map(analogRead(A0), 0, 1023, 0, 180));</code
+              >
+              <strong>Continuous-rotation servos</strong> spin instead:
+              <code>write(90)</code> stops, values towards 0 or 180 turn faster
+              in each direction.
+            </p>
+            <p class="note">
+              On the Uno, the Servo library disables <code>analogWrite()</code>
+              on pins 9 and 10.
+            </p>
+          </section>
+
+          <section class="lesson" id="dc-motors">
+            <p class="eyebrow">9.3 · Movement: motors</p>
+            <h2>DC motors</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A DC motor can draw hundreds of milliamperes, and much more
+                  when it starts or stalls.
+                  <strong>A pin cannot drive it directly.</strong>
+                </p>
+                <ul>
+                  <li>
+                    <strong>One direction:</strong> a transistor or MOSFET plus
+                    a flyback diode (example below).
+                  </li>
+                  <li>
+                    <strong>Both directions:</strong> an
+                    <strong>H-bridge</strong> driver, which reverses the current
+                    through the motor.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/dc-motor.jpg"
+                    alt="A small DC motor with two wires."
+                    width="375"
+                    height="443"
+                    loading="lazy"
+                  />
+                  <figcaption>A small DC motor.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  In this module we use the <strong>MX1508</strong>, a small
+                  dual H-bridge that drives two motors (A and B) from a 2–10 V
+                  supply, up to about 1.5 A per motor. It has no enable pin:
+                  each motor has two inputs, and the PWM value on one of them
+                  sets the speed while the other decides the direction.
+                </p>
+                <div class="table-wrap">
+                  <table class="data-table">
+                    <tr>
+                      <th>IN1</th>
+                      <th>IN2</th>
+                      <th>Motor A</th>
+                    </tr>
+                    <tr>
+                      <td>PWM</td>
+                      <td>LOW</td>
+                      <td>Forward, speed = PWM value</td>
+                    </tr>
+                    <tr>
+                      <td>LOW</td>
+                      <td>PWM</td>
+                      <td>Reverse, speed = PWM value</td>
+                    </tr>
+                    <tr>
+                      <td>LOW</td>
+                      <td>LOW</td>
+                      <td>Stop (coasts)</td>
+                    </tr>
+                    <tr>
+                      <td>HIGH</td>
+                      <td>HIGH</td>
+                      <td>Brake</td>
+                    </tr>
+                  </table>
+                </div>
+                <p>Motor B works the same way with IN3 and IN4.</p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/mx1508-driver.jpg"
+                    alt="MX1508 motor driver: a small red board with plus and minus power pads, IN1 to IN4 pins, and MOTOR-A and MOTOR-B outputs."
+                    width="447"
+                    height="447"
+                    loading="lazy"
+                  />
+                  <figcaption>MX1508 dual motor driver.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <p>
+              Install the <strong>MX1508</strong> library (by Cheng Saetern)
+              from the Library Manager. It sets IN1 and IN2 for you:
+              <code>motorGo()</code>
+              takes a speed from −255 to 255, and the sign sets the direction.
+            </p>
+            <div class="split">
+              <div class="split-text">
+                <pre><code>#include &lt;MX1508.h&gt;
+
+MX1508 motorA(5, 6);   // IN1, IN2 (both ~PWM pins)
+
+void setup() {}
+
+void loop() {
+  motorA.motorGo(200);    // forward, speed 0–255
+  delay(2000);
+  motorA.motorGo(-200);   // negative = reverse
+  delay(2000);
+  motorA.stopMotor();     // stop
+  delay(1000);
+}</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/dc-motor-mx1508.svg"
+                    alt="Wiring diagram: Arduino pins 5 and 6 go to IN1 and IN2 of an MX1508 driver; the motor connects to the MOTOR-A outputs; a separate 2–10 V motor supply connects to the driver’s plus and minus, with the Arduino GND joined to the minus."
+                    width="560"
+                    height="280"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Pins 5, 6 → IN1, IN2; motor on MOTOR-A; separate motor
+                    supply; common GND.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <h3 class="subheading">One direction: MOSFET or transistor</h3>
+            <p>
+              When the motor only needs to turn one way—a fan, a spinning disc—a
+              single <strong>MOSFET</strong> (or an NPN transistor) is enough.
+              The Arduino's PWM pin switches the motor's supply on and off very
+              fast, so <code>analogWrite()</code> sets the speed. See
+              <a href="../electronics-guide/index.html#transistors"
+                >Transistors as switches</a
+              >
+              for how they work.
+            </p>
+            <div class="split">
+              <div class="split-text">
+                <pre><code>const int motorPin = 9;   // ~PWM → 220 Ω → MOSFET gate
+
+void setup() {
+  pinMode(motorPin, OUTPUT);
+}
+
+void loop() {
+  for (int speed = 0; speed &lt;= 255; speed += 5) {  // speed up
+    analogWrite(motorPin, speed);
+    delay(50);
+  }
+  delay(1000);
+  analogWrite(motorPin, 0);                         // stop
+  delay(1000);
+}</code></pre>
+                <ul>
+                  <li>
+                    The <strong>1N4007 diode</strong> across the motor protects
+                    the MOSFET from the voltage spike when the motor switches
+                    off. Its stripe goes towards +.
+                  </li>
+                  <li>
+                    The <strong>10 kΩ</strong> resistor keeps the motor off
+                    while the Arduino is starting up.
+                  </li>
+                  <li>
+                    Using the Servo library? It disables PWM on pins 9 and 10:
+                    use pin 3, 5, or 6 instead.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/dc-motor-mosfet.svg"
+                    alt="Wiring diagram: Arduino pin 9 through a 220 ohm resistor to the gate of an IRLZ44N MOSFET, a 10 kilohm resistor from gate to GND, the motor between the supply's plus and the drain with a 1N4007 diode across it, and the source, supply minus, and Arduino GND connected."
+                    width="560"
+                    height="300"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Pin 9 → 220 Ω → gate; motor and diode between + and drain;
+                    source to the shared GND.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <p class="note">
+              Many motors do not start below a minimum PWM value. Measure it and
+              map your sensor to a range such as 80–255.
+            </p>
+          </section>
+
+          <section class="lesson" id="motor-power">
+            <p class="eyebrow">9.4 · Movement: motors</p>
+            <h2>Powering motors</h2>
+            <ul class="checklist">
+              <li>
+                Use a separate supply for motors; never power them from an
+                Arduino pin.
+              </li>
+              <li>Connect the motor supply's GND to the Arduino's GND.</li>
+              <li>
+                Add a flyback diode on any motor driven by a single transistor.
+              </li>
+              <li>
+                Motors create electrical noise that can reset the Arduino: add a
+                100 nF capacitor across the motor terminals and an electrolytic
+                capacitor (e.g. 470 µF) across the motor supply.
+              </li>
+              <li>
+                Size the supply for the stall current, not only the running
+                current.
+              </li>
+            </ul>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 10 — Screens                                         -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="lcd">
+            <p class="eyebrow">Chapter 10 · Screens: LCD · 10.1</p>
+            <h2>Character LCDs and I2C</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  Character LCDs show text in a grid: 2 lines of 16 characters or 4
+                  lines of 20. They are readable, cheap, and have a backlight.
+                </p>
+                <p>
+                  With an I2C backpack, only four wires are needed:
+                  <strong>GND → GND</strong>, <strong>VCC → 5V</strong>,
+                  <strong>SDA → A4</strong>, and <strong>SCL → A5</strong>.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/i2c-lcd-wiring.jpg"
+                    alt="Wiring diagram: a 16 by 2 LCD with an I2C backpack connected to an Arduino Uno: GND to GND, VCC to 5V, SDA to A4, and SCL to A5."
+                    width="800"
+                    height="513"
+                    loading="lazy"
+                  />
+                  <figcaption>16×2 I2C LCD: GND, VCC → 5V, SDA → A4, SCL → A5.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>Parallel wiring</h3>
+                <p>
+                  Uses at least 6 Arduino pins plus a contrast potentiometer.
+                  Library: the built-in <code>LiquidCrystal</code>.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3>I2C backpack</h3>
+                <p>
+                  A small board soldered to the back reduces the wiring to
+                  <strong>4 wires</strong>: VCC, GND, SDA, SCL. The blue trimmer
+                  adjusts the contrast. Recommended.
+                </p>
+              </article>
+            </div>
+            <h3 class="subheading" id="i2c">I2C basics</h3>
+            <p>
+              I2C is a bus: several devices share the same two wires,
+              <strong>SDA</strong> (data) and <strong>SCL</strong> (clock). Each
+              device has an <strong>address</strong>. On the Uno, SDA is A4 and
+              SCL is A5 (also repeated on the pins next to AREF).
+            </p>
+            <p>
+              LCD backpacks usually use the address <code>0x27</code> or
+              <code>0x3F</code>. If the screen stays blank, run an
+              <strong>I2C scanner</strong> to find the real address:
+            </p>
+            <pre><code>#include &lt;Wire.h&gt;
+
+void setup() {
+  Wire.begin();
+  Serial.begin(9600);
+  for (byte address = 1; address &lt; 127; address++) {
+    Wire.beginTransmission(address);
+    if (Wire.endTransmission() == 0) {
+      Serial.print("Device found at 0x");
+      if (address &lt; 16) Serial.print("0");
+      Serial.println(address, HEX);
+    }
+  }
+}
+
+void loop() {}</code></pre>
+          </section>
+
+          <section class="lesson" id="lcd-code">
+            <p class="eyebrow">10.2 · Screens</p>
+            <h2>LiquidCrystal_I2C</h2>
+            <pre><code>#include &lt;Wire.h&gt;
+#include &lt;LiquidCrystal_I2C.h&gt;
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);   // address, columns, rows
+
+byte heart[8] = {
+  0b00000, 0b01010, 0b11111, 0b11111,
+  0b01110, 0b00100, 0b00000, 0b00000
+};
+
+void setup() {
+  lcd.init();              // some library versions use lcd.begin()
+  lcd.backlight();
+  lcd.createChar(0, heart);
+  lcd.setCursor(0, 0);     // column 0, row 0
+  lcd.print("Hello!");
+}
+
+void loop() {
+  lcd.setCursor(0, 1);     // second row
+  lcd.print("Light: ");
+  lcd.print(analogRead(A0));
+  lcd.print("   ");        // erase leftover digits
+  lcd.setCursor(15, 1);
+  lcd.write(byte(0));      // custom character
+  delay(200);
+}</code></pre>
+            <ul>
+              <li>
+                <code>lcd.clear()</code> erases everything but is slow and
+                flickers: for live values, overwrite with spaces instead.
+              </li>
+              <li>
+                <code>lcd.scrollDisplayLeft()</code> moves the whole display one
+                character, for messages longer than the screen.
+              </li>
+              <li>
+                <strong>Custom characters:</strong> up to 8 icons of 5×8 pixels
+                with <code>createChar()</code>.
+              </li>
+              <li>
+                <strong>Menus:</strong> combine a state variable (4.5) with two
+                buttons: one to move, one to select.
+              </li>
+            </ul>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 11 — Sound                                           -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="sound-sensors">
+            <p class="eyebrow">
+              Chapter 11 · Sound: sensing and playing · 11.1
+            </p>
+            <h2>Sound sensors</h2>
+
+            <p>
+              A microphone module turns sound into a voltage that Arduino can
+              read: a simple threshold for claps and knocks, or a level for how
+              loud the room is.
+            </p>
+
+            <div class="compare-grid">
+              <article class="compare-card">
+                <img
+                  class="card-thumb"
+                  src="img/ky-037-sound-module.jpg"
+                  alt="A red KY-037 sound sensor module with a round microphone, a blue trimmer potentiometer, and four header pins."
+                  width="250"
+                  height="250"
+                  loading="lazy"
+                />
+                <h3>KY-038 / KY-037</h3>
+                <p>
+                  Microphone modules with a
+                  <strong>digital output (DO)</strong> that switches when the
+                  sound passes a threshold set with the trimmer, and an
+                  <strong>analog output (AO)</strong>. Good for claps and
+                  knocks.
+                </p>
+              </article>
+              <article class="compare-card">
+                <img
+                  class="card-thumb"
+                  src="img/max9814-microphone.jpg"
+                  alt="A purple MAX9814 amplified microphone board with a round microphone and five pins labelled AR, Out, Gain, Vdd, and GND."
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                />
+                <h3>MAX4466 / MAX9814</h3>
+                <p>
+                  Amplified microphones with a cleaner analog signal, better for
+                  measuring loudness. The MAX9814 adjusts its gain
+                  automatically.
+                </p>
+              </article>
+            </div>
+            <h3 class="subheading">Reading loudness</h3>
+            <p>
+              A microphone's signal goes up and down with the sound wave, so one
+              reading is not enough. Measure the difference between the highest
+              and lowest values in a short window
+              (<strong>peak-to-peak</strong>):
+            </p>
+            <div class="split">
+              <div class="split-text">
+                <pre><code>int readLoudness(int pin) {
+  unsigned long start = millis();
+  int highest = 0;
+  int lowest = 1023;
+
+  while (millis() - start &lt; 50) {     // listen for 50 ms
+    int sample = analogRead(pin);
+    if (sample &gt; highest) highest = sample;
+    if (sample &lt; lowest) lowest = sample;
+  }
+  return highest - lowest;              // 0 = silence
+}</code></pre>
+                <p>
+                  For simple triggers (a clap), read the module's DO pin with
+                  <code>digitalRead()</code> and turn the trimmer until it only
+                  reacts to the sound you want. To trigger sounds from knocks on
+                  an object, see the <a href="#knock">piezo knock sensor</a>.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/sound-sensor-wiring.svg"
+                    alt="Wiring diagram: the KY-037 or KY-038 module's AO pin goes to A0, G to GND, plus to 5V, and DO to digital pin 2."
+                    width="560"
+                    height="260"
+                    loading="lazy"
+                  />
+                  <figcaption>AO → A0, G → GND, + → 5V, DO → pin 2.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  <strong>Amplified microphones</strong> (MAX9814, MAX4466) give
+                  a single analog audio signal on <code>Out</code>. Read it with
+                  the same <code>readLoudness()</code> function on A0. Powering
+                  them from 3.3 V instead of 5 V gives a cleaner signal.
+                </p>
+                <p>
+                  On the MAX9814, leave <code>Gain</code> unconnected for the
+                  highest gain (60 dB), or connect it to GND (50 dB) or Vdd (40
+                  dB) for loud spaces.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/max9814-wiring.svg"
+                    alt="Wiring diagram: the MAX9814 module's Out pin goes to A0, Vdd to 3.3V, and GND to GND; the Gain and AR pins are not connected."
+                    width="560"
+                    height="260"
+                    loading="lazy"
+                  />
+                  <figcaption>Out → A0, Vdd → 3.3V, GND → GND.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="piezo-buzzer">
+            <p class="eyebrow">11.2 · Sound</p>
+            <h2>Piezo buzzer: tone() and noTone()</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  A piezo buzzer turns an electrical signal into sound. It is
+                  the simplest way to give audible feedback: a beep to confirm,
+                  a low tone for an error, or a short melody.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/passive-vs-active-buzzer.jpg"
+                    alt="A passive buzzer and an active buzzer side by side: two small black cylinders with two legs and a hole on top; the active one has printing on its top."
+                    width="800"
+                    height="311"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    Passive (left) and active (right) buzzers look almost the
+                    same.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>Passive buzzer</h3>
+                <p>
+                  Needs a frequency: use <code>tone()</code>. Can play melodies.
+                </p>
+              </article>
+              <article class="compare-card">
+                <h3>Active buzzer</h3>
+                <p>
+                  Has its own oscillator: <code>digitalWrite(HIGH)</code> beeps
+                  at one fixed pitch (as in the CarSensor sketch).
+                </p>
+              </article>
+            </div>
+            <div class="split">
+              <div class="split-text">
+                <pre><code>const int buzzerPin = 3;
+
+void setup() {
+  pinMode(buzzerPin, OUTPUT);
+}
+
+void loop() {
+  tone(buzzerPin, 1000);   // play a 1000 Hz tone
+  delay(1000);             // for 1 second
+  noTone(buzzerPin);       // stop the tone
+  delay(1000);
+}</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/buzzer-wiring.jpg"
+                    alt="Arduino Uno with a buzzer: the positive leg connects to digital pin 3 and the other leg to GND."
+                    width="800"
+                    height="418"
+                    loading="lazy"
+                  />
+                  <figcaption>Buzzer + to pin 3, − to GND.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <h3 class="subheading">A simple melody</h3>
+            <pre><code>int melody[]    = {262, 294, 330, 349, 392};  // C D E F G (Hz)
+int durations[] = {200, 200, 200, 200, 400};  // ms
+
+void playMelody() {
+  for (int i = 0; i &lt; 5; i++) {
+    tone(buzzerPin, melody[i], durations[i]);
+    delay(durations[i] * 1.3);                 // small gap between notes
+  }
+  noTone(buzzerPin);
+}</code></pre>
+            <p class="note">
+              On the Uno, <code>tone()</code> interferes with PWM on pins 3 and
+              11.
+            </p>
+          </section>
+
+          <section class="lesson" id="dfplayer">
+            <p class="eyebrow">11.3 · Sound</p>
+            <h2>DFRobot DFPlayer Mini: MP3 playback</h2>
+            <div class="split">
+              <div class="split-text">
+                <p>
+                  The DFPlayer Mini plays MP3 and WAV files from a microSD card
+                  and includes a <strong>3 W amplifier</strong>: connect a small
+                  speaker directly. Arduino tells it which file to play through
+                  a serial connection.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/dfplayer-mini.jpg"
+                    alt="DFPlayer Mini module: a small black board with a microSD card slot and eight pins on each side."
+                    width="240"
+                    height="240"
+                    loading="lazy"
+                  />
+                  <figcaption>DFPlayer Mini.</figcaption>
+                </figure>
+              </div>
+            </div>
+            <h3 class="subheading">Preparing the card</h3>
+            <ul>
+              <li>Format the microSD as <strong>FAT32</strong>.</li>
+              <li>
+                Name files with numbers: <code>/mp3/0001.mp3</code>,
+                <code>/mp3/0002.mp3</code>… (use <code>playMp3Folder(n)</code>),
+                or numbered folders: <code>/01/001.mp3</code> (use
+                <code>playFolder(1, 1)</code>).
+              </li>
+              <li>
+                <code>play(n)</code> plays files in the order they were
+                <em>copied</em> to the card, not by name. Copy them in order, or
+                use the folder methods.
+              </li>
+            </ul>
+            <h3 class="subheading">Wiring</h3>
+            <div class="split">
+              <div class="split-text">
+                <pre><code>DFPlayer VCC  → 5V
+DFPlayer GND  → GND
+DFPlayer RX   ← 1 kΩ ← Arduino pin 11 (SoftwareSerial TX)
+DFPlayer TX   → Arduino pin 10 (SoftwareSerial RX)
+SPK1 / SPK2   → speaker (up to 3 W), or DAC_L / DAC_R → external amplifier
+BUSY          → optional: LOW while playing</code></pre>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/dfplayer-wiring.svg"
+                    alt="Wiring diagram: Arduino 5V to the DFPlayer's VCC, pin 11 through a 1 kilohm resistor to RX, the DFPlayer's TX to pin 10, Arduino GND to the DFPlayer's GND, and a speaker on SPK1 and SPK2."
+                    width="560"
+                    height="320"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    5V → VCC, pin 11 → 1 kΩ → RX, TX → pin 10, GND → GND,
+                    speaker on SPK1/SPK2.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+            <h3 class="subheading">Code</h3>
+            <p>
+              Install <strong>DFRobotDFPlayerMini</strong>.
+              <code>SoftwareSerial</code> creates a second serial port, so the
+              USB Serial Monitor stays free for debugging.
+            </p>
+            <pre><code>#include &lt;SoftwareSerial.h&gt;
+#include &lt;DFRobotDFPlayerMini.h&gt;
+
+SoftwareSerial mp3Serial(10, 11);   // RX, TX on the Arduino
+DFRobotDFPlayerMini player;
+
+const int buttonPin = 2;
+
+void setup() {
+  Serial.begin(9600);
+  mp3Serial.begin(9600);
+  pinMode(buttonPin, INPUT_PULLUP);
+
+  if (!player.begin(mp3Serial)) {
+    Serial.println("DFPlayer not found: check wiring and SD card");
+    while (true);                    // stop here
+  }
+  player.volume(20);                 // 0–30
+}
+
+void loop() {
+  if (digitalRead(buttonPin) == LOW) {
+    player.playMp3Folder(1);         // plays /mp3/0001.mp3
+    delay(300);                      // simple debounce
+  }
+}</code></pre>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Playback</h3>
+                <p>
+                  <code>play(n)</code>, <code>playFolder(f, n)</code>,
+                  <code>next()</code>, <code>previous()</code>
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Control</h3>
+                <p>
+                  <code>pause()</code>, <code>start()</code>,
+                  <code>loop(n)</code>, <code>volume(0–30)</code>
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Is it playing?</h3>
+                <p>
+                  Read the BUSY pin (LOW = playing) with
+                  <code>digitalRead()</code>; it is faster and more reliable
+                  than asking over serial.
+                </p>
+              </article>
+            </div>
+            <h3 class="subheading">Troubleshooting</h3>
+            <ul class="checklist">
+              <li>
+                Buzzing or resets: power noise. Add a 100 µF capacitor across
+                VCC/GND, or use a separate 5 V supply with shared GND.
+              </li>
+              <li>
+                “Not found”: check RX/TX are crossed, the 1 kΩ resistor, and
+                that the card is inserted.
+              </li>
+              <li>
+                Card not detected: reformat as FAT32 and use cards of 32 GB or
+                less.
+              </li>
+              <li>
+                Wrong file plays: files were copied out of order—use numbered
+                folders.
+              </li>
+              <li>
+                Too quiet or distorted: adjust <code>volume()</code> and use a
+                speaker within the 3 W limit.
+              </li>
+            </ul>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Chapter 12 — Power                                           -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="power-basics">
+            <p class="eyebrow">Chapter 12 · Powering your project · 12.1</p>
+            <h2>Power basics for projects</h2>
+            <div class="system-list">
+              <article>
+                <span>01</span>
+                <div>
+                  <h3>Match the voltage</h3>
+                  <p>
+                    Give each part the voltage it expects: 5 V, 3.3 V, or 12 V.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <span>02</span>
+                <div>
+                  <h3>Check the current capacity</h3>
+                  <p>
+                    A supply rated 2 A can deliver <em>up to</em> 2 A. It must
+                    be at least as large as your total consumption.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <span>03</span>
+                <div>
+                  <h3>Add up a power budget</h3>
+                  <p>
+                    List every part and its current, then add a safety margin of
+                    20–30%.
+                  </p>
+                </div>
+              </article>
+              <article>
+                <span>04</span>
+                <div>
+                  <h3>Estimate run time</h3>
+                  <p>
+                    Run time ≈ battery capacity (mAh) ÷ consumption (mA),
+                    multiplied by about 0.7 because batteries never deliver
+                    their full rating.
+                  </p>
+                </div>
+              </article>
+            </div>
+            <pre><code>Example budget
+  Arduino Uno                   ≈  50 mA
+  20 WS2812B LEDs, dimmed       ≈ 400 mA
+  SG90 servo (moving)           ≈ 250 mA
+  ------------------------------------
+  total                         ≈ 700 mA  → 1 A supply minimum
+
+Run time on a 2000 mAh battery ≈ 2000 ÷ 700 × 0.7 ≈ 2 hours</code></pre>
+          </section>
+
+          <section class="lesson" id="power-boards">
+            <p class="eyebrow">12.2 · Powering your project</p>
+            <h2>Powering the Uno and the MKR WiFi 1010</h2>
+            <div class="compare-grid">
+              <article class="compare-card">
+                <h3>Arduino Uno</h3>
+                <ul>
+                  <li><strong>USB:</strong> 5 V, about 500 mA.</li>
+                  <li>
+                    <strong>Barrel jack / VIN:</strong> 7–12 V through the
+                    on-board regulator, which gets hot with high voltages or
+                    loads.
+                  </li>
+                  <li>
+                    <strong>5V pin:</strong> accepts regulated 5 V only. It
+                    bypasses the regulator and protection—a wrong voltage
+                    damages the board.
+                  </li>
+                  <li><strong>3.3V pin:</strong> low current (about 50 mA).</li>
+                </ul>
+              </article>
+              <article class="compare-card">
+                <h3>MKR WiFi 1010</h3>
+                <ul>
+                  <li><strong>USB:</strong> 5 V.</li>
+                  <li><strong>VIN:</strong> 5 V input.</li>
+                  <li>
+                    <strong>LiPo:</strong> single-cell 3.7 V battery on the JST
+                    connector, charged on-board while USB is connected. Use 700
+                    mAh or more.
+                  </li>
+                  <li>
+                    On battery, the board's 5V pin may supply little or nothing:
+                    power 5 V modules separately.
+                  </li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson" id="batteries">
+            <p class="eyebrow">12.3 · Powering your project</p>
+            <h2>Battery types and safety</h2>
+
+            <p>
+              Batteries make an object portable. Choose them by voltage,
+              capacity, size, and how safe they are to handle.
+            </p>
+
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Type</th>
+                  <th>Voltage</th>
+                  <th>Notes</th>
+                </tr>
+                <tr>
+                  <td>AA alkaline / NiMH packs</td>
+                  <td>4×AA ≈ 6 V (alkaline) or 4.8 V (NiMH); 6×AA ≈ 9 V</td>
+                  <td>Easy and safe. 6×AA into VIN works well for the Uno.</td>
+                </tr>
+                <tr>
+                  <td>9 V battery</td>
+                  <td>9 V</td>
+                  <td>Low capacity; drains in hours. Avoid.</td>
+                </tr>
+                <tr>
+                  <td>LiPo / Li-ion (18650)</td>
+                  <td>3.7 V per cell</td>
+                  <td>Light and powerful. Needs care and a proper charger.</td>
+                </tr>
+                <tr>
+                  <td>USB power bank</td>
+                  <td>5 V</td>
+                  <td>
+                    Simple, but many switch off automatically when the current
+                    is low.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Coin cell (CR2032)</td>
+                  <td>3 V</td>
+                  <td>Only for tiny loads: one LED, a small sensor.</td>
+                </tr>
+              </table>
+            </div>
+            <h3 class="subheading" id="battery-safety">Battery safety</h3>
+            <div class="split">
+              <div class="split-text">
+                <ul class="checklist">
+                  <li>
+                    Never short-circuit, puncture, bend, or crush a lithium
+                    battery.
+                  </li>
+                  <li>
+                    Do not over-discharge LiPos; use cells with a protection
+                    circuit.
+                  </li>
+                  <li>
+                    Charge only with the right charger, on a non-flammable
+                    surface, and supervised.
+                  </li>
+                  <li>
+                    If a battery swells, gets hot, or smells, disconnect it and
+                    place it somewhere safe.
+                  </li>
+                  <li>
+                    Store batteries partly charged, away from heat and metal
+                    objects.
+                  </li>
+                  <li>
+                    Recycle used batteries at a collection point; never in
+                    normal rubbish.
+                  </li>
+                </ul>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/swollen-lipo-battery.jpg"
+                    alt="A swollen, puffed-up LiPo battery next to a flat, healthy one."
+                    width="900"
+                    height="467"
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    A swollen LiPo is damaged: stop using it immediately.
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="supplies-regulators">
+            <p class="eyebrow">12.4 · Powering your project</p>
+            <h2>External supplies, regulators, and converters</h2>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>5 V adapters</h3>
+                <p>
+                  For LED strips and servos. Choose 2 A, 4 A, or 10 A depending
+                  on your budget.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>12 V supplies</h3>
+                <p>For 12 V motors and 12 V LED strips.</p>
+              </article>
+            </div>
+            <div class="split">
+              <div class="split-text">
+                <h3>Linear regulators</h3>
+                <p>
+                  The 7805 (5 V) and AMS1117 (3.3 V) are simple and quiet, but
+                  turn the extra voltage into heat:
+                  <code>heat = (Vin − Vout) × current</code>. Fine for small
+                  loads.
+                </p>
+
+                <h3>Switching converters</h3>
+                <p>
+                  <strong>Buck</strong> (step-down: LM2596, MP1584) and
+                  <strong>boost</strong> (step-up: MT3608) converters are
+                  efficient and stay cool. Set the output with the trimmer and
+                  <em>measure it</em> before connecting your circuit.
+                </p>
+              </div>
+              <div class="split-media">
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/7805-linear-regulator.jpg"
+                    alt="A 7805 linear voltage regulator: a black three-pin component with a metal tab."
+                    width="900"
+                    height="600"
+                    loading="lazy"
+                  />
+                  <figcaption>7805 linear regulator.</figcaption>
+                </figure>
+                <figure class="interface-figure figure-small">
+                  <img
+                    src="img/buck-and-boost-converter-modules.jpg"
+                    alt="Small buck and boost DC-DC converter modules with adjustment trimmers."
+                    width="900"
+                    height="656"
+                    loading="lazy"
+                  />
+                  <figcaption>Buck and boost converter modules.</figcaption>
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson" id="power-distribution">
+            <p class="eyebrow">12.5 · Powering your project</p>
+            <h2>Distributing power safely</h2>
+            <ul class="checklist">
+              <li>All grounds are connected together (common ground).</li>
+              <li>
+                Motors and LED strips have their own supply, not the Arduino's
+                5V pin.
+              </li>
+              <li>
+                Long LED strips get <strong>power injection</strong>: 5 V and
+                GND connected again every metre or so, so the far end is not dim
+                or orange.
+              </li>
+              <li>Decoupling capacitors sit near power-hungry parts.</li>
+              <li>
+                Wires carrying several amperes are thick enough (e.g. 18 AWG),
+                not jumper wires.
+              </li>
+              <li>The project has an on/off switch that is easy to reach.</li>
+              <li>A fuse protects high-current supplies.</li>
+              <li>
+                Reverse-polarity protection (a diode or keyed connectors)
+                prevents plugging in backwards.
+              </li>
+            </ul>
+          </section>
+
+          <section class="lesson" id="saving-energy">
+            <p class="eyebrow">12.6 · Powering your project</p>
+            <h2>Saving energy</h2>
+            <ul>
+              <li>
+                Turn off loads that are not in use: LEDs, screens, motors.
+              </li>
+              <li>
+                Limit LED brightness: half brightness looks bright and uses much
+                less.
+              </li>
+              <li>
+                <strong>Sleep modes:</strong> the <code>LowPower</code> library
+                on the Uno and <code>ArduinoLowPower</code> on the MKR put the
+                board to sleep between events.
+              </li>
+              <li>
+                <strong>Measure:</strong> a multimeter in series or a USB power
+                meter shows the real consumption.
+              </li>
+            </ul>
+          </section>
+
+          <section class="lesson" id="power-setups">
+            <p class="eyebrow">12.7 · Powering your project</p>
+            <h2>Typical set-ups</h2>
+            <div class="workspace-grid">
+              <article class="info-card">
+                <h3>Wearable or portable object</h3>
+                <p>MKR WiFi 1010 + LiPo battery on its JST connector.</p>
+              </article>
+              <article class="info-card">
+                <h3>LED installation</h3>
+                <p>
+                  Uno + 5 V high-current supply feeding the strip, with shared
+                  GND and power injection.
+                </p>
+              </article>
+              <article class="info-card">
+                <h3>Moving object</h3>
+                <p>
+                  Arduino + motor driver + separate motor supply, with shared
+                  GND.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <!-- ============================================================ -->
+          <!-- Appendices                                                   -->
+          <!-- ============================================================ -->
+
+          <section class="lesson" id="appendix-a">
+            <p class="eyebrow">Appendix A</p>
+            <h2>Pin and wiring cheat sheet</h2>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>What</th>
+                  <th>Arduino Uno</th>
+                </tr>
+                <tr>
+                  <td>Digital pins</td>
+                  <td>2–13 (avoid 0 and 1: USB serial)</td>
+                </tr>
+                <tr>
+                  <td>PWM (~)</td>
+                  <td>3, 5, 6, 9, 10, 11</td>
+                </tr>
+                <tr>
+                  <td>Analog inputs</td>
+                  <td>A0–A5 (0–1023)</td>
+                </tr>
+                <tr>
+                  <td>I2C</td>
+                  <td>SDA A4, SCL A5</td>
+                </tr>
+                <tr>
+                  <td>SPI</td>
+                  <td>SS 10, MOSI 11, MISO 12, SCK 13</td>
+                </tr>
+                <tr>
+                  <td>Wire colours</td>
+                  <td>Black/white GND · red power · other colours signals</td>
+                </tr>
+                <tr>
+                  <td>LED</td>
+                  <td>Pin → 220 Ω → anode (long leg); cathode → GND</td>
+                </tr>
+                <tr>
+                  <td>Button</td>
+                  <td>Pin ↔ button ↔ GND with <code>INPUT_PULLUP</code></td>
+                </tr>
+                <tr>
+                  <td>Potentiometer</td>
+                  <td>Outer legs 5V and GND; middle → A0</td>
+                </tr>
+                <tr>
+                  <td>Servo SG90</td>
+                  <td>Brown GND · red 5V · orange signal</td>
+                </tr>
+                <tr>
+                  <td>Motor driver (MX1508)</td>
+                  <td>
+                    IN1, IN2 → two ~PWM pins; + / − → 2–10 V motor supply;
+                    shared GND
+                  </td>
+                </tr>
+                <tr>
+                  <td>Motor with a MOSFET</td>
+                  <td>
+                    Pin → 220 Ω → gate (10 kΩ gate to GND); motor + diode
+                    between supply + and drain; source → GND
+                  </td>
+                </tr>
+                <tr>
+                  <td>LED strip</td>
+                  <td>
+                    5V and GND from supply (shared GND); DIN ← 330 Ω ← pin; 1000
+                    µF across power
+                  </td>
+                </tr>
+                <tr>
+                  <td>DFPlayer Mini</td>
+                  <td>RX ← 1 kΩ ← pin 11; TX → pin 10; SPK1/SPK2 → speaker</td>
+                </tr>
+                <tr>
+                  <td>RC522 RFID (SPI)</td>
+                  <td>
+                    3.3V only · SDA 10 · SCK 13 · MOSI 11 · MISO 12 · RST 9
+                  </td>
+                </tr>
+                <tr>
+                  <td>HC-SR04</td>
+                  <td>VCC 5V · TRIG and ECHO → digital pins · GND</td>
+                </tr>
+                <tr>
+                  <td>I2C LCD</td>
+                  <td>VCC · GND · SDA A4 · SCL A5</td>
+                </tr>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson" id="appendix-b">
+            <p class="eyebrow">Appendix B</p>
+            <h2>Arduino function and library reference</h2>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Function</th>
+                  <th>What it does</th>
+                </tr>
+                <tr>
+                  <td><code>pinMode(pin, mode)</code></td>
+                  <td>OUTPUT, INPUT, or INPUT_PULLUP</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>digitalWrite(pin, v)</code> /
+                    <code>digitalRead(pin)</code>
+                  </td>
+                  <td>Write / read HIGH or LOW</td>
+                </tr>
+                <tr>
+                  <td><code>analogRead(pin)</code></td>
+                  <td>0–1023 from A0–A5</td>
+                </tr>
+                <tr>
+                  <td><code>analogWrite(pin, v)</code></td>
+                  <td>PWM 0–255 on ~ pins</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>map(v, a, b, c, d)</code> /
+                    <code>constrain(v, min, max)</code>
+                  </td>
+                  <td>Rescale / clamp a value</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>delay(ms)</code> / <code>delayMicroseconds(us)</code>
+                  </td>
+                  <td>Pause (blocks the program)</td>
+                </tr>
+                <tr>
+                  <td><code>millis()</code></td>
+                  <td>
+                    Milliseconds since start (use <code>unsigned long</code>)
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>pulseIn(pin, HIGH)</code></td>
+                  <td>Length of a pulse in µs</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>tone(pin, Hz, ms)</code> / <code>noTone(pin)</code>
+                  </td>
+                  <td>Play / stop a frequency</td>
+                </tr>
+                <tr>
+                  <td><code>random(min, max)</code></td>
+                  <td>Random number from min to max − 1</td>
+                </tr>
+                <tr>
+                  <td>
+                    <code>Serial.begin()</code>, <code>print()</code>,
+                    <code>println()</code>, <code>available()</code>,
+                    <code>read()</code>
+                  </td>
+                  <td>Serial communication</td>
+                </tr>
+              </table>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Library</th>
+                  <th>Key methods</th>
+                </tr>
+                <tr>
+                  <td>Servo</td>
+                  <td>
+                    <code>attach</code>, <code>write</code>, <code>read</code>,
+                    <code>attached</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>FastLED</td>
+                  <td>
+                    <code>addLeds</code>, <code>setBrightness</code>,
+                    <code>show</code>, <code>clear</code>,
+                    <code>fill_solid</code>, <code>fill_rainbow</code>,
+                    <code>CHSV</code>, <code>ColorFromPalette</code>,
+                    <code>fadeToBlackBy</code>, <code>beatsin8</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>LiquidCrystal_I2C</td>
+                  <td>
+                    <code>init</code>, <code>backlight</code>,
+                    <code>setCursor</code>, <code>print</code>,
+                    <code>clear</code>, <code>createChar</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>MFRC522</td>
+                  <td>
+                    <code>PCD_Init</code>, <code>PICC_IsNewCardPresent</code>,
+                    <code>PICC_ReadCardSerial</code>, <code>uid</code>,
+                    <code>PICC_HaltA</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>DFRobotDFPlayerMini</td>
+                  <td>
+                    <code>begin</code>, <code>volume</code>, <code>play</code>,
+                    <code>playFolder</code>, <code>playMp3Folder</code>,
+                    <code>next</code>, <code>pause</code>, <code>loop</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>MX1508</td>
+                  <td>
+                    <code>motorGo</code> (−255 to 255), <code>stopMotor</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>NewPing</td>
+                  <td>
+                    <code>ping_cm</code>, <code>ping_median</code>,
+                    <code>convert_cm</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>DHT</td>
+                  <td>
+                    <code>readTemperature</code>, <code>readHumidity</code>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson" id="appendix-c">
+            <p class="eyebrow">Appendix C</p>
+            <h2>Components list per chapter</h2>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Chapter</th>
+                  <th>Components</th>
+                </tr>
+                <tr>
+                  <td>Electronics guide, ch. 1–3</td>
+                  <td>
+                    Breadboard, jumper wires, resistors (220 Ω, 1 kΩ, 10 kΩ, 100
+                    kΩ), LEDs, multimeter
+                  </td>
+                </tr>
+                <tr>
+                  <td>Electronics guide, ch. 4</td>
+                  <td>
+                    Soldering station, solder, flux, brass sponge, helping
+                    hands, heat-shrink, perfboard, headers
+                  </td>
+                </tr>
+                <tr>
+                  <td>1–2 Arduino, digital I/O</td>
+                  <td>
+                    Arduino Uno (or MKR WiFi 1010), USB cable, LEDs, 220 Ω, push
+                    buttons, 10 kΩ
+                  </td>
+                </tr>
+                <tr>
+                  <td>3 Analog and PWM</td>
+                  <td>Potentiometer or fader, LED on a ~ pin</td>
+                </tr>
+                <tr>
+                  <td>4 Interaction logic</td>
+                  <td>5 LEDs, 2–4 buttons</td>
+                </tr>
+                <tr>
+                  <td>6 Sensors</td>
+                  <td>
+                    LDR + 100 kΩ, Sharp IR, HC-SR04, DHT11/22, FSR +
+                    10 kΩ, piezo + 1 MΩ, KY-031 / SW-420
+                  </td>
+                </tr>
+                <tr>
+                  <td>7 RFID</td>
+                  <td>RC522 reader, MIFARE cards, fobs, and stickers</td>
+                </tr>
+                <tr>
+                  <td>8 LED strips</td>
+                  <td>WS2812B strip, 330 Ω, 1000 µF capacitor, 5 V supply</td>
+                </tr>
+                <tr>
+                  <td>9 Motors</td>
+                  <td>
+                    SG90 servo, DC motor, MX1508 driver (or a transistor +
+                    1N4007)
+                  </td>
+                </tr>
+                <tr>
+                  <td>10 Screens</td>
+                  <td>16×2 or 20×4 I2C LCD</td>
+                </tr>
+                <tr>
+                  <td>11 Sound</td>
+                  <td>
+                    KY-038/037 or MAX4466/9814, piezo buzzer, DFPlayer Mini +
+                    microSD + speaker, 1 kΩ
+                  </td>
+                </tr>
+                <tr>
+                  <td>12 Power</td>
+                  <td>
+                    Battery packs, LiPo, 5 V and 12 V supplies, buck/boost
+                    converters, switch, fuse
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </section>
+
+          <section class="lesson" id="appendix-d">
+            <p class="eyebrow">Appendix D</p>
+            <h2>Troubleshooting</h2>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Symptom</th>
+                  <th>Check</th>
+                </tr>
+                <tr>
+                  <td>LED does not light</td>
+                  <td>
+                    Polarity (long leg to +), resistor present, correct pin,
+                    <code>pinMode(OUTPUT)</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Button reads random values</td>
+                  <td>
+                    Floating input: add a pull-down or use
+                    <code>INPUT_PULLUP</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td>One press counts many times</td>
+                  <td>Detect the edge and debounce (4.4)</td>
+                </tr>
+                <tr>
+                  <td>Strip, motor, or module behaves randomly</td>
+                  <td>Shared ground between all supplies</td>
+                </tr>
+                <tr>
+                  <td>Board resets when a motor or strip turns on</td>
+                  <td>
+                    USB power limit: use an external supply and capacitors
+                  </td>
+                </tr>
+                <tr>
+                  <td>Screen blank</td>
+                  <td>
+                    I2C address (run the scanner), SDA/SCL swapped, contrast
+                    trimmer
+                  </td>
+                </tr>
+                <tr>
+                  <td>Analog value stuck at 0 or 1023</td>
+                  <td>
+                    Divider missing, wire on the wrong pin, sensor not powered
+                  </td>
+                </tr>
+                <tr>
+                  <td>Works on the bench, fails in the object</td>
+                  <td>
+                    Bad solder joints (continuity test), cables pulled loose,
+                    sensor calibration in the new space
+                  </td>
+                </tr>
+                <tr>
+                  <td>Upload error</td>
+                  <td>
+                    Board and port selected, port not used by another program,
+                    data USB cable
+                  </td>
+                </tr>
+                <tr>
+                  <td>Library error</td>
+                  <td>See 5.1</td>
+                </tr>
+              </table>
+            </div>
+            <ul class="checklist">
+              <li>
+                The interaction works for 10 minutes in a row without resets.
+              </li>
+              <li>
+                Sensors are calibrated in the presentation space, not only at
+                your desk.
+              </li>
+              <li>Cables do not come loose when the object is handled.</li>
+              <li>Nothing gets hot after continuous use.</li>
+              <li>
+                The power source and a backup (sketch saved, spare parts) are
+                ready.
+              </li>
+            </ul>
+          </section>
+
+          <section class="lesson" id="appendix-e">
+            <p class="eyebrow">Appendix E</p>
+            <h2>Glossary and references</h2>
+            <div class="table-wrap">
+              <table class="data-table">
+                <tr>
+                  <th>Term</th>
+                  <th>Meaning</th>
+                </tr>
+                <tr>
+                  <td>Actuator</td>
+                  <td>
+                    A component that acts on the world: LED, motor, buzzer
+                  </td>
+                </tr>
+                <tr>
+                  <td>Analog</td>
+                  <td>A signal that can take any value in a range</td>
+                </tr>
+                <tr>
+                  <td>Baud rate</td>
+                  <td>Speed of serial communication (e.g. 9600)</td>
+                </tr>
+                <tr>
+                  <td>Breadboard</td>
+                  <td>Board for building circuits without soldering</td>
+                </tr>
+                <tr>
+                  <td>Debounce</td>
+                  <td>Ignoring the fast, false edges of a mechanical button</td>
+                </tr>
+                <tr>
+                  <td>Digital</td>
+                  <td>A signal with two states: HIGH or LOW</td>
+                </tr>
+                <tr>
+                  <td>Edge</td>
+                  <td>The moment a signal changes from one state to another</td>
+                </tr>
+                <tr>
+                  <td>GND</td>
+                  <td>Ground, the 0 V reference of a circuit</td>
+                </tr>
+                <tr>
+                  <td>H-bridge</td>
+                  <td>Driver that can reverse a DC motor</td>
+                </tr>
+                <tr>
+                  <td>Hysteresis</td>
+                  <td>Using two thresholds so a state does not flicker</td>
+                </tr>
+                <tr>
+                  <td>I2C / SPI</td>
+                  <td>Buses to connect modules with few wires</td>
+                </tr>
+                <tr>
+                  <td>Library</td>
+                  <td>Reusable code for a component or task</td>
+                </tr>
+                <tr>
+                  <td>Microcontroller</td>
+                  <td>A small computer on a chip that runs one program</td>
+                </tr>
+                <tr>
+                  <td>PWM</td>
+                  <td>Fast on/off switching that imitates an analog level</td>
+                </tr>
+                <tr>
+                  <td>Pull-up / pull-down</td>
+                  <td>Resistor that gives an input a defined default state</td>
+                </tr>
+                <tr>
+                  <td>Sensor</td>
+                  <td>A component that measures something in the world</td>
+                </tr>
+                <tr>
+                  <td>Sketch</td>
+                  <td>An Arduino program</td>
+                </tr>
+                <tr>
+                  <td>State machine</td>
+                  <td>
+                    Logic organised as states and the events that change them
+                  </td>
+                </tr>
+                <tr>
+                  <td>UID</td>
+                  <td>Unique identifier of an RFID tag</td>
+                </tr>
+                <tr>
+                  <td>Voltage divider</td>
+                  <td>
+                    Two resistors that split a voltage; used to read resistive
+                    sensors
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <h3 class="subheading">References</h3>
+            <ul>
+              <li>
+                Arduino documentation:
+                <a
+                  href="https://docs.arduino.cc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >docs.arduino.cc</a
+                >
+              </li>
+              <li>
+                Arduino language reference:
+                <a
+                  href="https://www.arduino.cc/reference/en/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >arduino.cc/reference</a
+                >
+              </li>
+              <li>
+                FastLED:
+                <a
+                  href="https://fastled.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >fastled.io</a
+                >
+              </li>
+              <li>
+                Adafruit Learning System (tutorials for many components):
+                <a
+                  href="https://learn.adafruit.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >learn.adafruit.com</a
+                >
+              </li>
+              <li>
+                Ishii, H., &amp; Ullmer, B. (1997). <em>Tangible Bits.</em> CHI
+                '97.
+              </li>
+              <li>
+                Dourish, P. (2001). <em>Where the Action Is.</em> MIT Press.
+              </li>
+            </ul>
+          </section>
+
+          <footer class="guide-footer">
+            <span>Multimedia Technologies I · ERam School of Arts</span>
+          </footer>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

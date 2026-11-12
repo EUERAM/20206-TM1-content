@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 260" role="img" aria-labelledby="title desc">
+  <title id="title">Reading a resistor's colour bands</title>
+  <desc id="desc">A 220 ohm resistor with red, red, brown and gold bands: two digits 2 and 2, a multiplier of ten, and a tolerance of plus or minus five percent.</desc>
+  <rect width="560" height="260" rx="18" fill="#eef0f8"/>
+  <path d="M40 100 H140 M420 100 H520" stroke="#9ca3af" stroke-width="5" stroke-linecap="round"/>
+  <rect x="140" y="62" width="280" height="76" rx="34" fill="#fde68a" stroke="#1f2937" stroke-width="2"/>
+  <rect x="185" y="64" width="20" height="72" fill="#dc2626"/>
+  <rect x="225" y="64" width="20" height="72" fill="#dc2626"/>
+  <rect x="265" y="64" width="20" height="72" fill="#78350f"/>
+  <rect x="355" y="64" width="20" height="72" fill="#ca8a04"/>
+  <g font-family="sans-serif" text-anchor="middle" fill="#1f2937">
+    <text x="195" y="170" font-size="22" font-weight="700">2</text>
+    <text x="235" y="170" font-size="22" font-weight="700">2</text>
+    <text x="275" y="170" font-size="22" font-weight="700">× 10</text>
+    <text x="365" y="170" font-size="22" font-weight="700">± 5%</text>
+    <text x="215" y="194" font-size="12" fill="#6b7280">1st + 2nd digit</text>
+    <text x="275" y="214" font-size="12" fill="#6b7280">multiplier</text>
+    <text x="365" y="194" font-size="12" fill="#6b7280">tolerance</text>
+    <text x="280" y="40" font-size="18" font-weight="700" fill="#4f46e5">22 × 10 = 220 Ω</text>
+    <text x="280" y="240" font-size="12" fill="#4b5563">Read from the side opposite the gold / silver band.</text>
+  </g>
+</svg>

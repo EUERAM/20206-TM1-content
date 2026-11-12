@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 260" role="img" aria-labelledby="title desc">
+  <title id="title">PWM duty cycle</title>
+  <desc id="desc">Three pulse trains: 25 percent duty cycle gives a dim LED, 50 percent gives medium brightness, and 100 percent is fully on.</desc>
+  <rect width="560" height="260" rx="18" fill="#eef0f8"/>
+  <rect x="20" y="20" width="520" height="220" rx="12" fill="#fff"/>
+  <g fill="none" stroke="#4f46e5" stroke-width="3" stroke-linejoin="round">
+    <path d="M150 80 V50 H180 V80 H270 V50 H300 V80 H390 V50 H420 V80 H480"/>
+    <path d="M150 145 V115 H210 V145 H270 V115 H330 V145 H390 V115 H450 V145 H480"/>
+    <path d="M150 210 V180 H480"/>
+  </g>
+  <g font-family="sans-serif" fill="#1f2937">
+    <text x="40" y="62" font-size="14" font-weight="700">25 %</text>
+    <text x="40" y="80" font-size="11" fill="#6b7280">analogWrite(…, 64)</text>
+    <text x="40" y="127" font-size="14" font-weight="700">50 %</text>
+    <text x="40" y="145" font-size="11" fill="#6b7280">analogWrite(…, 127)</text>
+    <text x="40" y="192" font-size="14" font-weight="700">100 %</text>
+    <text x="40" y="210" font-size="11" fill="#6b7280">analogWrite(…, 255)</text>
+  </g>
+  <circle cx="510" cy="65" r="10" fill="#f97316" opacity=".3"/>
+  <circle cx="510" cy="130" r="10" fill="#f97316" opacity=".6"/>
+  <circle cx="510" cy="195" r="10" fill="#f97316"/>
+</svg>

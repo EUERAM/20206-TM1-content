@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 320" role="img" aria-labelledby="title desc">
+  <title id="title">Wiring a DFPlayer Mini</title>
+  <desc id="desc">Arduino 5V goes to the DFPlayer's VCC, pin 11 goes through a 1 kilohm resistor to RX, the DFPlayer's TX goes to pin 10, and the Arduino GND goes to the DFPlayer's GND. A speaker connects to SPK1 and SPK2.</desc>
+  <rect width="560" height="320" rx="18" fill="#eef0f8"/>
+  <rect x="20" y="20" width="520" height="280" rx="12" fill="#fff"/>
+
+  <!-- Arduino -->
+  <text x="40" y="52" font-family="sans-serif" font-size="12" font-weight="700" fill="#1f2937">Arduino</text>
+  <rect x="40" y="60" width="90" height="225" rx="8" fill="#0f766e"/>
+  <g font-family="sans-serif" font-weight="700" fill="#fff" font-size="13" text-anchor="end">
+    <text x="122" y="90">5V</text>
+    <text x="122" y="115">11</text>
+    <text x="122" y="140">10</text>
+    <text x="122" y="275">GND</text>
+  </g>
+
+  <!-- DFPlayer -->
+  <text x="330" y="52" font-family="sans-serif" font-size="12" font-weight="700" fill="#1f2937">DFPlayer Mini</text>
+  <rect x="330" y="60" width="120" height="215" rx="8" fill="#1f2937" fill-opacity=".08" stroke="#1f2937" stroke-width="2"/>
+  <rect x="392" y="140" width="50" height="44" rx="4" fill="#d1d5db"/>
+  <text x="417" y="166" font-family="sans-serif" font-size="9" fill="#4b5563" text-anchor="middle">microSD</text>
+  <g font-family="sans-serif" font-size="11" fill="#1f2937">
+    <text x="336" y="89">VCC</text>
+    <text x="336" y="114">RX</text>
+    <text x="336" y="139">TX</text>
+    <text x="336" y="164" fill="#9ca3af">DAC_R</text>
+    <text x="336" y="189" fill="#9ca3af">DAC_L</text>
+    <text x="336" y="214">SPK1</text>
+    <text x="336" y="239" fill="#9ca3af">GND</text>
+    <text x="336" y="264">SPK2</text>
+    <text x="444" y="89" fill="#9ca3af" text-anchor="end">BUSY</text>
+    <text x="444" y="239" text-anchor="end">GND</text>
+  </g>
+
+  <!-- power and serial -->
+  <path d="M130 85 H330" stroke="#dc2626" stroke-width="4"/>
+  <path d="M130 110 H210 M250 110 H330" stroke="#2563eb" stroke-width="4"/>
+  <rect x="210" y="102" width="40" height="16" rx="3" fill="#fde68a" stroke="#1f2937" stroke-width="2"/>
+  <text x="230" y="98" font-family="sans-serif" font-size="11" font-weight="700" fill="#1f2937" text-anchor="middle">1 kΩ</text>
+  <path d="M130 135 H330" stroke="#16a34a" stroke-width="4"/>
+
+  <!-- ground to the right-side GND pin -->
+  <path d="M130 270 H160 V290 H475 V235 H450" fill="none" stroke="#1f2937" stroke-width="4" stroke-linejoin="round"/>
+
+  <!-- speaker -->
+  <path d="M330 210 H285 V222 H262 M330 260 H285 V248 H262" fill="none" stroke="#6b7280" stroke-width="3" stroke-linejoin="round"/>
+  <rect x="246" y="220" width="16" height="30" fill="#e5e7eb" stroke="#1f2937" stroke-width="2"/>
+  <path d="M246 220 L222 204 V266 L246 250 Z" fill="#e5e7eb" stroke="#1f2937" stroke-width="2" stroke-linejoin="round"/>
+  <g font-family="sans-serif" fill="#1f2937">
+    <text x="196" y="196" font-size="11" font-weight="700" text-anchor="middle">Speaker</text>
+    <text x="196" y="280" font-size="10" fill="#6b7280" text-anchor="middle">3 W max</text>
+  </g>
+
+  <g font-family="sans-serif" font-size="10">
+    <text x="150" y="80" fill="#b91c1c">5 V power</text>
+    <text x="150" y="131" fill="#15803d">DFPlayer TX → pin 10</text>
+  </g>
+</svg>

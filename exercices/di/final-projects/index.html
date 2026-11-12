@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Interaction — Final Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3f1ec; --ink:#141414; --muted:#6b6a66; --line:#d9d6ce; --card:#fffdf8;
+    --accent:#ff4f1f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#111110; --ink:#f1efe9; --muted:#9a988f; --line:#2c2b28; --card:#1a1917; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1280px;margin:0 auto;padding:36px 28px 80px}
+  .toprow{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .seg{display:inline-flex;padding:4px;border:1.5px solid var(--line);border-radius:999px;background:var(--card);flex:none}
+  .seg button{font:500 13px "JetBrains Mono",monospace;padding:8px 16px;border:0;border-radius:999px;background:transparent;color:var(--muted);cursor:pointer}
+  .seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+  header{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;border-bottom:2px solid var(--ink);padding-bottom:28px}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  h1{font-size:clamp(40px,7vw,96px);line-height:.92;margin:0;font-weight:700;letter-spacing:-.035em}
+  h1 em{font-style:normal;color:var(--accent)}
+  .stats{display:flex;gap:28px;font-family:"JetBrains Mono",monospace}
+  .stat b{display:block;font-family:"Space Grotesk";font-size:36px;font-weight:700;line-height:1}
+  .stat span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:24px 0 32px}
+  .search{flex:1 1 260px;font:inherit;font-size:16px;padding:12px 16px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;outline:none}
+  .search:focus{border-color:var(--ink)}
+  .chip{font:500 13px "JetBrains Mono",monospace;padding:10px 14px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+  .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+  .card{background:var(--card);border:1.5px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s ease,border-color .2s}
+  .card:hover{transform:translateY(-3px);border-color:var(--ink)}
+  .cover{aspect-ratio:16/10;position:relative;display:flex;align-items:flex-end;padding:18px;color:#fff;text-decoration:none;overflow:hidden}
+  .cover::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 15%,rgba(255,255,255,.35),transparent 45%);pointer-events:none}
+  .cover.shot{padding:0;background:#111;border-bottom:1.5px solid var(--line)}
+  .cover.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .4s ease}
+  .card:hover .cover.shot img{transform:scale(1.03)}
+  .cover.shot::after{background:linear-gradient(to bottom,rgba(0,0,0,.45),transparent 30%)}
+  .proj{font:400 12px "JetBrains Mono",monospace;color:var(--muted);margin-top:3px}
+  .btn.icon{padding:8px;gap:0;position:relative}
+  .btn.icon svg{width:17px;height:17px}
+  .btn.icon sup{position:absolute;top:1px;right:3px}
+  .btn.icon .m{position:absolute;bottom:1px;right:3px;font-size:9px;font-weight:700;color:var(--muted)}
+  .cover .t{position:relative;z-index:1;font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:.95;text-shadow:0 1px 12px rgba(0,0,0,.18)}
+  .cover .n{position:absolute;top:12px;left:12px;z-index:1;font:700 11px "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(20,20,20,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:6px 10px;border-radius:999px}
+  .cover .open{position:absolute;top:12px;right:14px;z-index:1;font:500 11px "JetBrains Mono",monospace;background:rgba(0,0,0,.28);padding:5px 9px;border-radius:999px;opacity:0;transition:opacity .2s}
+  .card:hover .open{opacity:1}
+  .cover.none{color:var(--muted);background:repeating-linear-gradient(45deg,var(--bg),var(--bg) 10px,var(--card) 10px,var(--card) 20px)!important}
+  .cover.none::after{display:none}
+  .cover.none .t{text-shadow:none}
+  .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .who{min-width:0}
+  .who .ttl{font-size:18px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .who small{display:block;font:400 12px "JetBrains Mono",monospace;color:var(--muted);margin-top:3px}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+  .btn{display:inline-flex;align-items:center;gap:6px;font:500 12px "JetBrains Mono",monospace;padding:8px 11px;border-radius:10px;border:1.5px solid var(--line);color:var(--ink);text-decoration:none}
+  .btn:hover{border-color:var(--ink);background:var(--bg)}
+  .btn svg{width:14px;height:14px;flex:none}
+  .btn.off{opacity:.38;pointer-events:none;border-style:dashed}
+  .btn sup{color:var(--accent);font-size:11px}
+  .ratings{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--bg);font-family:"JetBrains Mono",monospace;font-size:12px}
+  .ratings dt{color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-size:11px}
+  .ratings dd{margin:0;display:flex;gap:2px;color:var(--accent)}
+  .ratings dd svg{width:15px;height:15px}
+  .ratings .pending{color:var(--muted);font-style:italic;font-size:11px}
+  body.hide-ratings .ratings{display:none}
+  .sep{width:1px;height:28px;background:var(--line);margin:0 4px}
+  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0;font-family:"JetBrains Mono",monospace}
+  footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);line-height:1.6}
+  footer sup{color:var(--accent)}
+  @media (max-width:720px){header{grid-template-columns:1fr}.stats{gap:20px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="toprow">
+      <div class="eyebrow">Multimedia Technologies I · Groups A &amp; B · Degree in Audiovisual &amp; Interactive Creation</div>
+      <div class="seg" role="group" aria-label="Filter by group">
+    <button data-g="all" aria-pressed="true">All</button>
+    <button data-g="A" aria-pressed="false">Group A</button>
+    <button data-g="B" aria-pressed="false">Group B</button>
+  </div>
+    </div>
+    <div>
+
+      <h1>Digital Interaction<br><em>Final Projects</em></h1>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="controls">
+    <input class="search" id="q" type="search" placeholder="Search by student or project…" aria-label="Search projects">
+    <button class="chip" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" data-f="Portfolio" aria-pressed="false">Personal portfolio</button>
+    <button class="chip" data-f="Startup / App" aria-pressed="false">Startup / App launch</button>
+    <button class="chip" data-f="Music" aria-pressed="false">Music</button>
+    <button class="chip" data-f="Activism" aria-pressed="false">Storytelling &amp; activism</button>
+    <button class="chip" data-f="Others" aria-pressed="false">Others</button>
+    <span class="sep" aria-hidden="true"></span>
+    <button class="chip" id="sortBtn" aria-pressed="false">Sort: highest rated</button>
+    <button class="chip" id="rateBtn" aria-pressed="true">Ratings shown</button>
+  </div>
+
+  <main class="grid" id="grid"></main>
+
+  <footer>
+    Links taken from each student's Moodle submission. Stars rate UX, UI and Development against the final project brief and rubric.
+  </footer>
+</div>
+
+<script>
+const P = [
+  {g:"A", s:"Buezo Alvarenga", r:[7,7,0], f:"Kevin Josue", t:"Gaza donations landing", k:"Activism", img:"a-buezo",
+   web:"", gh:"https://github.com/KJBA-Eram/Final-Landing---Kevin-Buezo", fg:"https://www.figma.com/design/Jbs8g56rQXfYkKhMciruAa/Final-landing-?node-id=0-1&p=f&t=np4feEf9qn7DjE15-0"},
+  {g:"A", s:"Casals Castell", r:[8,6,6], f:"Ayla", t:"Ayla Casals · Photography & Video", k:"Portfolio", img:"a-casals",
+   web:"https://ayla-cm.github.io/Final_web_AylaCasals/", gh:"https://github.com/Ayla-cm/Final_web_AylaCasals", fg:"https://www.figma.com/design/gurIIl50OUB5nSPO2bhFaj/Final-Project---Ayla-Casals?node-id=0-1&t=v2jZnEcrjUO4qJSU-1"},
+  {g:"A", s:"Dalmau Oliva", r:[6,9,9], f:"Aleix", t:"clos*r", k:"Startup / App", img:"a-dalmau",
+   web:"https://aleixdalmauu.github.io/closer/", gh:"https://github.com/aleixdalmauu/closer", fg:"https://www.figma.com/design/D94GQaPJG53s936tfpLZkX/Aleix-Dalmau-s---Digital-Interaction?node-id=144-635&t=8bVBkLbpxVew1okt-1"},
+  {g:"A", s:"Garibaldi Astudillo", r:[0,3,0], f:"Carla Milene", t:"The Things We Never Say", k:"Others", img:"a-garibaldi",
+   web:"", gh:"", fg:"https://www.figma.com/design/JtTFIkW50fZ0qyAvJv3fQr/Things-we-never-say?node-id=0-1&t=sImX7mSUm9NWqsrw-1"},
+  {g:"A", s:"Lara Monje", r:[7,7,7], f:"Aroha", t:"ArohaOnFilm", k:"Portfolio", img:"a-lara",
+   web:"https://aroha23.github.io/Portfolio/", gh:"https://github.com/aroha23/Portfolio", fg:"https://www.figma.com/design/g1ez45uxNWrQCj05UWn817/Portfolio?node-id=1-3&t=z8BglD6F82sU472E-1"},
+  {g:"A", s:"López i Vara", r:[9,8,9], f:"Marta", t:"Marta López · Filmmaker & Artist", k:"Portfolio", img:"a-lopez",
+   web:"https://martalopezv.github.io/Portfolio_MartaLopez/", gh:"https://github.com/MartaLopezv/Portfolio_MartaLopez", fg:"https://www.figma.com/design/Bp0b4DNbRKqGSEWbHctPQH/Portfolio_MartaLopez?node-id=0-1&t=AqQl8Mp9GV0udgbh-1"},
+  {g:"A", s:"Majos García", r:[7,6,6], f:"María", t:"María Majos", k:"Portfolio", img:"a-majos",
+   web:"https://u6112999-afk.github.io/Portfolio/", gh:"https://github.com/u6112999-afk/Portfolio", fg:"https://www.figma.com/design/RsgM9C6ps2C9wmVvH46A0y/Portfolio-Maria-Majos?node-id=0-1&t=vGiZYQkdKAzdJcZ5-1"},
+  {g:"A", s:"Manzanares Cosials", r:[3,6,5], f:"Claudia", t:"Get to Know… Me!", k:"Portfolio", img:"a-manzanares",
+   web:"https://claudiamanzanares.github.io/ClaudiaManzanares-sPortfolio/", gh:"https://github.com/ClaudiaManzanares/ClaudiaManzanares-sPortfolio", fg:"https://www.figma.com/design/SEkOm6lYFuRggsw63jNyXP/Get-to-know-me?node-id=22-2&t=97317wcIul1PdlM7-1"},
+  {g:"A", s:"Rodriguez Duixans", r:[null,null,5], f:"Irene", t:"Flying Fluffies", k:"Activism", img:"a-rodriguez",
+   web:"https://irenerodriguezduixans.github.io/bats/", gh:"https://github.com/IreneRodriguezDuixans/Flying-Fluffies.github.io", fg:"https://www.figma.com/design/A8twh0EvF68pVvTfXANPEV/Flying-Fluffies?node-id=2-3&p=f&t=fvKeDVfmftoDt1IF-0"},
+  {g:"A", s:"Rovira Muñoz", r:[6,6,6], f:"Iris Yuning", t:"Ixxy Pics", k:"Portfolio", img:"a-rovira",
+   web:"https://irisrovira.github.io/Final-Project_MyPortfolio-IrisRovira/", gh:"https://github.com/irisrovira/Final-Project_MyPortfolio-IrisRovira", fg:"https://www.figma.com/design/zXIkC2ARYJmjjHvhebg7h5/Final-Project-Portfolio-Iris-Rovira?node-id=0-1&t=vIARQKgUBDs3J3Kf-1"},
+  {g:"A", s:"Ruiz Armengol", r:[6,5,5], f:"Núria", t:"Núria Ruiz · Portfolio", k:"Portfolio", img:"a-ruiz",
+   web:"https://u6113686-alt.github.io/Final-project-portfolio/", gh:"https://github.com/u6113686-alt/Final-project-portfolio", fg:"https://www.figma.com/design/D3SZoDj05mxoL5w8YVlb2Y/portfolio?node-id=0-1&t=E4RMwwjepgRBhuSl-1"},
+  {g:"A", s:"Simon i Forns", r:[0,3,3], f:"Cristina", t:"NewSeas", k:"Activism", img:"a-simon",
+   web:"https://u6113006cris.github.io/NewSeas/", gh:"https://github.com/u6113006CRIS/NewSeas", fg:"https://www.figma.com/design/3Bdo0XGlAKfmnF9BjbxbfL/Cristina-s-UX-website?node-id=0"},
+  {g:"B", s:"Alemany Ruz", r:[10,9,7], f:"Pere", t:"Try & Kry", k:"Startup / App",
+   web:"https://u6111738-ops.github.io/Final-Project/", gh:"https://github.com/u6111738-ops/Final-Project",
+   fg:"https://www.figma.com/design/lfLrbVwOm2KbeazgZhXBzD/Try---Kry?node-id=215-637"},
+  {g:"B", s:"Badia Arbós", r:[8,8,7], f:"Bernat", t:"MASPAGES", k:"Others",
+   web:"https://bbadia-2.github.io/Final-Project-Digital-Interaction/", gh:"https://github.com/bbadia-2/Final-Project-Digital-Interaction",
+   fg:"https://www.figma.com/design/92uyLdUjMt7w5my2d7qVkC/web-MASPAGES?node-id=0-1"},
+  {g:"B", s:"Buxadé Bielsa", r:[5,5,5], f:"Ares", t:"Velmorte", k:"Startup / App",
+   web:"https://aress013.github.io/AresBuxad-_Velmorte/", gh:"https://github.com/aress013/AresBuxad-_Velmorte",
+   fg:"https://www.figma.com/design/sAIbE1A67hUY3V8mJcUIIR/Ares_Buxad%C3%A9_Velmorte?node-id=73-2"},
+  {g:"B", s:"Camps Piris", r:[7,6,7], f:"Júlia", t:"Portfoli Júlia Camps", k:"Portfolio",
+   web:"https://u6113687-eng.github.io/Porfoli-J-lia-Camps-oficial/", gh:"https://github.com/u6113687-eng/Porfoli-J-lia-Camps-oficial",
+   fg:"https://www.figma.com/design/GHxVHw1W3Hr9zaAurfE85T/Porfoli-J%C3%BAlia-Camps---Projecte-final-Tecno?node-id=11-5"},
+  {g:"B", s:"Carbó Campoy", r:[6,7,7], f:"Ona", t:"Basalt Nova", k:"Music",
+   web:"https://onacarbo.github.io/BASALT-NOVA/html/index.html", gh:"https://github.com/onacarbo/BASALT-NOVA", ghInf:true,
+   fg:"https://www.figma.com/design/9cUUunaVIu6ivvhS0aHzCL/Music-landing-page---Ona-Carb%C3%B3?node-id=1-5"},
+  {g:"B", s:"Carbó Rigau", r:[5,8,7], f:"Pau", t:"Pau Carbó Portfoli", k:"Portfolio",
+   web:"https://paucarbo.github.io/PORTFOLIOO/", gh:"https://github.com/paucarbo/PORTFOLIOO",
+   fg:"https://www.figma.com/design/7ybFDX1dQtawIdJYf78ZEg/PAU-CARB%C3%93---PORTFOLI?node-id=114-58"},
+  {g:"B", s:"Esteve Lliuró", r:[8,6,6], f:"Ivet", t:"Portfoli Ivet Esteve", k:"Portfolio",
+   web:"https://u6111736.github.io/PORTFOLI-Ivet-Esteve/", gh:"https://github.com/u6111736/PORTFOLI-Ivet-Esteve",
+   fg:"https://www.figma.com/design/H9CCi6TmdFV9RpU1VQhwfX/Portfoli-Ivet-Esteve"},
+  {g:"B", s:"Etouil Sorhayer", r:[7,7,3], f:"Yousra", t:"Chaos Theory", k:"Music",
+   gh:"https://github.com/Yousra30ied/Yousra-Etouil-Final-Project",
+   fg:"https://www.figma.com/design/45wDFk5r46IAshbfLa82YO/Final-Project-.-Digital-Interaction?node-id=0-1"},
+  {g:"B", s:"Formiga Yeste", r:[6,4,4], f:"Laia", t:"Pàgina Web Laia Formiga", k:"Activism",
+   web:"https://laiafyl.github.io/TecnoExercici1/", gh:"https://github.com/laiafyl/TecnoExercici1", ghInf:true,
+   fg:"https://www.figma.com/design/oH27n1sbBBaHBqtYj4yFAV/P%C3%A0gina-Web-Laia-Formiga?node-id=77-2524"},
+  {g:"B", s:"Frigola Formiga", r:[3,7,6], f:"Adrià", t:"Drewkko", k:"Music",
+   web:"https://u6114246-adria.github.io/3-11_AdriaFrigola/", gh:"https://github.com/u6114246-adria/3-11_AdriaFrigola",
+   fg:"https://www.figma.com/design/4BsSLb8yyRThdFQ4Az0gOm/Drewkko-%E2%80%93-Landing-Page?node-id=1-3"},
+  {g:"B", s:"García Bigatà", r:[9,6,7], f:"Clàudia", t:"Claudine", k:"Portfolio",
+   web:"https://u6111752-droid.github.io/claudine-desktop/index.html", gh:"https://github.com/u6111752-droid/claudine-desktop",
+   fg:"https://www.figma.com/design/GsLMV3whWWoXO3wbjWSuAx/porfolio--CLAUDINE?node-id=0-1",
+   extra:[["Mobile site","web","https://u6111752-droid.github.io/claudine-mobile/"],["Mobile repo","gh","https://github.com/u6111752-droid/claudine-mobile"]]},
+  {g:"B", s:"Martínez Gallardo", r:[7,6,5], f:"Daniel", t:"Interface Project", k:"Portfolio",
+   web:"https://u6114244.github.io/Treball-Digital-interaction-dani-mart-nez/", gh:"https://github.com/u6114244/Treball-Digital-interaction-dani-mart-nez",
+   fg:"https://www.figma.com/design/izPKgBSsOEIJbUodfxmNan/INTERFACE-PROJECT-Dani-Mart%C3%ADnez?node-id=0-1"},
+  {g:"B", s:"Matamala i Prat", r:[7,7,8], f:"Lluc", t:"Portfoli Lluc Matamala", k:"Portfolio",
+   web:"https://u6111745-eng.github.io/FINAL-PROJECT-PORTFOLI-LLUC-MATAMALA/", gh:"https://github.com/u6111745-eng/FINAL-PROJECT-PORTFOLI-LLUC-MATAMALA",
+   fg:"https://www.figma.com/design/IQnmOUOufgNZm79WstQs7X/PORTFOLI-LLUC-MATAMALA?node-id=1-3"},
+  {g:"B", s:"Moreu Punsola", r:[9,4,6], f:"Berta", t:"Portfoli Berta Moreu", k:"Portfolio",
+   web:"https://bertamopu.github.io/PORTFOLI/", gh:"https://github.com/bertamopu/PORTFOLI",
+   fg:"https://www.figma.com/design/yNrQEw6IpRN5ROgWiK9zVL/Portfoli---Berta-Moreu?node-id=1-2"},
+  {g:"B", s:"Nogué i Debia", r:[3,5,7], f:"Martí", t:"Low Noise", k:"Others",
+   web:"https://u6111740.github.io/Final-project---Portfolio-Low-Noise---Mart-Nogu-Debia/", gh:"https://github.com/u6111740/Final-project---Portfolio-Low-Noise---Mart-Nogu-Debia",
+   fg:"https://www.figma.com/design/EHPtN01vnXAEvwcx5YzvOA/Portfolio?node-id=86-6"},
+  {g:"B", s:"Pagà Fernández", r:[6,7,5], f:"Cèlia", t:"Portfoli Cèlia Pagà", k:"Portfolio",
+   web:"https://u6111754.github.io/PORTFOLI/", gh:"https://github.com/u6111754/PORTFOLI", ghInf:true,
+   fg:"https://www.figma.com/design/Gb838yav9g0LkB46xX3R0p/Interface-Project-C%C3%A8lia-Pag%C3%A0?node-id=0-1"},
+  {g:"B", s:"Pujadas i Canals", r:[7,8,6], f:"Pau", t:"Portafoli Pau Pujadas", k:"Portfolio",
+   web:"https://u6111741.github.io/Final-Project_Digital_Interaction/", gh:"https://github.com/u6111741/Final-Project_Digital_Interaction",
+   fg:"https://www.figma.com/design/Cg4Cd4MGYkkKQhl2bFbEdw/Portafoli-Pau-Pujadas--Final-Project-?node-id=0-1"},
+  {g:"B", s:"Ramos Montañés", r:[6,3,5], f:"Vanessa", t:"Portfolio Vanessa Ramos", k:"Portfolio",
+   web:"https://vanessaramosm.github.io/PORTFOLIO-VANESSA-RAMOS/", gh:"https://github.com/VanessaRamosM/PORTFOLIO-VANESSA-RAMOS",
+   fg:"https://www.figma.com/design/WcbMt4PU4wToAiJF5gnoaL/PORTFOLIO-VANESSA-RAMOS?node-id=0-1"},
+  {g:"B", s:"Ruiz Pellicer", r:[7,3,5], f:"Raül", t:"Blur Streetwear", k:"Startup / App",
+   web:"https://u6113991-beep.github.io/BLUR-STREETWEAR/", gh:"https://github.com/u6113991-beep/BLUR-STREETWEAR",
+   fg:"https://www.figma.com/design/MrovBfQB8y524J3pMwYG1G/FINAL-PROJECT?node-id=0-1"},
+  {g:"B", s:"Sardà i Roca", r:[4,6,7], f:"Marta", t:"Sparks", k:"Music",
+   web:"https://martasarda.github.io/Llan-ament-Sparks---Marta-Sard-Roca/", gh:"https://github.com/martasarda/Llan-ament-Sparks---Marta-Sard-Roca",
+   fg:"https://www.figma.com/design/7UzAFoNmykjPoSn4zCQNjR/Sparks-Web---Marta-Sard%C3%A0-Roca?node-id=0-1"},
+  {g:"B", s:"Sevilla Lagos", r:[7,6,5], f:"Joely Nineth", t:"Portfolio Nine", k:"Portfolio",
+   web:"https://ninethh.github.io/Portfolio-Nine/", gh:"https://github.com/Ninethh/Portfolio-Nine",
+   fg:"https://www.figma.com/design/iIL9mypfviv7t8TXLoJ5mM/Portfolio-Nineth?node-id=266-445"},
+  {g:"B", s:"Sierra Jiménez", r:[null,null,5], f:"Claudia", t:"My Portfolio", k:"Portfolio",
+   web:"https://claudiasierra.github.io/ClaudiaSierra-PortfolioFinal/", gh:"https://github.com/ClaudiaSierra/ClaudiaSierra-PortfolioFinal",
+   fg:"https://www.figma.com/design/FfT9kk3il9ldSUbIBr0XBq/My-Portfolio-Treballfinal-ClaudiaSierra?node-id=52-53"},
+  {g:"B", s:"Turró Graells", r:[9,7,0], f:"Eira", t:"Portfoli Eira Turró", k:"Portfolio",
+   fg:"https://www.figma.com/design/jFmWXLWirL9AR6yetMNr1v/Portfoli-Eira-Turr%C3%B3---Treball-final?node-id=6-16"},
+  {g:"B", s:"Yakubiak", r:[8,7,3], f:"Ivanna", t:"Bumaga", k:"Startup / App",
+   web:"https://u6113002.github.io/bumaga/", webInf:true, gh:"https://github.com/u6113002/bumaga", ghInf:true,
+   fg:"https://www.figma.com/design/K4PBLxjtALCWDY0eSqXGJs/BUMAGA---IVA?node-id=271-21174"},
+];
+
+const icons = {
+  web:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
+  gh:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7c-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>',
+  fg:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 2h4v6.7H8A3.3 3.3 0 0 1 8 2zm4 0h4a3.3 3.3 0 0 1 0 6.7h-4zm0 6.7h4a3.3 3.3 0 1 1 0 6.6 3.3 3.3 0 0 1-4-3.3zM8 8.7h4v6.6H8a3.3 3.3 0 0 1 0-6.6zm0 6.6h4v3.4A3.3 3.3 0 1 1 8 15.3z"/></svg>'
+};
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function hue(str){let h=0;for(const c of str)h=(h*31+c.charCodeAt(0))%360;return h}
+function btn(kind,label,url,inf,mark){
+  const m = mark ? `<span class="m">${mark}</span>` : '';
+  if(!url) return `<span class="btn icon off" title="${label}: not submitted" aria-label="${label}: not submitted">${icons[kind]}</span>`;
+  return `<a class="btn icon" href="${esc(url)}" target="_blank" rel="noopener" title="${label}" aria-label="${label}">${icons[kind]}${m}</a>`;
+}
+const SHOT = {"Alemany Ruz":"alemany","Badia Arbós":"badia","Buxadé Bielsa":"buxade","Camps Piris":"camps","Carbó Campoy":"carbo-ona","Carbó Rigau":"carbo-pau","Esteve Lliuró":"esteve","Etouil Sorhayer":"etouil","Formiga Yeste":"formiga","Frigola Formiga":"frigola","García Bigatà":"garcia","Martínez Gallardo":"martinez","Matamala i Prat":"matamala","Moreu Punsola":"moreu","Nogué i Debia":"nogue","Pagà Fernández":"paga","Pujadas i Canals":"pujadas","Ramos Montañés":"ramos","Ruiz Pellicer":"ruiz","Sardà i Roca":"sarda","Sevilla Lagos":"sevilla","Sierra Jiménez":"sierra","Yakubiak":"yakubiak","Turró Graells":"turro"};
+
+const LABEL = {'Portfolio':'Personal portfolio','Startup / App':'Startup / App launch','Music':'Music','Activism':'Storytelling & activism','Others':'Others'};
+const STAR = 'M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z';
+function stars(score){
+  // score 0–10 → 0–5 stars in half steps
+  const v = Math.round(score) / 2;
+  let out = '';
+  for(let k=1;k<=5;k++){
+    const fill = v >= k ? 1 : (v >= k-0.5 ? 0.5 : 0);
+    const id = 'h'+Math.random().toString(36).slice(2,8);
+    out += `<svg viewBox="0 0 24 24" aria-hidden="true">
+      <defs><linearGradient id="${id}"><stop offset="${fill*100}%" stop-color="currentColor"/><stop offset="${fill*100}%" stop-color="transparent"/></linearGradient></defs>
+      <path d="${STAR}" fill="url(#${id})" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>`;
+  }
+  return out;
+}
+const total = p => (p.r && p.r.every(x => x !== null)) ? p.r.reduce((a,b)=>a+b,0) : null;
+function ratingBlock(p){
+  if(!p.r) return '';
+  const rows = ['UX','UI','Dev'].map((label,i) => {
+    const s = p.r[i];
+    return s === null
+      ? `<dt>${label}</dt><dd class="pending">Pending</dd>`
+      : `<dt>${label}</dt><dd aria-label="${label}: ${Math.round(s)/2} out of 5 stars">${stars(s)}</dd>`;
+  }).join('');
+  return `<dl class="ratings">${rows}</dl>`;
+}
+
+const stats = document.getElementById('stats');
+const count = k => P.filter(p => p[k]).length;
+function renderStats(){
+  const S = P.filter(p => typeof group==='undefined' || group==='all' || p.g===group);
+  const c = k => S.filter(p => p[k]).length;
+  stats.innerHTML = [[S.length,'Projects'],[c('web'),'Live sites']]
+    .map(([n,l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+}
+
+const grid = document.getElementById('grid');
+let filter = 'all', group = 'all', q = '', sortByRating = false;
+renderStats();
+function render(){
+  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+  const nq = norm(q);
+  const list = P.filter(p => (filter==='all' || p.k===filter) && (group==='all' || p.g===group) &&
+    (!nq || norm(`${p.f} ${p.s} ${p.t}`).includes(nq)));
+  if(sortByRating) list.sort((a,b) => (total(b) ?? -1) - (total(a) ?? -1));
+  if(!list.length){grid.innerHTML='<div class="empty">No projects match.</div>';return}
+  grid.innerHTML = list.map(p => {
+    const i = P.filter(x=>x.g===p.g).indexOf(p)+1, h = hue(p.t+p.s);
+    const bg = `linear-gradient(135deg, hsl(${h} 78% 52%), hsl(${(h+48)%360} 82% 40%))`;
+    const coverInner = `<span class="n">${esc(LABEL[p.k])}</span><span class="t">${esc(p.t)}</span>`;
+    const tag = `<span class="n">${esc(LABEL[p.k])}</span>`;
+    const shot = p.img || SHOT[p.s];
+    const img = shot ? `<img src="img/${shot}.jpg" alt="Screenshot of ${esc(p.t)}" width="480" height="300" loading="lazy">` : '';
+    let cover;
+    if(shot && p.web) cover = `<a class="cover shot" href="${esc(p.web)}" target="_blank" rel="noopener">${img}${tag}<span class="open">Open site ↗</span></a>`;
+    else if(shot) cover = `<div class="cover shot">${img}${tag}</div>`;
+    else cover = `<div class="cover none">${coverInner}</div>`;
+    const extra = (p.extra||[]).map(([l,k,u]) => btn(k,l,u,false,'m')).join('');
+    return `<article class="card">${cover}
+      <div class="body">
+        <div class="who"><div class="ttl" title="${esc(p.t)}">${esc(p.t)}</div><div class="proj">${esc(p.f)} ${esc(p.s)}</div></div>
+        ${ratingBlock(p)}
+        <div class="links">${btn('web','Site',p.web,p.webInf)}${btn('gh','GitHub',p.gh,p.ghInf)}${btn('fg','Figma',p.fg)}${extra}</div>
+      </div></article>`;
+  }).join('');
+}
+document.getElementById('q').addEventListener('input', e => {q = e.target.value; render()});
+document.getElementById('sortBtn').addEventListener('click', e => {
+  sortByRating = !sortByRating; e.target.setAttribute('aria-pressed', sortByRating); render();
+});
+document.getElementById('rateBtn').addEventListener('click', e => {
+  const shown = document.body.classList.toggle('hide-ratings') === false;
+  e.target.setAttribute('aria-pressed', shown);
+  e.target.textContent = shown ? 'Ratings shown' : 'Ratings hidden';
+});
+document.querySelectorAll('.chip[data-f]').forEach(c => c.addEventListener('click', () => {
+  document.querySelectorAll('.chip[data-f]').forEach(x => x.setAttribute('aria-pressed','false'));
+  c.setAttribute('aria-pressed','true'); filter = c.dataset.f; render();
+}));
+document.querySelectorAll('.seg [data-g]').forEach(c => c.addEventListener('click', () => {
+  document.querySelectorAll('.seg [data-g]').forEach(x => x.setAttribute('aria-pressed','false'));
+  c.setAttribute('aria-pressed','true'); group = c.dataset.g; render(); renderStats();
+}));
+render();
+</script>
+</body>
+</html>
